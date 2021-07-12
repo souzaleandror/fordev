@@ -1,16 +1,68 @@
+## Secao 1: Introducao
+
+terminal:
+git config --global --edit
+git config --global core.editor code
+git config --global core.editor '/Applications/Visual Studio Code.app/Contents/MacOS/Electron' -w
 git config --global --edit
 
-git config --global code.editor code
+Before:
+[filter "lfs"]
+        clean = git-lfs clean -- %f
+        smudge = git-lfs smudge -- %f
+        process = git-lfs filter-process
+        required = true
+[user]
+        name = Leandro
+        email = l.e.c.o321@hotmail.com
+[code]
+        editor = code
 
+After:
 
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[user]
+	name = Leandro
+	email = l.e.c.o321@hotmail.com
+[core]
+	editor = '/Applications/Visual Studio Code.app/Contents/MacOS/Electron' -w --wait
 [alias]
 	c = !git add --all && git commit -m
 	s = !git status -s
-	l = !git log --pretty=format:'%C(blue)%h%C(red)%d %C(white)%s - %C(cyan)%cn, %C(green)%cr'
-	t = !sh -c 'git tag -a $1 -m $1' -
+	l = !git log --pretty=format:'%C(blue)%h%C(red)%d - %C(white)%s - %C(cyan)%cn, %C(green)%cr'
+	t = !sh -c 'git tag -a $1 -m $1'
 	amend = !git add --all && git commit --amend --no-edit
-	count = !git shortlog -s --grep
 [push]
 	followTags = true
 
+%h = hash do commit
+%d = Branch que esta usando
+%s = mensagem do commit
+%cn = autor
+%cr = data (Tempo passado)
 
+## Secao 2: Authentication - Domain e Data Layers
+
+Classes Abstradatas => Interfaces/Protocolos e a mesma coisa que uma classe Abstradatas
+
+Classe Authentication => Classe Abstradata
+
+Domain => Fica as regras de negocio (Nao tem codigo) (Simplesmente classes abstradas e entidades)
+Dominio da aplicacao
+
+Account => Entidade
+
+Data Layer => Business logic or application
+
+DOMINIO NAO TEM CLASSES CONCRETAS
+
+Secao2_1.png
+
+Aula: 2.2
+
+Nao precisa testar DomainLayer.
+Interfaces e classes abstratas;
