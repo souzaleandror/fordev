@@ -2,6 +2,8 @@ import 'package:faker/faker.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
+import 'package:fordev/domain/usesCases/usesCases.dart';
+
 class RemoteAuthentication {
   final HttpClient? httpClient;
   final String? url;
@@ -11,15 +13,16 @@ class RemoteAuthentication {
     required this.url,
   });
 
-  Future<void>? auth() async {
-    await httpClient?.request(url: url, method: 'post');
+  Future<void>? auth(AuthenticationParams params) async {
+    final body = {'email': params.email, 'password': params.secret};
+    await httpClient?.request(url: url, method: 'post', body: body);
     //await httpClient.request(url: url, method: 'get'); //falhar o test metodo errado (Espera um post)
     //await httpClient.request(url: 'http://asdasd', method: 'post'); //falhar o test url errada (Espera a mesma url passada no construtor da classe HttpClient)
   }
 }
 
 abstract class HttpClient {
-  Future<void>? request({required String? url, required method,});
+  Future<void>? request({required String? url, required method, Map body});
 }
 
 class HttpClientSpy extends Mock implements HttpClient {}
@@ -37,12 +40,14 @@ void main() {
   });
 
   test('Should call HttpClient with correct values', () async {
-    await sut?.auth(); //action
+    final params = AuthenticationParams(email: faker.internet.email(), secret: faker.internet.password());
+    await sut?.auth(params); //action
 
     //expect();
     verify(httpClient?.request(
       url: url,
-      method: 'post'
+      method: 'post',
+      body: {'email': params.email, 'password': params.secret}
       ));
   });
 }
