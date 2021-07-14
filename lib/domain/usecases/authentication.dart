@@ -10,5 +10,5 @@ class AuthenticationParams {
 
   AuthenticationParams({required this.email, required this.secret});
 
-  Map toJson() => {'email': email, 'password': secret}; //ruim colocar nome da propriedade que vem da API, tem que ficar generico isso por password o nome pode mudar para pwd
+  //Map toJson() => {'email': email, 'password': secret}; //ruim colocar nome da propriedade que vem da API, tem que ficar generico isso por password o nome pode mudar para pwd
 }
