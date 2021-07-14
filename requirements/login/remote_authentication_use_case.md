@@ -6,7 +6,6 @@
 3. Sistema valida os dados recebidos da API
 4. Sistema entrega os dados da conta do usuario
 
-
 > ## Excecao - URL invalida
 1. Sistema retorna uma mensagem de erro inesperado
 
@@ -20,4 +19,4 @@
 1. Sistema retorna uma mensagem de erro inesperado
 
 > ## Excecao - Credenciais invalidas
-1. Sistema retorna uma mensagem de erro informado que as credenciais estao erradas
+1. Sistema retorna uma mensagem de erro informado que as credenciais estao erradas (Tratar diferente por e culpa realmente do cliente/usuario)

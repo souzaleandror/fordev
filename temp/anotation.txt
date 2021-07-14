@@ -31,34 +31,43 @@ After:
 [core]
 	editor = '/Applications/Visual Studio Code.app/Contents/MacOS/Electron' -w --wait
 [alias]
-	c = !git add --all && git commit -m
-	s = !git status -s
+	c = !git add --all && git commit -m // ajudar a commit
+	s = !git status -s // short forma reduzida
 	l = !git log --pretty=format:'%C(blue)%h%C(red)%d - %C(white)%s - %C(cyan)%cn, %C(green)%cr'
-	t = !sh -c 'git tag -a $1 -m $1'
-	amend = !git add --all && git commit --amend --no-edit
+	t = !sh -c 'git tag -a $1 -m $1' - // gerar tag de maneira fcail
+	amend = !git add --all && git commit --amend --no-edit // juntar commit (Nao fazer commit duplicados) - juntar com anterior com o proximo commit
 [push]
-	followTags = true
+	followTags = true // Envia so para o servidor que voce fez, e nao envia as tags que voce fez, mas com followTafs = true, ele envia as tags anotadas
 
 %h = hash do commit
 %d = Branch que esta usando
 %s = mensagem do commit
-%cn = autor
-%cr = data (Tempo passado)
+%cn = autor (Commiter name)
+%cr = data (Tempo passado / Data daquele commit)
 
 ## Secao 2: Authentication - Domain e Data Layers
 
-Classes Abstradatas => Interfaces/Protocolos e a mesma coisa que uma classe Abstradatas
+BDD = Desenvolvimento Guiado por Comportamento (Behavior-driven development)
+Visao de alguem nao tecnico - Como sistema de Comportamento
+Descricao para alguem nao tecnico
+
+Classes Abstradatas => Interfaces/Protocolos e a mesma coisa que uma classe Abstradata
+Tracejado e arredondado (Interface / Abstracao) no diagrama
+
+Camada e a partes do diagrama
 
 Classe Authentication => Classe Abstradata
 
 Domain => Fica as regras de negocio (Nao tem codigo) (Simplesmente classes abstradas e entidades)
 Dominio da aplicacao
 
-Account => Entidade
+AccountEntity => Entidade (Modelo)
 
-Data Layer => Business logic or application
+Data Layer => Business logic ou application
 
 DOMINIO NAO TEM CLASSES CONCRETAS
+
+A implementacao dos metodos ficam em outra camada
 
 Secao2_1.png
 
@@ -66,3 +75,13 @@ Aula: 2.2
 
 Nao precisa testar DomainLayer.
 Interfaces e classes abstratas;
+
+* Criar sempre um arquivo dart com o nome data para fazer as exportacoes;
+* Import => Se e bibloteca de terceiros usa path completo e se for classe nossa usar ../clase.dart (Que assim jah sabemos o que e nosso e o que e de terceiros);
+
+Aula: 2.3
+
+Escrever testes => Componente do remoteAuthentication
+
+criar arquivo: remote_authentication_test.dart
+
