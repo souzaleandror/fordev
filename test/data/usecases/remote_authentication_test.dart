@@ -12,6 +12,7 @@ void main() {
   RemoteAuthentication? sut;
   HttpClientSpy? httpClient;
   String? url;
+  AuthenticationParams? params;
 
   //Passar para todos os testes
   setUp(() {
@@ -19,19 +20,20 @@ void main() {
     url = faker.internet.httpUrl();
     sut = RemoteAuthentication(
         httpClient: httpClient, url: url); //classe de teste chama sempre sut
+    params = AuthenticationParams(
+        email: faker.internet.email(), secret: faker.internet.password());
   });
 
   test('Should call HttpClient with correct values', () async {
     //final params = AuthenticationParams(email: faker.internet.email(), secret: faker.internet.password());
-    final params = AuthenticationParams(
-        email: faker.internet.email(), secret: faker.internet.password());
-    await sut?.auth(params); //action
+
+    await sut?.auth(params!); //action
 
     //expect();
     verify(httpClient?.request(
         url: url,
         method: 'post',
-        body: {'email': params.email, 'password': params.secret}));
+        body: {'email': params?.email, 'password': params?.secret}));
   });
 
   test('Should throw UnexpectedError if HttpClient returns 400 => BadRequest',
@@ -42,9 +44,7 @@ void main() {
             body: anyNamed('body')))
         .thenThrow(HttpError.badRequest);
 
-    final params = AuthenticationParams(
-        email: faker.internet.email(), secret: faker.internet.password());
-    final future = sut?.auth(params); //action
+    final future = sut?.auth(params!); //action
 
     expect(future, throwsA(DomainError.unexpected));
   });
