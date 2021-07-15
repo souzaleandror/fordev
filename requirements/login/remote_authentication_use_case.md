@@ -16,7 +16,7 @@
 1. Sistema retorna uma mensagem de erro inesperado
 
 > ## Excecao - Falha no servidor
-1. Sistema retorna uma mensagem de erro inesperado
+1. ✅ Sistema retorna uma mensagem de erro inesperado
 
 > ## Excecao - Credenciais invalidas
 1. Sistema retorna uma mensagem de erro informado que as credenciais estao erradas (Tratar diferente por e culpa realmente do cliente/usuario)
