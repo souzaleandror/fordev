@@ -10,7 +10,7 @@
 1. Sistema retorna uma mensagem de erro inesperado
 
 > ## Excecao - Dados invalidos
-1. Sistema retorna uma mensagem de erro inesperado
+1. ✅ Sistema retorna uma mensagem de erro inesperado
 
 > ## Excecao - Resposta invalida
 1. Sistema retorna uma mensagem de erro inesperado

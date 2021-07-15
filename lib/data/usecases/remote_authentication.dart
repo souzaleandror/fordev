@@ -1,3 +1,4 @@
+import 'package:fordev/domain/helpers/helpers.dart';
 import 'package:fordev/domain/usecases/authentication.dart';
 
 import '../http/http.dart';
@@ -17,7 +18,11 @@ class RemoteAuthentication {
     //await httpClient.request(url: url, method: 'get'); //falhar o test metodo errado (Espera um post)
     //await httpClient.request(url: 'http://asdasd', method: 'post'); //falhar o test url errada (Espera a mesma url passada no construtor da classe HttpClient)
     final body = RemoteAuthenticationParams.fromDomain(params).toJson();
-    await httpClient?.request(url: url, method: 'post', body: body);
+    try {
+      await httpClient?.request(url: url, method: 'post', body: body);
+    } on HttpError {
+      throw DomainError.unexpected;
+    }
   }
 }
 
