@@ -58,20 +58,24 @@ void main() {
 
     test('Should call post with without body', () async {
       await sut.request(url: url, method: 'post');
-
       verify(client.post(any, headers: anyNamed('headers')));
-      //verify(response);
     });
 
     test('Should returns data if post returns 200', () async {
-      
       final response = await sut.request(url: url, method: 'post');
 
       expect(response, {'any_key': 'any_value'});
     });
 
     test('Should returns null if post returns 200 with no data', () async {
+      mockResponse(200, body: '');
+      
+      final response = await sut.request(url: url, method: 'post');
 
+      expect(response, null);
+    });
+
+    test('Should returns null if post returns 204', () async {
       mockResponse(200, body: '');
       
       final response = await sut.request(url: url, method: 'post');
