@@ -13,7 +13,8 @@ class HttpAdapter {
 
   Future<void> request({@required Uri url, @required method, Map body}) async {
     final headers = {'content-type': 'application/json', 'accept': 'application/json'};
-    await client.post(url, headers: headers, body: jsonEncode(body));
+    final jsonBody = body != null ? jsonEncode(body) : body;
+    await client.post(url, headers: headers, body: jsonBody);
   }
 }
 
@@ -39,6 +40,16 @@ void main() {
       await sut.request(url: uri, method: 'post', body: {'any_key': 'any_value'});
 
       verify(client.post(uri, headers: {'content-type': 'application/json', 'accept': 'application/json'}, body: '{"any_key":"any_value"}'));
+      //verify(response);
+    });
+
+    test('Should call post with without body', () async {
+      
+      var uri = Uri.parse(url);
+
+      await sut.request(url: uri, method: 'post');
+
+      verify(client.post(any, headers: anyNamed('headers')));
       //verify(response);
     });
   });
