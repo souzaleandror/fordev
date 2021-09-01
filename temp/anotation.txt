@@ -85,3 +85,6 @@ Escrever testes => Componente do remoteAuthentication
 
 criar arquivo: remote_authentication_test.dart
 
+aula: 2.9 - Testando caso de sucesso.
+
+2_9.png
