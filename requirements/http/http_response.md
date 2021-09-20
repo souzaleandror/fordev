@@ -21,4 +21,4 @@
 1. ✅ Internal server error - 500
 
 > ## Excecao - Verbo http invalido
-1. Internal server error - 500
+1. ✅ Internal server error - 500
