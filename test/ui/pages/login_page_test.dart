@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -10,13 +12,26 @@ class LoginPresenterSpy extends Mock implements LoginPresenter {}
 void main() {
 
   LoginPresenter presenter;
+  StreamController<String> emailErrorController;
+  StreamController<String> passwordErrorController;
 
   Future <void> loadPage(WidgetTester tester) async {
     presenter = LoginPresenterSpy();
+    emailErrorController = StreamController<String>();
+    when(presenter.emailErrorStream).thenAnswer((_) => emailErrorController.stream);
+
+    passwordErrorController = StreamController<String>();
+
+    when(presenter.passwordErrorStream).thenAnswer((_) => passwordErrorController.stream);
 
     final loginPage = MaterialApp(home: LoginPage(presenter));
     await tester.pumpWidget(loginPage);
   }
+
+  tearDown(() {
+    emailErrorController.close();
+    passwordErrorController.close();
+  });
   testWidgets('Should load with correct initial state', (WidgetTester tester) async {
     await loadPage(tester);
 
@@ -55,6 +70,16 @@ void main() {
     await tester.enterText(find.bySemanticsLabel('Senha'), senha);
     
     verify(presenter.validatePassword(senha));
+  });
 
+  testWidgets('Should present error if email is invalid', (WidgetTester tester) async {
+    await loadPage(tester);
+
+    emailErrorController.add('any Error');
+    // forca uma rederizacao da tela e atualiza todos os componentes da tela com o estado novo
+    await tester.pump();
+
+    expect(find.text('any Error'), findsOneWidget);
+    
   });
 }
