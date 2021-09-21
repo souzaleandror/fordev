@@ -108,4 +108,40 @@ void main() {
       findsOneWidget, 
       reason: 'When a TextFormField has only one text child, means it has no errors, since one of the childs is always the label text');
   });
+
+  testWidgets('Should present error if password is invalid', (WidgetTester tester) async {
+    await loadPage(tester);
+
+    passwordErrorController.add('any Error');
+    // forca uma rederizacao da tela e atualiza todos os componentes da tela com o estado novo
+    await tester.pump();
+
+    expect(find.text('any Error'), findsOneWidget);
+  });
+
+  testWidgets('Should present error if password is valid', (WidgetTester tester) async {
+    await loadPage(tester);
+
+    passwordErrorController.add(null);
+    // forca uma rederizacao da tela e atualiza todos os componentes da tela com o estado novo
+    await tester.pump();
+
+    expect(
+      find.descendant(of: find.bySemanticsLabel('Senha'), matching: find.byType(Text)), 
+      findsOneWidget, 
+      reason: 'When a TextFormField has only one text child, means it has no errors, since one of the childs is always the label text');
+  });
+
+  testWidgets('Should present error if password is valid', (WidgetTester tester) async {
+    await loadPage(tester);
+
+    passwordErrorController.add('');
+    // forca uma rederizacao da tela e atualiza todos os componentes da tela com o estado novo
+    await tester.pump();
+
+    expect(
+      find.descendant(of: find.bySemanticsLabel('Senha'), matching: find.byType(Text)), 
+      findsOneWidget, 
+      reason: 'When a TextFormField has only one text child, means it has no errors, since one of the childs is always the label text');
+  });
 }
