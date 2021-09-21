@@ -4,10 +4,10 @@
 
 1. ✅ Os campos devem comecar sem exibir mesagem de erro
 2. ✅ O botao de fazer login deve comecar desabilitado
-3. Apos digitar algo em um campo, a mensagem de erro so deve sumir se o campo for valido
+3. ✅ Apos digitar algo em um campo, a mensagem de erro so deve sumir se o campo for valido
 4. ✅ Validar email quando o usuario digitar no campo
-5. Mostrar mensagem de erro se o email for invalido
-6. Remover mensagem de erro se o email for valido
+5. ✅ Mostrar mensagem de erro se o email for invalido
+6. ✅ Remover mensagem de erro se o email for valido
 7. ✅ Validar senha quando o usuario digitar no campo
 8. Mostrar mensagem de erro se a senha for invalida
 9. Remover mensagem de erro se a senha for valida

@@ -38,24 +38,24 @@ void main() {
     // Pegar Widget with labelText = 'Email' e verificar se tem mais de um propriedade Text como filho desse componente;
     // Porque ja temos o labelText para colocar o nome desse campo na tela
     // E para apresentar o erro, temos errorText, ou seja, se tive mais de um componente filho Text, e porque temos um erro
-    final emailTextChildrem = find.descendant(of: find.bySemanticsLabel('Email'), matching: find.byType(Text));
+    final emailTextChildren = find.descendant(of: find.bySemanticsLabel('Email'), matching: find.byType(Text));
 
     expect(
-      emailTextChildrem, 
+      emailTextChildren, 
       findsOneWidget, 
       reason: 'When a TextFormField has only one text child, means it has no errors, since one of the childs is always the label text');
 
-      final passwordTextChildrem = find.descendant(of: find.bySemanticsLabel('Senha'), matching: find.byType(Text));
+    final passwordTextChildren = find.descendant(of: find.bySemanticsLabel('Senha'), matching: find.byType(Text));
 
-      expect(
-      passwordTextChildrem, 
+    expect(
+      passwordTextChildren, 
       findsOneWidget, 
       reason: 'When a TextFormField has only one text child, means it has no errors, since one of the childs is always the label text');
 
-      // Aqui temos que retornar um widget, porque vamos comparar uma funcao e por isso temos que usar o tester.widget
-      // E retornamos um widget e assim podemos usar a propriedade onPressed do button
-      final button = tester.widget<RaisedButton>(find.byType(RaisedButton));
-      expect(button.onPressed, null);
+    // Aqui temos que retornar um widget, porque vamos comparar uma funcao e por isso temos que usar o tester.widget
+    // E retornamos um widget e assim podemos usar a propriedade onPressed do button
+    final button = tester.widget<RaisedButton>(find.byType(RaisedButton));
+    expect(button.onPressed, null);
   });
 
   testWidgets('Should call validate with correct value', (WidgetTester tester) async {
@@ -81,5 +81,31 @@ void main() {
 
     expect(find.text('any Error'), findsOneWidget);
     
+  });
+
+  testWidgets('Should present error if email is valid', (WidgetTester tester) async {
+    await loadPage(tester);
+
+    emailErrorController.add(null);
+    // forca uma rederizacao da tela e atualiza todos os componentes da tela com o estado novo
+    await tester.pump();
+
+    expect(
+      find.descendant(of: find.bySemanticsLabel('Email'), matching: find.byType(Text)), 
+      findsOneWidget, 
+      reason: 'When a TextFormField has only one text child, means it has no errors, since one of the childs is always the label text');
+  });
+
+    testWidgets('Should present error if email is valid', (WidgetTester tester) async {
+    await loadPage(tester);
+
+    emailErrorController.add('');
+    // forca uma rederizacao da tela e atualiza todos os componentes da tela com o estado novo
+    await tester.pump();
+
+    expect(
+      find.descendant(of: find.bySemanticsLabel('Email'), matching: find.byType(Text)), 
+      findsOneWidget, 
+      reason: 'When a TextFormField has only one text child, means it has no errors, since one of the childs is always the label text');
   });
 }
