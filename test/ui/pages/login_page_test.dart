@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fordev/ui/pages/pages.dart';
 void main() {
-  testWidgets('Should load with correct initial state', (WidgetTester tester) async {
+
+  Future <void> loadPage(WidgetTester tester) async {
     final loginPage = MaterialApp(home: LoginPage());
     await tester.pumpWidget(loginPage);
+  }
+  testWidgets('Should load with correct initial state', (WidgetTester tester) async {
+    await loadPage(tester);
 
     // Pegar Widget with labelText = 'Email' e verificar se tem mais de um propriedade Text como filho desse componente;
     // Porque ja temos o labelText para colocar o nome desse campo na tela
@@ -27,5 +31,11 @@ void main() {
       // E retornamos um widget e assim podemos usar a propriedade onPressed do button
       final button = tester.widget<RaisedButton>(find.byType(RaisedButton));
       expect(button.onPressed, null);
+  });
+
+    testWidgets('Should call validate with correct value', (WidgetTester tester) async {
+    final loginPage = MaterialApp(home: LoginPage());
+    await tester.pumpWidget(loginPage);
+
   });
 }
