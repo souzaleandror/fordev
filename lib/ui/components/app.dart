@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fordev/ui/pages/login_page.dart';
+import 'package:fordev/ui/pages/login/login_page.dart';
 
 class App extends StatelessWidget {
   @override
@@ -57,7 +57,7 @@ class App extends StatelessWidget {
           ),
         ),
       ),
-      home: LoginPage(),
+      home: LoginPage(null),
     );
   }
 }
