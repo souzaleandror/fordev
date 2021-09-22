@@ -13,8 +13,8 @@
 9. ✅ Remover mensagem de erro se a senha for valida
 10. ✅ Habilitar o botao de fazer login se todos os campos forem validos
 11. ✅ Desabilitar o botao de fazer lgoin se algum campo for invalido
-12. Exibir loading no inicio da acao de login
-13. Autenticar usuario com email e senha informados no formulario
+12. ✅ Exibir loading no inicio da acao de login
+13. ✅ Autenticar usuario com email e senha informados no formulario
 14. Exibir mensagem de erro caso o login falhe
 15. Gravar o token do usuario no cache para mante-lo conectado
 16. Redirecionar o usuario para tela de lista de enquetes
