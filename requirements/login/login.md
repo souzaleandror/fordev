@@ -15,7 +15,6 @@
 11. ✅ Desabilitar o botao de fazer lgoin se algum campo for invalido
 12. ✅ Exibir loading no inicio da acao de login
 13. ✅ Autenticar usuario com email e senha informados no formulario
-14. Exibir mensagem de erro caso o login falhe
-15. Gravar o token do usuario no cache para mante-lo conectado
-16. Redirecionar o usuario para tela de lista de enquetes
-17. Esconder loading no fim da acao do login
+14. ✅ Exibir mensagem de erro caso o login falhe
+15. ✅ Esconder loading no fim da acao do login
+16. Fechar streams quando a pagina for encerrada
