@@ -2,10 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:fordev/ui/components/components.dart';
 import 'package:fordev/ui/pages/login/login.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   final LoginPresenter presenter;
 
   LoginPage(this.presenter);
+
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  @override
+  void dispose() {
+    super.dispose();
+    widget.presenter.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +24,7 @@ class LoginPage extends StatelessWidget {
       // Builder para voce poder exibir o loading em cima da tela do singleschildScroll view
       body: Builder(
         builder: (context) {
-          presenter.isLoadingController.listen((isLoading) {
+          widget.presenter.isLoadingController.listen((isLoading) {
             if (isLoading) {
               return showDialog(
                 context: context,
@@ -43,7 +54,7 @@ class LoginPage extends StatelessWidget {
             }
           });
 
-          presenter.mainErrorController.listen((error) {
+          widget.presenter.mainErrorController.listen((error) {
             if (error != null) {
               return Scaffold.of(context).showSnackBar(
                 SnackBar(
@@ -73,7 +84,7 @@ class LoginPage extends StatelessWidget {
                     child: Column(
                       children: [
                         StreamBuilder<String>(
-                            stream: presenter.emailErrorStream,
+                            stream: widget.presenter.emailErrorStream,
                             builder: (context, snapshot) {
                               return TextFormField(
                                 decoration: InputDecoration(
@@ -87,7 +98,7 @@ class LoginPage extends StatelessWidget {
                                         ? null
                                         : snapshot.data),
                                 keyboardType: TextInputType.emailAddress,
-                                onChanged: presenter.validateEmail,
+                                onChanged: widget.presenter.validateEmail,
                               );
                             }),
                         Padding(
@@ -96,7 +107,7 @@ class LoginPage extends StatelessWidget {
                             bottom: 32,
                           ),
                           child: StreamBuilder<String>(
-                              stream: presenter.passwordErrorStream,
+                              stream: widget.presenter.passwordErrorStream,
                               builder: (context, snapshot) {
                                 return TextFormField(
                                   decoration: InputDecoration(
@@ -110,16 +121,16 @@ class LoginPage extends StatelessWidget {
                                           ? null
                                           : snapshot.data),
                                   obscureText: true,
-                                  onChanged: presenter.validatePassword,
+                                  onChanged: widget.presenter.validatePassword,
                                 );
                               }),
                         ),
                         StreamBuilder<bool>(
-                            stream: presenter.isFormValidStream,
+                            stream: widget.presenter.isFormValidStream,
                             builder: (context, snapshot) {
                               return RaisedButton(
                                 onPressed: snapshot.data == true
-                                    ? presenter.auth
+                                    ? widget.presenter.auth
                                     : null,
                                 child: Text(
                                   'Entrar'.toUpperCase(),

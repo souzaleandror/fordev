@@ -17,4 +17,4 @@
 13. ✅ Autenticar usuario com email e senha informados no formulario
 14. ✅ Exibir mensagem de erro caso o login falhe
 15. ✅ Esconder loading no fim da acao do login
-16. Fechar streams quando a pagina for encerrada
+16. ✅ Fechar streams quando a pagina for encerrada
