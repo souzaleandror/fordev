@@ -5,9 +5,7 @@ import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 import 'package:meta/meta.dart';
 
-abstract class Validation {
-  String validate({@required String field, @required String value});
-}
+import 'package:fordev/ui/presentation/protocols/validation.dart';
 
 class LoginState {
   String emailError;
