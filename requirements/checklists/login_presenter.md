@@ -9,7 +9,7 @@
 5. ✅ Notificar o isFormValidStream apos alterar o email
 6. ✅ Chamar Validation ao alterar a senha
 7. ✅ Notificar o passwordErrorStream com o mesmo erro do Validation, caso retorno o erro
-8. Notificar o passwordErrorStream com o null, caso o Validation nao retorne erro
+8. ✅ Notificar o passwordErrorStream com o null, caso o Validation nao retorne erro
 9. ✅ Nao notificar o passwordErrorStream se o valor for igual ao ultimo
 10. ✅ Notificar o isFormValidStream apos alterar a senha
 11. Para o forumario estar valido todos os Streams de erro precisam estar null e todo os campos obrigatorios nao podem esstar vazios
