@@ -87,4 +87,18 @@ void main() {
     sut.validatePassword(email);
   });
 
+  test('Should emit any field error if validation fails', () {
+    mockValidation(field: 'email', value: 'error');
+    
+    // chamar somente uma vez
+    sut.emailErrorStream.listen(expectAsync1((error) => expect(error, 'error')));
+    sut.passwordErrorStream.listen(expectAsync1((error) => expect(error, null)));
+    sut.isFormValidStream.listen(expectAsync1((isValid) => expect(isValid, false)));
+
+    //expectLater(sut.emailErrorStream, emitsInOrder(['error', 'error']));
+  
+    sut.validateEmail(password);
+    sut.validatePassword(password);
+  });
+
 }
