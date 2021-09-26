@@ -83,8 +83,8 @@ void main() {
 
     //expectLater(sut.emailErrorStream, emitsInOrder(['error', 'error']));
   
-    sut.validatePassword(email);
-    sut.validatePassword(email);
+    sut.validatePassword(password);
+    sut.validatePassword(password);
   });
 
   test('Should emit any field error if validation fails', () {
@@ -97,7 +97,19 @@ void main() {
 
     //expectLater(sut.emailErrorStream, emitsInOrder(['error', 'error']));
   
-    sut.validateEmail(password);
+    sut.validateEmail(email);
+    sut.validatePassword(password);
+  });
+
+  test('Should if two fields are validated and different state initial email && password', () async {  
+    // chamar somente uma vez
+    sut.emailErrorStream.listen(expectAsync1((error) => expect(error, null)));
+    sut.passwordErrorStream.listen(expectAsync1((error) => expect(error, null)));
+
+    expectLater(sut.isFormValidStream, emitsInOrder([false, true]));
+  
+    sut.validateEmail(email);
+    await Future.delayed(Duration.zero);
     sut.validatePassword(password);
   });
 
