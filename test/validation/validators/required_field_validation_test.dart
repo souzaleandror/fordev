@@ -9,7 +9,7 @@ class RequiredFieldValidation {
   final String field;
   RequiredFieldValidation(this.field);
   String validate(String value) {
-    return value.isEmpty ? 'Campo obrigatorio' : null;
+    return value?.isNotEmpty == true ? null : 'Campo obrigatorio';
   }
 }
 
@@ -19,11 +19,15 @@ void main() {
   setUp(() {
     sut = RequiredFieldValidation('any_field');
   });
-  test('Should return null if valure is not empty', () {
+  test('Should return null if value is not empty', () {
     expect(sut.validate('any_value'), null);
   });
 
-  test('Should return null if valure is empty', () {
+  test('Should return null if value is empty', () {
     expect(sut.validate(''), 'Campo obrigatorio');
+  });
+
+  test('Should return null if value is null', () {
+    expect(sut.validate(null), 'Campo obrigatorio');
   });
 }
