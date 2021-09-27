@@ -14,19 +14,16 @@ class RequiredFieldValidation {
 }
 
 void main() {
+  RequiredFieldValidation sut;
+
+  setUp(() {
+    sut = RequiredFieldValidation('any_field');
+  });
   test('Should return null if valure is not empty', () {
-    final sut = RequiredFieldValidation('any_field');
-
-    final error = sut.validate('any_field');
-
-    expect(error, null);
+    expect(sut.validate('any_value'), null);
   });
 
   test('Should return null if valure is empty', () {
-    final sut = RequiredFieldValidation('any_field');
-
-    final error = sut.validate('');
-
-    expect(error, 'Campo obrigatorio');
+    expect(sut.validate(''), 'Campo obrigatorio');
   });
 }
