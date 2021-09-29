@@ -1,10 +1,10 @@
 import 'dart:async';
+
 import 'package:fordev/domain/helpers/domain_error.dart';
-import 'package:meta/meta.dart';
-
 import 'package:fordev/domain/usecases/usecases.dart';
-
+import 'package:fordev/ui/pages/pages.dart';
 import 'package:fordev/ui/presentation/protocols/protocols.dart';
+import 'package:meta/meta.dart';
 
 class LoginState {
   String email;
@@ -21,23 +21,24 @@ class LoginState {
       password != null;
 }
 
-class StreamLoginPresenter {
+class StreamLoginPresenter implements LoginPresenter {
   final Validation validation;
   final Authentication authentication;
-  var _controller = StreamController<LoginState>.broadcast();
 
+  var _controller = StreamController<LoginState>.broadcast();
   var _state = LoginState();
 
   Stream<String> get emailErrorStream =>
       _controller?.stream?.map((state) => state.emailError)?.distinct();
   Stream<String> get passwordErrorStream =>
       _controller?.stream?.map((state) => state.passwordError)?.distinct();
-  Stream<bool> get isFormValidStream =>
-      _controller?.stream?.map((state) => state.isFormValid)?.distinct();
-  Stream<bool> get isLoadingStream =>
-      _controller?.stream?.map((state) => state.isLoading)?.distinct();
   Stream<String> get mainErrorStream =>
       _controller?.stream?.map((state) => state.mainError)?.distinct();
+  Stream<bool> get isFormValidStream =>
+      _controller?.stream?.map((state) => state.isFormValid)?.distinct();
+
+  Stream<bool> get isLoadingStream =>
+      _controller?.stream?.map((state) => state.isLoading)?.distinct();
 
   StreamLoginPresenter(
       {@required this.validation, @required this.authentication});

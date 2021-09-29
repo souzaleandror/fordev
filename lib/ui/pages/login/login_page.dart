@@ -15,6 +15,13 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  void _hideKeyboard() {
+    final currentFocus = FocusScope.of(context);
+    if (!currentFocus.hasPrimaryFocus) {
+      currentFocus.unfocus();
+    }
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -24,10 +31,10 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Builder para voce poder exibir o loading em cima da tela do singleschildScroll view
+      // Builder para voce poder exibir o loading em cima da tela do singleScrollView view
       body: Builder(
         builder: (context) {
-          widget.presenter.isLoadingController.listen((isLoading) {
+          widget.presenter.isLoadingStream.listen((isLoading) {
             if (isLoading) {
               showLoading(context);
             } else {
@@ -35,51 +42,54 @@ class _LoginPageState extends State<LoginPage> {
             }
           });
 
-          widget.presenter.mainErrorController.listen((error) {
+          widget.presenter.mainErrorStream.listen((error) {
             if (error != null) {
               showErrorMessage(context, error);
             }
           });
 
-          return SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                LoginHeader(),
-                Headline1(
-                  text: 'Login',
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(
-                    32,
+          return GestureDetector(
+            onTap: _hideKeyboard,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  LoginHeader(),
+                  Headline1(
+                    text: 'Login',
                   ),
-                  child: Provider<LoginPresenter>(
-                    create: (context) => widget.presenter,
-                    child: Form(
-                      child: Column(
-                        children: [
-                          EmailInput(),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              top: 8,
-                              bottom: 32,
+                  Padding(
+                    padding: const EdgeInsets.all(
+                      32,
+                    ),
+                    child: Provider<LoginPresenter>(
+                      create: (context) => widget.presenter,
+                      child: Form(
+                        child: Column(
+                          children: [
+                            EmailInput(),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                top: 8,
+                                bottom: 32,
+                              ),
+                              child: PasswordInput(),
                             ),
-                            child: PasswordInput(),
-                          ),
-                          LoginButton(),
-                          FlatButton.icon(
-                            onPressed: () {},
-                            icon: Icon(Icons.person),
-                            label: Text(
-                              'Criar Conta',
-                            ),
-                          )
-                        ],
+                            LoginButton(),
+                            FlatButton.icon(
+                              onPressed: () {},
+                              icon: Icon(Icons.person),
+                              label: Text(
+                                'Criar Conta',
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
             ),
           );
         },
