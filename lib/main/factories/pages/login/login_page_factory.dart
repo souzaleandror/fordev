@@ -4,5 +4,6 @@ import 'package:fordev/ui/pages/pages.dart';
 
 Widget makeLoginPage() {
   //return LoginPage(makeStreamLoginPresenter());
+
   return LoginPage(makeGetxLoginPresenter());
 }

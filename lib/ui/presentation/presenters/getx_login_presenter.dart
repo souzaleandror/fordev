@@ -2,7 +2,6 @@ import 'package:fordev/domain/helpers/domain_error.dart';
 import 'package:fordev/domain/usecases/usecases.dart';
 import 'package:fordev/ui/pages/pages.dart';
 import 'package:fordev/ui/presentation/protocols/protocols.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/state_manager.dart';
 import 'package:meta/meta.dart';
 
