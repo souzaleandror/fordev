@@ -10,6 +10,9 @@ Validation makeLoginValidation() {
 List<FieldValidation> makeLoginValidations() {
   return [
     ...ValidationBuilder.field('email').required().email().build(),
-    ...ValidationBuilder.field('password').required().password().build(),
+
+    /// COMMENT THIS BECAUSE PASSWORD DOESN'T HAVE VALIDATED YET
+    //...ValidationBuilder.field('password').required().password().build(),
+    ...ValidationBuilder.field('password').required().build(),
   ];
 }
