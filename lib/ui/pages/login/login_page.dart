@@ -1,40 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 import './components/components.dart';
 import './login.dart';
 import '../../components/components.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends StatelessWidget {
   final LoginPresenter presenter;
 
   LoginPage(this.presenter);
 
   @override
-  _LoginPageState createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
-  void _hideKeyboard() {
-    final currentFocus = FocusScope.of(context);
-    if (!currentFocus.hasPrimaryFocus) {
-      currentFocus.unfocus();
-    }
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    widget.presenter.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    void _hideKeyboard() {
+      final currentFocus = FocusScope.of(context);
+      if (!currentFocus.hasPrimaryFocus) {
+        currentFocus.unfocus();
+      }
+    }
+
     return Scaffold(
       // Builder para voce poder exibir o loading em cima da tela do singleScrollView view
       body: Builder(
         builder: (context) {
-          widget.presenter.isLoadingStream.listen((isLoading) {
+          presenter.isLoadingStream.listen((isLoading) {
             if (isLoading) {
               showLoading(context);
             } else {
@@ -42,9 +32,15 @@ class _LoginPageState extends State<LoginPage> {
             }
           });
 
-          widget.presenter.mainErrorStream.listen((error) {
+          presenter.mainErrorStream.listen((error) {
             if (error != null) {
               showErrorMessage(context, error);
+            }
+          });
+
+          presenter.navigateToStream.listen((page) {
+            if (page?.isNotEmpty == true) {
+              Get.offAllNamed(page);
             }
           });
 
@@ -63,7 +59,7 @@ class _LoginPageState extends State<LoginPage> {
                       32,
                     ),
                     child: Provider<LoginPresenter>(
-                      create: (context) => widget.presenter,
+                      create: (context) => presenter,
                       child: Form(
                         child: Column(
                           children: [
