@@ -10,7 +10,7 @@ void main() {
       RequiredFieldValidation('email'),
       EmailValidation('email'),
       RequiredFieldValidation('password'),
-      PasswordValidation('password'),
+      //PasswordValidation('password'),
     ]);
   });
 }

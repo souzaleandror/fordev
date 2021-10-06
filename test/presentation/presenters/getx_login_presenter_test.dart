@@ -42,9 +42,6 @@ void main() {
     mockAuthenticationCall().thenThrow(error);
   }
 
-  PostExpectation mockSaveCurrentAccountECall() =>
-      when(saveCurrentAccount.save(any));
-
   void mockSaveCurrentAccountError() {
     mockAuthenticationCall().thenThrow(DomainError.unexpected);
   }
