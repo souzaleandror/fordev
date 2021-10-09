@@ -1,6 +1,6 @@
 import 'package:faker/faker.dart';
 import 'package:fordev/data/cache/cache.dart';
-import 'package:fordev/data/usecases/load_current_account/local_current_account.dart';
+import 'package:fordev/data/usecases/load_current_account/load_current_account.dart';
 import 'package:fordev/domain/entities/entities.dart';
 import 'package:fordev/domain/helpers/helpers.dart';
 import 'package:mockito/mockito.dart';
