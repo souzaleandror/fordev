@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:fordev/utils/i18n/i18n.dart';
+import 'package:fordev/ui/helpers/i18n/resources.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 import './components/components.dart';
 import './login.dart';
 import '../../components/components.dart';
-
 import '../../helpers/errors/errors.dart';
 
 class LoginPage extends StatelessWidget {
@@ -55,7 +54,7 @@ class LoginPage extends StatelessWidget {
                 children: [
                   LoginHeader(),
                   Headline1(
-                    text: 'Login',
+                    text: R.strings.login,
                   ),
                   Padding(
                     padding: const EdgeInsets.all(

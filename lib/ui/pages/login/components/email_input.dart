@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fordev/ui/helpers/errors/errors.dart';
+import 'package:fordev/ui/helpers/i18n/i18n.dart';
 import 'package:provider/provider.dart';
 
 import '../../pages.dart';
@@ -14,7 +15,7 @@ class EmailInput extends StatelessWidget {
         builder: (context, snapshot) {
           return TextFormField(
             decoration: InputDecoration(
-              labelText: 'Email',
+              labelText: R.strings.email,
               icon: Icon(
                 Icons.email,
                 color: Theme.of(context).primaryColorLight,
