@@ -7,6 +7,8 @@ import './components/components.dart';
 import './login.dart';
 import '../../components/components.dart';
 
+import '../../helpers/errors/errors.dart';
+
 class LoginPage extends StatelessWidget {
   final LoginPresenter presenter;
 
@@ -35,7 +37,7 @@ class LoginPage extends StatelessWidget {
 
           presenter.mainErrorStream.listen((error) {
             if (error != null) {
-              showErrorMessage(context, error);
+              showErrorMessage(context, error.description);
             }
           });
 
