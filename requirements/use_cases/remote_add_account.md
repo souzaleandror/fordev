@@ -19,4 +19,4 @@
 1. ✅ sistema retorna uma mensagem de erro inesperado
 
 > ## Excecao - Email em uso
-1. Sistema retorna uma mensagem de erro informando que o email ja esta em uso
+1. ✅ Sistema retorna uma mensagem de erro informando que o email ja esta em uso
