@@ -1,9 +1,11 @@
 abstract class Translations {
   String get addAccount;
+  String get name;
   String get email;
   String get enter;
   String get login;
   String get password;
+  String get passwordConfirmation;
 
   String get surveys;
 

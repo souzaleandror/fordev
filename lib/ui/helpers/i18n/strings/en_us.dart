@@ -2,11 +2,12 @@ import 'package:fordev/ui/helpers/i18n/strings/translations.dart';
 
 class EnUs implements Translations {
   String get addAccount => 'Add Account';
-
+  String get name => 'Name';
   String get email => 'Email';
   String get enter => 'Enter';
   String get login => 'Login';
   String get password => 'Password';
+  String get passwordConfirmation => 'Password Confirmation';
 
   String get surveys => 'Surveys';
 
