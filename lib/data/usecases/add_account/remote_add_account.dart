@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:fordev/data/models/models.dart';
 import 'package:fordev/domain/helpers/helpers.dart';
 import 'package:fordev/domain/usecases/usecases.dart';
 
@@ -6,7 +7,7 @@ import '../../../domain/entities/account_entity.dart';
 
 import '../../http/http.dart';
 
-class RemoteAddAccount {
+class RemoteAddAccount implements AddAccount {
   final HttpClient httpClient;
   final String url;
 
@@ -15,11 +16,13 @@ class RemoteAddAccount {
     @required this.url,
   });
 
-  Future<void> add(AddAccountParams params) async {
+  Future<AccountEntity> add(AddAccountParams params) async {
     final body = RemoteAddAccountParams.fromDomain(params).toJson();
+
     try {
       final httpResponse =
           await httpClient.request(url: url, method: 'post', body: body);
+      return RemoteAccountModel.fromJson(httpResponse).toEntity();
     } on HttpError catch (error) {
       error == HttpError.forbidden
           ? throw DomainError.emailInUse
