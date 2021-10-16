@@ -37,7 +37,7 @@ void main() {
         .thenAnswer((_) => passwordErrorController.stream);
     when(presenter.passwordConfirmationErrorStream)
         .thenAnswer((_) => passwordConfirmationErrorController.stream);
-            when(presenter.isFormValidStream)
+    when(presenter.isFormValidStream)
         .thenAnswer((_) => isFormValidController.stream);
   }
 
@@ -45,7 +45,7 @@ void main() {
     nameErrorController.close();
     emailErrorController.close();
     passwordErrorController.close();
-    
+
     isFormValidController.close();
   }
 
@@ -231,5 +231,17 @@ void main() {
 
     final button = tester.widget<RaisedButton>(find.byType(RaisedButton));
     expect(button.onPressed, null);
+  });
+
+  testWidgets('Should call signUp on form submit', (WidgetTester tester) async {
+    await loadPage(tester);
+    final button = find.byType(RaisedButton);
+    isFormValidController.add(true);
+    await tester.pump();
+    await tester.ensureVisible(button);
+    await tester.tap(button);
+    await tester.pump();
+
+    verify(presenter.signUp()).called(1);
   });
 }

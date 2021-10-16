@@ -19,7 +19,7 @@
 16. ✅ Habilitar o botao de crir conta se todos os campos forem validos
 17. ✅ Desabilitar o botao de criar conta se algum campo for invalido
 18. Exibir loading no inicio da acao de criar contaa
-19. Chamar o metodo de criar conta
+19. ✅ Chamar o metodo de criar conta
 20. Exibit mensagem de erro caso a criacao de conta falhe
 21. Esconder loading no fim da acao de criar conta
 22. ✅ Fechar streams quando a pagina for encerrada
