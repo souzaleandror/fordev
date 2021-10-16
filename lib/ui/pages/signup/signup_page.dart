@@ -24,6 +24,14 @@ class SignUpPage extends StatelessWidget {
       // Builder para voce poder exibir o loading em cima da tela do singleScrollView view
       body: Builder(
         builder: (context) {
+          presenter.isLoadingStream.listen((isLoading) {
+            if (isLoading) {
+              showLoading(context);
+            } else {
+              hideLoading(context);
+            }
+          });
+
           return GestureDetector(
             onTap: _hideKeyboard,
             child: SingleChildScrollView(
