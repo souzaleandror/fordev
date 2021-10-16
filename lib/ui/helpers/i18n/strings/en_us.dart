@@ -19,4 +19,6 @@ class EnUs implements Translations {
   String get msgInvalidPassword => 'Password Invalid';
   String get msgUnexpected =>
       'Something Wrong Happened. Please try again soon.';
+
+  String get emailInUse => 'Email Already in use';
 }

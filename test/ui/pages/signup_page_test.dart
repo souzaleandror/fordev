@@ -20,6 +20,7 @@ void main() {
   StreamController<UIError> passwordConfirmationErrorController;
   StreamController<bool> isFormValidController;
   StreamController<bool> isLoadingController;
+  StreamController<UIError> mainErrorController;
 
   void initStreams() {
     nameErrorController = StreamController<UIError>();
@@ -28,6 +29,7 @@ void main() {
     passwordConfirmationErrorController = StreamController<UIError>();
     isFormValidController = StreamController<bool>();
     isLoadingController = StreamController<bool>();
+    mainErrorController = StreamController<UIError>();
   }
 
   void mockStreams() {
@@ -43,6 +45,8 @@ void main() {
         .thenAnswer((_) => isFormValidController.stream);
     when(presenter.isLoadingStream)
         .thenAnswer((_) => isLoadingController.stream);
+    when(presenter.mainErrorStream)
+        .thenAnswer((_) => mainErrorController.stream);
   }
 
   void closeStreams() {
@@ -52,6 +56,7 @@ void main() {
     passwordConfirmationErrorController.close();
     isFormValidController.close();
     isLoadingController.close();
+    mainErrorController.close();
   }
 
   Future<void> loadPage(WidgetTester tester) async {
@@ -268,5 +273,26 @@ void main() {
     await tester.pump();
 
     expect(find.byType(CircularProgressIndicator), findsNothing);
+  });
+
+  testWidgets('Should present error message if signUp fails',
+      (WidgetTester tester) async {
+    await loadPage(tester);
+
+    mainErrorController.add(UIError.emailInUse);
+    await tester.pump();
+
+    expect(find.text('Email ja esta uso.'), findsOneWidget);
+  });
+
+  testWidgets('Should present error message if signUp throws',
+      (WidgetTester tester) async {
+    await loadPage(tester);
+
+    mainErrorController.add(UIError.unexpected);
+    await tester.pump();
+
+    expect(find.text('Algo Errado Aconteceu. Tente Novamente em breve.'),
+        findsOneWidget);
   });
 }

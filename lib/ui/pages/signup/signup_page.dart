@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'components/components.dart';
 import 'signup.dart';
 import '../../components/components.dart';
+import '../../helpers/errors/errors.dart';
 
 class SignUpPage extends StatelessWidget {
   final SignUpPresenter presenter;
@@ -29,6 +30,12 @@ class SignUpPage extends StatelessWidget {
               showLoading(context);
             } else {
               hideLoading(context);
+            }
+          });
+
+          presenter.mainErrorStream.listen((error) {
+            if (error != null) {
+              showErrorMessage(context, error.description);
             }
           });
 

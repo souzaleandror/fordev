@@ -19,4 +19,6 @@ class PtBr implements Translations {
   String get msgInvalidPassword => 'Senha Invalida';
   String get msgUnexpected =>
       'Algo Errado Aconteceu. Tente Novamente em breve.';
+
+  String get emailInUse => 'Email ja esta uso.';
 }

@@ -5,7 +5,8 @@ enum UIError {
   invalidCredentials,
   requiredField,
   invalidField,
-  invalidPassword
+  invalidPassword,
+  emailInUse
 }
 
 extension UIErrorExtension on UIError {
@@ -19,6 +20,8 @@ extension UIErrorExtension on UIError {
         return R.strings.msgInvalidCredentials;
       case UIError.invalidPassword:
         return R.strings.msgInvalidPassword;
+      case UIError.emailInUse:
+        return R.strings.emailInUse;
       default:
         return R.strings.msgUnexpected;
     }
