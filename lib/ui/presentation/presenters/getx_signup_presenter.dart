@@ -1,3 +1,4 @@
+import 'package:fordev/domain/helpers/helpers.dart';
 import 'package:fordev/domain/usecases/usecases.dart';
 import 'package:fordev/ui/helpers/errors/ui_error.dart';
 import 'package:fordev/ui/pages/pages.dart';
@@ -20,6 +21,8 @@ class GetxSignUpPresenter extends GetxController implements SignUpPresenter {
   var _passwordError = Rx<UIError>();
   var _passwordConfirmationError = Rx<UIError>();
   var _isFormValid = false.obs;
+  var _mainError = Rx<UIError>();
+  var _isLoading = false.obs;
 
   Stream<UIError> get emailErrorStream => _emailError.stream;
   Stream<UIError> get nameErrorStream => _nameError.stream;
@@ -27,6 +30,8 @@ class GetxSignUpPresenter extends GetxController implements SignUpPresenter {
   Stream<UIError> get passwordConfirmationErrorStream =>
       _passwordConfirmationError.stream;
   Stream<bool> get isFormValidStream => _isFormValid.stream;
+  Stream<UIError> get mainErrorStream => _mainError.stream;
+  Stream<bool> get isLoadingStream => _isLoading.stream;
 
   GetxSignUpPresenter({
     @required this.validation,
@@ -85,25 +90,29 @@ class GetxSignUpPresenter extends GetxController implements SignUpPresenter {
   void dispose() {}
 
   @override
-  // TODO: implement isLoadingStream
-  Stream<bool> get isLoadingStream => throw UnimplementedError();
-
-  @override
-  // TODO: implement mainErrorStream
-  Stream<UIError> get mainErrorStream => throw UnimplementedError();
-
-  @override
   // TODO: implement navigateToStream
   Stream<String> get navigateToStream => throw UnimplementedError();
 
   @override
   Future<void> signUp() async {
-    final account = await addAccount.add(AddAccountParams(
-      name: _name,
-      email: _email,
-      password: _password,
-      passwordConfirmation: _passwordConfirmation,
-    ));
-    await saveCurrentAccount.save(account);
+    try {
+      _isLoading.value = true;
+      final account = await addAccount.add(AddAccountParams(
+        name: _name,
+        email: _email,
+        password: _password,
+        passwordConfirmation: _passwordConfirmation,
+      ));
+      await saveCurrentAccount.save(account);
+    } on DomainError catch (error) {
+      switch (error) {
+        case DomainError.invalidCredentials:
+          _mainError.value = UIError.invalidCredentials;
+          break;
+        default:
+          _mainError.value = UIError.unexpected;
+      }
+    }
+    _isLoading.value = false;
   }
 }
