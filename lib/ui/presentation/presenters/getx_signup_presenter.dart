@@ -7,11 +7,14 @@ import 'package:meta/meta.dart';
 class GetxSignUpPresenter extends GetxController {
   final Validation validation;
   String _email;
+  String _name;
 
   var _emailError = Rx<UIError>();
+  var _nameError = Rx<UIError>();
   var _isFormValid = false.obs;
 
   Stream<UIError> get emailErrorStream => _emailError.stream;
+  Stream<UIError> get nameErrorStream => _nameError.stream;
   Stream<bool> get isFormValidStream => _isFormValid.stream;
 
   GetxSignUpPresenter({
@@ -36,6 +39,12 @@ class GetxSignUpPresenter extends GetxController {
     _validateForm();
   }
 
+  void validateName(String name) {
+    _name = name;
+    _nameError.value = _validateField(field: 'name', value: name);
+    _validateForm();
+  }
+
   void _validateForm() {
     _isFormValid.value = false;
   }
@@ -50,9 +59,6 @@ class GetxSignUpPresenter extends GetxController {
   // TODO: implement mainErrorStream
   Stream<UIError> get mainErrorStream => throw UnimplementedError();
 
-  @override
-  // TODO: implement nameErrorStream
-  Stream<UIError> get nameErrorStream => throw UnimplementedError();
 
   @override
   // TODO: implement navigateToStream
@@ -71,11 +77,6 @@ class GetxSignUpPresenter extends GetxController {
   Future<void> signUp() {
     // TODO: implement signUp
     throw UnimplementedError();
-  }
-
-  @override
-  void validateName(String name) {
-    // TODO: implement validateName
   }
 
   @override
