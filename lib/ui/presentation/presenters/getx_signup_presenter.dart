@@ -1,3 +1,4 @@
+import 'package:fordev/domain/usecases/usecases.dart';
 import 'package:fordev/ui/helpers/errors/ui_error.dart';
 import 'package:fordev/ui/pages/pages.dart';
 import 'package:fordev/ui/presentation/protocols/protocols.dart';
@@ -8,6 +9,7 @@ import '../../../domain/usecases/add_account.dart';
 class GetxSignUpPresenter extends GetxController implements SignUpPresenter {
   final Validation validation;
   final AddAccount addAccount;
+  final SaveCurrentAccount saveCurrentAccount;
   String _email;
   String _name;
   String _password;
@@ -29,6 +31,7 @@ class GetxSignUpPresenter extends GetxController implements SignUpPresenter {
   GetxSignUpPresenter({
     @required this.validation,
     @required this.addAccount,
+    @required this.saveCurrentAccount,
   });
 
   UIError _validateField({String field, String value}) {
@@ -95,11 +98,12 @@ class GetxSignUpPresenter extends GetxController implements SignUpPresenter {
 
   @override
   Future<void> signUp() async {
-    await addAccount.add(AddAccountParams(
+    final account = await addAccount.add(AddAccountParams(
       name: _name,
       email: _email,
       password: _password,
       passwordConfirmation: _passwordConfirmation,
     ));
+    await saveCurrentAccount.save(account);
   }
 }
