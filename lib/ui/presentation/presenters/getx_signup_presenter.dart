@@ -1,5 +1,4 @@
 import 'package:fordev/ui/helpers/errors/ui_error.dart';
-import 'package:fordev/ui/pages/pages.dart';
 import 'package:fordev/ui/presentation/protocols/protocols.dart';
 import 'package:get/state_manager.dart';
 import 'package:meta/meta.dart';
@@ -9,15 +8,19 @@ class GetxSignUpPresenter extends GetxController {
   String _email;
   String _name;
   String _password;
+  String _passwordConfirmation;
 
   var _emailError = Rx<UIError>();
   var _nameError = Rx<UIError>();
   var _passwordError = Rx<UIError>();
+  var _passwordConfirmationError = Rx<UIError>();
   var _isFormValid = false.obs;
 
   Stream<UIError> get emailErrorStream => _emailError.stream;
   Stream<UIError> get nameErrorStream => _nameError.stream;
   Stream<UIError> get passwordErrorStream => _passwordError.stream;
+  Stream<UIError> get passwordConfirmationErrorStream =>
+      _passwordConfirmationError.stream;
   Stream<bool> get isFormValidStream => _isFormValid.stream;
 
   GetxSignUpPresenter({
@@ -54,6 +57,13 @@ class GetxSignUpPresenter extends GetxController {
     _validateForm();
   }
 
+  void validatePasswordConfirmation(String passwordConfirmation) {
+    _passwordConfirmation = passwordConfirmation;
+    _passwordConfirmationError.value = _validateField(
+        field: 'passwordConfirmation', value: passwordConfirmation);
+    _validateForm();
+  }
+
   void _validateForm() {
     _isFormValid.value = false;
   }
@@ -73,18 +83,8 @@ class GetxSignUpPresenter extends GetxController {
   Stream<String> get navigateToStream => throw UnimplementedError();
 
   @override
-  // TODO: implement passwordConfirmationErrorStream
-  Stream<UIError> get passwordConfirmationErrorStream =>
-      throw UnimplementedError();
-
-  @override
   Future<void> signUp() {
     // TODO: implement signUp
     throw UnimplementedError();
-  }
-
-  @override
-  void validatePasswordConfirmation(String passwordConfirmation) {
-    // TODO: implement validatePasswordConfirmation
   }
 }
