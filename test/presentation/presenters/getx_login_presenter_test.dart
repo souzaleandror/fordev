@@ -154,7 +154,7 @@ void main() {
     sut.validatePassword(password);
   });
 
-  test('Should enable form button if all valid', () async {
+  test('Should enable form button if all fields are valid', () async {
     // chamar somente uma vez
     expectLater(sut.isFormValidStream, emitsInOrder([false, true]));
 

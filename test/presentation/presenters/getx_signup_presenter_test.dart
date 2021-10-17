@@ -206,4 +206,17 @@ void main() {
     sut.validatePasswordConfirmation(passwordConfirmation);
     sut.validatePasswordConfirmation(passwordConfirmation);
   });
+
+  test('Should enable form button if all fields are valid', () async {
+    expectLater(sut.isFormValidStream, emitsInOrder([false, true]));
+
+    sut.validateEmail(email);
+    await Future.delayed(Duration.zero);
+    sut.validateName(email);
+    await Future.delayed(Duration.zero);
+    sut.validatePassword(email);
+    await Future.delayed(Duration.zero);
+    sut.validatePasswordConfirmation(email);
+    await Future.delayed(Duration.zero);
+  });
 }
