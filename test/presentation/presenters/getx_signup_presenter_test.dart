@@ -14,6 +14,7 @@ void main() {
   ValidationSpy validation;
   String email;
   String name;
+  String password;
 
   PostExpectation mockValidationCall(String field) => when(validation.validate(
       field: field == null ? anyNamed('field') : field,
@@ -28,6 +29,7 @@ void main() {
     sut = GetxSignUpPresenter(validation: validation);
     email = faker.internet.email();
     name = faker.person.name();
+    password = faker.internet.password();
     mockValidation();
   });
 
@@ -111,5 +113,47 @@ void main() {
 
     sut.validateName(name);
     sut.validateName(name);
+  });
+
+  test('Should call Validation with correct password', () {
+    sut.validatePassword(password);
+
+    verify(validation.validate(field: 'password', value: password)).called(1);
+  });
+
+  test('Should emit invalid field password error if password is invalid', () {
+    mockValidation(value: ValidationError.invalidField);
+
+    sut.passwordErrorStream
+        .listen(expectAsync1((error) => expect(error, UIError.invalidField)));
+    sut.isFormValidStream
+        .listen(expectAsync1((isValid) => expect(isValid, false)));
+
+    sut.validatePassword(password);
+    sut.validatePassword(password);
+  });
+
+  test('Should emit required field password error if password is empty', () {
+    mockValidation(value: ValidationError.requiredField);
+
+    sut.passwordErrorStream
+        .listen(expectAsync1((error) => expect(error, UIError.requiredField)));
+    sut.isFormValidStream
+        .listen(expectAsync1((isValid) => expect(isValid, false)));
+
+    sut.validatePassword(password);
+    sut.validatePassword(password);
+  });
+
+  test('Should emit null if validation succeeds password', () {
+    sut.passwordErrorStream
+        .listen(expectAsync1((error) => expect(error, null)));
+    sut.isFormValidStream
+        .listen(expectAsync1((isValid) => expect(isValid, false)));
+
+    //expectLater(sut.emailErrorStream, emitsInOrder(['error', 'error']));
+
+    sut.validatePassword(password);
+    sut.validatePassword(password);
   });
 }
