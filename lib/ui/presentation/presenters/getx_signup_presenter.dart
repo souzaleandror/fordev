@@ -106,8 +106,8 @@ class GetxSignUpPresenter extends GetxController implements SignUpPresenter {
       await saveCurrentAccount.save(account);
     } on DomainError catch (error) {
       switch (error) {
-        case DomainError.invalidCredentials:
-          _mainError.value = UIError.invalidCredentials;
+        case DomainError.emailInUse:
+          _mainError.value = UIError.emailInUse;
           break;
         default:
           _mainError.value = UIError.unexpected;
