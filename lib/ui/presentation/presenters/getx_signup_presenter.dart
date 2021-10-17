@@ -1,10 +1,13 @@
 import 'package:fordev/ui/helpers/errors/ui_error.dart';
+import 'package:fordev/ui/pages/pages.dart';
 import 'package:fordev/ui/presentation/protocols/protocols.dart';
 import 'package:get/state_manager.dart';
 import 'package:meta/meta.dart';
+import '../../../domain/usecases/add_account.dart';
 
-class GetxSignUpPresenter extends GetxController {
+class GetxSignUpPresenter extends GetxController implements SignUpPresenter {
   final Validation validation;
+  final AddAccount addAccount;
   String _email;
   String _name;
   String _password;
@@ -25,6 +28,7 @@ class GetxSignUpPresenter extends GetxController {
 
   GetxSignUpPresenter({
     @required this.validation,
+    @required this.addAccount,
   });
 
   UIError _validateField({String field, String value}) {
@@ -90,8 +94,12 @@ class GetxSignUpPresenter extends GetxController {
   Stream<String> get navigateToStream => throw UnimplementedError();
 
   @override
-  Future<void> signUp() {
-    // TODO: implement signUp
-    throw UnimplementedError();
+  Future<void> signUp() async {
+    await addAccount.add(AddAccountParams(
+      name: _name,
+      email: _email,
+      password: _password,
+      passwordConfirmation: _passwordConfirmation,
+    ));
   }
 }
