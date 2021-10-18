@@ -18,3 +18,4 @@
 14. ✅ Exibir mensagem de erro caso o login falhe
 15. ✅ Esconder loading no fim da acao do login
 16. ✅ Fechar streams quando a pagina for encerrada
+17. ✅ Chamar o metodo de Criar conta ao clicar no link

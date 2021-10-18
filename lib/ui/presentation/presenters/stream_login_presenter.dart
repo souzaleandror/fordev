@@ -13,7 +13,7 @@ class LoginState {
   UIError emailError;
   UIError passwordError;
   UIError mainError;
-  String navigateToStream;
+  String navigateTo;
   bool isLoading = false;
 
   bool get isFormValid =>
@@ -38,7 +38,7 @@ class StreamLoginPresenter implements LoginPresenter {
   Stream<UIError> get mainErrorStream =>
       _controller?.stream?.map((state) => state.mainError)?.distinct();
   Stream<String> get navigateToStream =>
-      _controller?.stream?.map((state) => state.navigateToStream)?.distinct();
+      _controller?.stream?.map((state) => state.navigateTo)?.distinct();
   Stream<bool> get isFormValidStream =>
       _controller?.stream?.map((state) => state.isFormValid)?.distinct();
 
@@ -84,6 +84,7 @@ class StreamLoginPresenter implements LoginPresenter {
       final account = await authentication.auth(
           AuthenticationParams(email: _state.email, secret: _state.password));
       await saveCurrentAccount.save(account);
+      _state.navigateTo = '/surveys';
     } on DomainError catch (error) {
       switch (error) {
         case DomainError.invalidCredentials:
@@ -101,5 +102,10 @@ class StreamLoginPresenter implements LoginPresenter {
   void dispose() {
     _controller.close();
     _controller = null;
+  }
+
+  @override
+  void goToSignUp() {
+    _state.navigateTo = '/signup';
   }
 }

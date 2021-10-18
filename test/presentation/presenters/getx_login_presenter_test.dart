@@ -51,15 +51,15 @@ void main() {
     validation = ValidationSpy();
     authentication = AuthenticationSpy();
     saveCurrentAccount = SaveCurrentAccountSpy();
-    sut = GetxLoginPresenter(
-        validation: validation,
-        authentication: authentication,
-        saveCurrentAccount: saveCurrentAccount);
     email = faker.internet.email();
     password = faker.internet.password();
     token = faker.guid.guid();
     mockValidation();
     mockAuthentication();
+    sut = GetxLoginPresenter(
+        validation: validation,
+        authentication: authentication,
+        saveCurrentAccount: saveCurrentAccount);
   });
 
   test('Should call Validation with correct email', () {
@@ -236,5 +236,11 @@ void main() {
         .listen(expectAsync1((error) => expect(error, UIError.unexpected)));
 
     await sut.auth();
+  });
+
+  test('Should go to SignUpPage on link click', () async {
+    sut.navigateToStream
+        .listen(expectAsync1((page) => expect(page, '/signup')));
+    sut.goToSignUp();
   });
 }

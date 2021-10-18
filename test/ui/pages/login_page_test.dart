@@ -61,10 +61,11 @@ void main() {
     final loginPage = GetMaterialApp(initialRoute: '/login', getPages: [
       GetPage(name: '/login', page: () => LoginPage(presenter)),
       GetPage(
-          name: '/any_route',
-          page: () => Scaffold(
-                body: Text('fake page'),
-              )),
+        name: '/any_route',
+        page: () => Scaffold(
+          body: Text('fake page'),
+        ),
+      ),
     ]);
     await tester.pumpWidget(loginPage);
   }
@@ -310,6 +311,19 @@ void main() {
     navigateToController.add(null);
     await tester.pump();
     expect(Get.currentRoute, '/login');
+  });
+
+  testWidgets('Should call gotoSignUp on link click',
+      (WidgetTester tester) async {
+    await loadPage(tester);
+    //final button = find.byType(FlatButton);
+    final button = find.text('Criar Conta');
+
+    await tester.ensureVisible(button);
+    await tester.tap(button);
+    await tester.pump();
+
+    verify(presenter.goToSignUp()).called(1);
   });
 
   // testWidgets('Should close streams on dispose', (WidgetTester tester) async {
