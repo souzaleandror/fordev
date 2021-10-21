@@ -6,10 +6,10 @@ class PasswordValidation extends Equatable implements FieldValidation {
   final String field;
   PasswordValidation(this.field);
 
-  ValidationError validate(String value) {
+  ValidationError validate(Map input) {
     final regex = RegExp(
         r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$");
-    final isValid = value?.isNotEmpty != true || regex.hasMatch(value);
+    final isValid = input[field]?.isNotEmpty != true || regex.hasMatch(input[field]);
     return isValid ? null : ValidationError.requiredField;
   }
 

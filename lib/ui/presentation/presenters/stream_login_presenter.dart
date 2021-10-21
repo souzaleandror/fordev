@@ -53,8 +53,9 @@ class StreamLoginPresenter implements LoginPresenter {
 
   void _update() => _controller?.add(_state);
 
-  UIError _validateField({String field, String value}) {
-    var error = validation.validate(field: field, value: value);
+  UIError _validateField(String field) {
+    final formData = {'email': _state.email, 'password': _state.password};
+    var error = validation.validate(field: field, input: formData);
     switch (error) {
       case ValidationError.invalidField:
         return UIError.invalidField;
@@ -67,13 +68,13 @@ class StreamLoginPresenter implements LoginPresenter {
 
   void validateEmail(String email) {
     _state.email = email;
-    _state.emailError = _validateField(field: 'email', value: email);
+    _state.emailError = _validateField('email');
     _update();
   }
 
   void validatePassword(String password) {
     _state.password = password;
-    _state.passwordError = _validateField(field: 'password', value: password);
+    _state.passwordError = _validateField('password');
     _update();
   }
 
