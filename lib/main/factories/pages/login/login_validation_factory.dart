@@ -13,6 +13,6 @@ List<FieldValidation> makeLoginValidations() {
 
     /// COMMENT THIS BECAUSE PASSWORD DOESN'T HAVE VALIDATED YET
     //...ValidationBuilder.field('password').required().password().build(),
-    ...ValidationBuilder.field('password').required().build(),
+    ...ValidationBuilder.field('password').required().min(3).build(),
   ];
 }
