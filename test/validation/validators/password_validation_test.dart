@@ -7,6 +7,11 @@ void main() {
   setUp(() {
     sut = PasswordValidation('any_field');
   });
+
+  test('Should return null on invalid case', () {
+    expect(sut.validate({}), null);
+  });
+
   test('Should return null if password is empty', () {
     expect(sut.validate({'any_field': ''}), null);
   });
