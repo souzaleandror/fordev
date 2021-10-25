@@ -1,31 +1,10 @@
 import 'package:faker/faker.dart';
-import 'package:flutter/material.dart';
 import 'package:fordev/data/http/http.dart';
-import 'package:fordev/data/models/models.dart';
+import 'package:fordev/data/usecases/usecases.dart';
 import 'package:fordev/domain/entities/survey_entity.dart';
 import 'package:fordev/domain/helpers/helpers.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
-
-class RemoteLoadSurveys {
-  final String url;
-  final HttpClient<List<Map>> httpClient;
-
-  RemoteLoadSurveys({@required this.url, @required this.httpClient});
-
-  Future<List<SurveyEntity>> load() async {
-    try {
-      final httpResponse = await httpClient.request(url: url, method: 'get');
-      return httpResponse
-          .map((json) => RemoteSurveyModel.fromJson(json).toEntity())
-          .toList();
-    } on HttpError catch (error) {
-      error == HttpError.forbidden
-          ? throw DomainError.accessDenied
-          : throw DomainError.unexpected;
-    }
-  }
-}
 
 class HttpClientSpy extends Mock implements HttpClient<List<Map>> {}
 
