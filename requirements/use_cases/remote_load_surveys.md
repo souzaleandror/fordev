@@ -10,7 +10,7 @@
 1. ✅ Sistema retorna uma mensagem de erro inesperado
 
 > ## Excecao - Acesso negado
-1. Sistema retorna uma mensagem de acesso negado
+1. ✅ Sistema retorna uma mensagem de acesso negado
 
 > ## Excecao - Resposta invalida
 1. ✅ Sistema retorna uma mensagem de erro inesperado
