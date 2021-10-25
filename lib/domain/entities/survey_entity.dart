@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 
 class SurveyEntity extends Equatable {
   final String id;
@@ -9,5 +10,9 @@ class SurveyEntity extends Equatable {
   @override
   List get props => [id, question, date, didAnswer];
 
-  SurveyEntity(this.id, this.question, this.date, this.didAnswer);
+  SurveyEntity(
+      {@required this.id,
+      @required this.question,
+      @required this.date,
+      @required this.didAnswer});
 }
