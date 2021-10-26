@@ -116,7 +116,7 @@ void main() {
       expect(future, throwsA(HttpError.unauthorized));
     });
 
-    test('Should returns UnauthorizedError if post returns 403', () async {
+    test('Should returns ForbiddenError if post returns 403', () async {
       mockResponse(403);
 
       final future = sut.request(url: url, method: 'post');
@@ -124,7 +124,7 @@ void main() {
       expect(future, throwsA(HttpError.forbidden));
     });
 
-    test('Should returns UnauthorizedError if post returns 404', () async {
+    test('Should returns NotFoundError if post returns 404', () async {
       mockResponse(404);
 
       final future = sut.request(url: url, method: 'post');
@@ -232,6 +232,14 @@ void main() {
       final future = sut.request(url: url, method: 'get');
 
       expect(future, throwsA(HttpError.forbidden));
+    });
+
+    test('Should returns NotFoundError if get returns 404', () async {
+      mockResponse(404);
+
+      final future = sut.request(url: url, method: 'get');
+
+      expect(future, throwsA(HttpError.notFound));
     });
   });
 }
