@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fordev/ui/helpers/i18n/i18n.dart';
 import 'package:get/get.dart';
 
 import '../ui/components/components.dart';
