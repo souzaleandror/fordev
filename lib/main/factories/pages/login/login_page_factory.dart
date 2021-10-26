@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fordev/main/factories/pages/login/login.dart';
-import 'package:fordev/ui/pages/pages.dart';
 
-Widget makeLoginPage() {
-  //return LoginPage(makeStreamLoginPresenter());
+import '../../../../main/factories/pages/login/login.dart';
+import '../../../../ui/pages/pages.dart';
 
-  return LoginPage(makeGetxLoginPresenter());
-}
+Widget makeLoginPage() => LoginPage(makeGetxLoginPresenter());
+//return LoginPage(makeStreamLoginPresenter());

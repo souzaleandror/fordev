@@ -1,7 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:fordev/ui/presentation/protocols/protocols.dart';
-import 'package:fordev/validation/protocols/protocols.dart';
+
+import '../../ui/presentation/protocols/protocols.dart';
+import '../../validation/protocols/protocols.dart';
 
 class MinLengthValidation extends Equatable implements FieldValidation {
   final String field;

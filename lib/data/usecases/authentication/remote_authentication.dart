@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:fordev/data/models/remote_account_model.dart';
 
+import '../../../data/models/remote_account_model.dart';
 import '../../../domain/entities/account_entity.dart';
 import '../../../domain/helpers/helpers.dart';
 import '../../../domain/usecases/authentication.dart';

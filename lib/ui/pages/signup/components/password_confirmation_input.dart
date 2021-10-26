@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:fordev/ui/helpers/errors/errors.dart';
-import 'package:fordev/ui/helpers/i18n/i18n.dart';
-import 'package:fordev/ui/pages/signup/signup.dart';
 import 'package:provider/provider.dart';
+
+import '../../../../ui/helpers/errors/errors.dart';
+import '../../../../ui/helpers/i18n/i18n.dart';
+import '../../../../ui/pages/signup/signup.dart';
 
 class PasswordConfirmationInput extends StatelessWidget {
   @override

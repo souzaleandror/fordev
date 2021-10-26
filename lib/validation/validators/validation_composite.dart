@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fordev/ui/presentation/protocols/protocols.dart';
-import 'package:fordev/validation/protocols/protocols.dart';
+
+import '../../ui/presentation/protocols/protocols.dart';
+import '../../validation/protocols/protocols.dart';
 
 class ValidationComposite implements Validation {
   final List<FieldValidation> validations;

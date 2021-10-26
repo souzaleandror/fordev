@@ -1,10 +1,11 @@
-import 'package:fordev/domain/helpers/domain_error.dart';
-import 'package:fordev/domain/usecases/usecases.dart';
-import 'package:fordev/ui/helpers/errors/ui_error.dart';
-import 'package:fordev/ui/pages/pages.dart';
-import 'package:fordev/ui/presentation/protocols/protocols.dart';
 import 'package:get/state_manager.dart';
 import 'package:meta/meta.dart';
+
+import '../../../domain/helpers/domain_error.dart';
+import '../../../domain/usecases/usecases.dart';
+import '../../../ui/helpers/errors/ui_error.dart';
+import '../../../ui/pages/pages.dart';
+import '../../../ui/presentation/protocols/protocols.dart';
 
 class GetxLoginPresenter extends GetxController implements LoginPresenter {
   final Validation validation;
@@ -89,7 +90,5 @@ class GetxLoginPresenter extends GetxController implements LoginPresenter {
 
   void dispose() {}
 
-  void goToSignUp() {
-    _navigateTo.value = '/signup';
-  }
+  void goToSignUp() => _navigateTo.value = '/signup';
 }

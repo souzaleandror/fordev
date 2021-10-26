@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:fordev/ui/helpers/i18n/i18n.dart';
-import 'package:fordev/ui/pages/pages.dart';
 import 'package:provider/provider.dart';
+
+import '../../../../ui/helpers/i18n/i18n.dart';
+import '../../../../ui/pages/pages.dart';
 
 class SignUpButton extends StatelessWidget {
   @override

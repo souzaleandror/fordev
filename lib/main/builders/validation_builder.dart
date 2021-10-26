@@ -1,5 +1,5 @@
-import 'package:fordev/validation/protocols/protocols.dart';
-import 'package:fordev/validation/validators/validators.dart';
+import '../../validation/protocols/protocols.dart';
+import '../../validation/validators/validators.dart';
 
 class ValidationBuilder {
   static ValidationBuilder _instance;

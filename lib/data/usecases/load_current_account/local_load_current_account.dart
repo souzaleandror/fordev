@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:fordev/data/cache/cache.dart';
-import 'package:fordev/domain/entities/entities.dart';
-import 'package:fordev/domain/helpers/helpers.dart';
-import 'package:fordev/domain/usecases/usecases.dart';
+import '../../../data/cache/cache.dart';
+import '../../../domain/entities/entities.dart';
+import '../../../domain/helpers/helpers.dart';
+import '../../../domain/usecases/usecases.dart';
 
 class LocalLoadCurrentAccount implements LoadCurrentAccount {
   FetchSecureCacheStorage fetchSecureCacheStorage;

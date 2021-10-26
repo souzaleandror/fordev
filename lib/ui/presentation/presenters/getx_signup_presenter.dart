@@ -1,10 +1,11 @@
-import 'package:fordev/domain/helpers/helpers.dart';
-import 'package:fordev/domain/usecases/usecases.dart';
-import 'package:fordev/ui/helpers/errors/ui_error.dart';
-import 'package:fordev/ui/pages/pages.dart';
-import 'package:fordev/ui/presentation/protocols/protocols.dart';
 import 'package:get/state_manager.dart';
 import 'package:meta/meta.dart';
+
+import '../../../domain/helpers/helpers.dart';
+import '../../../domain/usecases/usecases.dart';
+import '../../../ui/helpers/errors/ui_error.dart';
+import '../../../ui/pages/pages.dart';
+import '../../../ui/presentation/protocols/protocols.dart';
 import '../../../domain/usecases/add_account.dart';
 
 class GetxSignUpPresenter extends GetxController implements SignUpPresenter {
@@ -121,7 +122,5 @@ class GetxSignUpPresenter extends GetxController implements SignUpPresenter {
     _isLoading.value = false;
   }
 
-  void goToLogin() {
-    _navigateTo.value = '/login';
-  }
+  void goToLogin() => _navigateTo.value = '/login';
 }

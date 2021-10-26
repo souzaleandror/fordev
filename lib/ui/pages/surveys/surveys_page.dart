@@ -1,7 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fordev/ui/helpers/i18n/i18n.dart';
+
+import '../../../ui/helpers/i18n/i18n.dart';
 
 import 'components/components.dart';
 
