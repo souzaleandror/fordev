@@ -4,11 +4,10 @@ import 'package:fordev/domain/helpers/helpers.dart';
 import 'package:fordev/domain/usecases/usecases.dart';
 
 import '../../../domain/entities/account_entity.dart';
-
 import '../../http/http.dart';
 
 class RemoteAddAccount implements AddAccount {
-  final HttpClient<Map> httpClient;
+  final HttpClient httpClient;
   final String url;
 
   RemoteAddAccount({
