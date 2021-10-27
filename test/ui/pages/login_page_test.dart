@@ -250,6 +250,7 @@ void main() {
     verify(presenter.auth()).called(1);
   });
 
+  // teste foi substituido por esse => Should handle loading correctly
   testWidgets('Should present loading', (WidgetTester tester) async {
     await loadPage(tester);
 
@@ -258,7 +259,7 @@ void main() {
 
     expect(find.byType(CircularProgressIndicator), findsOneWidget);
   });
-
+// teste foi substituido por esse => Should handle loading correctly
   testWidgets('Should hide loading', (WidgetTester tester) async {
     await loadPage(tester);
 
@@ -267,6 +268,26 @@ void main() {
     isLoadingController.add(false);
     await tester.pump();
 
+    expect(find.byType(CircularProgressIndicator), findsNothing);
+  });
+
+  testWidgets('Should handle loading correctly', (WidgetTester tester) async {
+    await loadPage(tester);
+
+    isLoadingController.add(true);
+    await tester.pump();
+    expect(find.byType(CircularProgressIndicator), findsOneWidget);
+
+    isLoadingController.add(false);
+    await tester.pump();
+    expect(find.byType(CircularProgressIndicator), findsNothing);
+
+    isLoadingController.add(true);
+    await tester.pump();
+    expect(find.byType(CircularProgressIndicator), findsOneWidget);
+
+    isLoadingController.add(null);
+    await tester.pump();
     expect(find.byType(CircularProgressIndicator), findsNothing);
   });
 
