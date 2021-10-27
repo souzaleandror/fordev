@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fordev/ui/pages/pages.dart';
 
 class SurveyItem extends StatelessWidget {
-  const SurveyItem({Key key}) : super(key: key);
+  const SurveyItem({Key key, this.viewModel}) : super(key: key);
+
+  final SurveyViewModel viewModel;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +33,7 @@ class SurveyItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '20 ago 2020',
+              viewModel.date,
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 20,
@@ -40,7 +43,7 @@ class SurveyItem extends StatelessWidget {
               height: 20,
             ),
             Text(
-              'Qual e seu framework with favorites',
+              viewModel.question,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 24,
