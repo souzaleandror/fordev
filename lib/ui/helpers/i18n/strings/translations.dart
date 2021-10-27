@@ -17,4 +17,5 @@ abstract class Translations {
   String get msgInvalidPassword;
   String get msgUnexpected;
   String get emailInUse;
+  String get realoading;
 }

@@ -21,4 +21,5 @@ class EnUs implements Translations {
       'Something Wrong Happened. Please try again soon.';
 
   String get emailInUse => 'Email Already in use';
+  String get realoading => 'Reloading';
 }

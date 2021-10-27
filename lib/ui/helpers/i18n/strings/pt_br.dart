@@ -21,4 +21,5 @@ class PtBr implements Translations {
       'Algo Errado Aconteceu. Tente Novamente em breve.';
 
   String get emailInUse => 'Email ja esta uso.';
+  String get realoading => 'Recarregar';
 }
