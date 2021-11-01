@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:fordev/domain/entities/survey_entity.dart';
+
 import 'package:fordev/ui/helpers/errors/ui_error.dart';
 import 'package:fordev/ui/pages/surveys/surveys.dart';
 import 'package:get/route_manager.dart';
