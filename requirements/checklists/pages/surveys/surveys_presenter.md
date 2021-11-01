@@ -1,7 +1,7 @@
 # Surveys Presenter
 
 > ## Regras
-1. Chamar LoadSurveys no metodo loadData
+1. ✅ Chamar LoadSurveys no metodo loadData
 2. Notificar o isLoadingStream como true antes de chamar o loadSurveys
 3. Notificar o isLoadingStream como false no fim do LoadSurveys
 4. Notificar o loadSurveysStream com erro caso o LoadSurveys retorne erro
