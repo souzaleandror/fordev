@@ -6,7 +6,7 @@ import 'package:fordev/ui/pages/pages.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-class GetxSurveysPresenter {
+class GetxSurveysPresenter implements SurveysPresenter {
   final LoadSurveys loadSurveys;
 
   final _isLoading = true.obs;
