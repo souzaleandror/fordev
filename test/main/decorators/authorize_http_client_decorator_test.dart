@@ -1,5 +1,4 @@
 import 'package:faker/faker.dart';
-import 'package:flutter/material.dart';
 import 'package:fordev/data/cache/fetch_secure_cache_storage.dart';
 import 'package:fordev/data/http/http.dart';
 import 'package:fordev/main/decorators/decorators.dart';
