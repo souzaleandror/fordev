@@ -1,5 +1,6 @@
 import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
+import 'package:fordev/data/cache/cache.dart';
 import 'package:fordev/data/models/models.dart';
 import 'package:fordev/domain/entities/survey_entity.dart';
 import 'package:fordev/domain/helpers/helpers.dart';
@@ -27,10 +28,6 @@ class LocalLoadSurveys {
       throw DomainError.unexpected;
     }
   }
-}
-
-abstract class FetchCacheStorage {
-  Future<dynamic> fetch(String key);
 }
 
 class FetchCacheStorageSpy extends Mock implements FetchCacheStorage {}
