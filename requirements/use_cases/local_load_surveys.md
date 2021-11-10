@@ -12,10 +12,10 @@
 # Local Validate Surveys
 
 > ## Caso de sucesso
-1. Sistema valida os dados recebidos do Cache
+1. ✅ Sistema valida os dados recebidos do Cache
 
 > ## Excecao - Dados Invalidos no cache
-1. Sistema limpa os dados do cache
+1. ✅ Sistema limpa os dados do cache
 
 ---
 
