@@ -2,7 +2,7 @@
 
 > ## Caso de sucesso
 1. ✅ Sistema solicita os dados das enquetes do cache
-2. Sistema entrega os dados de enquetes
+2. ✅ Sistema entrega os dados de enquetes
 
 > ## Excecao - Cache vazio
 1. Sistema retorna uma mensagem de erro inesperado
