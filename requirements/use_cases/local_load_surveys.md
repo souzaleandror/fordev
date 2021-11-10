@@ -5,7 +5,7 @@
 2. ✅ Sistema entrega os dados de enquetes
 
 > ## Excecao - Cache vazio
-1. Sistema retorna uma mensagem de erro inesperado
+1. ✅ Sistema retorna uma mensagem de erro inesperado
 
 ---
 
