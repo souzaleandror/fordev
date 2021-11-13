@@ -6,7 +6,7 @@ import 'package:fordev/domain/helpers/helpers.dart';
 import 'package:fordev/domain/usecases/usecases.dart';
 
 class LocalLoadSurveys implements LoadSurveys {
-  FetchCacheStorage fetchCacheStorage;
+  CacheStorage fetchCacheStorage;
 
   LocalLoadSurveys({
     @required this.fetchCacheStorage,
