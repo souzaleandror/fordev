@@ -148,7 +148,7 @@ void main() {
 
       verify(cacheStorage.fetch('surveys')).called(1);
     });
-    test('Shoudl delete cache if it is invalid', () async {
+    test('Should delete cache if it is invalid', () async {
       mockFetch([
         {
           'id': faker.guid.guid(),
@@ -157,6 +157,24 @@ void main() {
           'didAnswer': 'false',
         }
       ]);
+      await sut.validate();
+
+      verify(cacheStorage.delete('surveys')).called(1);
+    });
+    test('Should delete cache if it is incomplete', () async {
+      mockFetch([
+        {
+          'date': '2020-07-20T00:00:00Z',
+          'didAnswer': 'false',
+        }
+      ]);
+      await sut.validate();
+
+      verify(cacheStorage.delete('surveys')).called(1);
+    });
+
+    test('Should delete cache if unexpected error', () async {
+      mockFetchError();
       await sut.validate();
 
       verify(cacheStorage.delete('surveys')).called(1);

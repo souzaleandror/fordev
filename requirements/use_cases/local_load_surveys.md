@@ -13,10 +13,10 @@
 
 > ## Caso de sucesso
 1. ✅ Sistema solicita os dados das enquetes do Cache
-2. Sistema valida os dados recebidos do Cache
+2. ✅ Sistema valida os dados recebidos do Cache
 
 > ## Excecao - Erro ao carregar dados do Cache
-1. Sistema limpa os dados do cache
+1. ✅ SSistema limpa os dados do cache
 
 > ## Exxcecao - Dados invalidos do cache
 1. ✅ sistema limpa os dados do cache

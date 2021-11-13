@@ -28,13 +28,9 @@ class LocalLoadSurveys implements LoadSurveys {
     try {
       final data = await cacheStorage.fetch('surveys');
 
-      if (data?.isEmpty != false) {
-        throw Exception();
-      }
       return _map(data);
     } catch (error) {
-      //throw DomainError.unexpected;
-      cacheStorage.delete('surveys');
+      await cacheStorage.delete('surveys');
     }
   }
 
