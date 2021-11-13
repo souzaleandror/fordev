@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../http/http.dart';
 import '../../domain/entities/entities.dart';
+import '../http/http.dart';
 
 class RemoteSurveyModel {
   final String id;
@@ -34,6 +34,6 @@ class RemoteSurveyModel {
         id: id,
         question: question,
         didAnswer: didAnswer,
-        date: DateTime.parse(date),
+        dateTime: DateTime.parse(date),
       );
 }

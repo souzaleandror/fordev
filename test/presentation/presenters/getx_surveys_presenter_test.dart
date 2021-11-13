@@ -18,12 +18,12 @@ void main() {
         SurveyEntity(
             id: faker.guid.guid(),
             question: faker.lorem.sentence(),
-            date: DateTime(2021, 02, 20),
+            dateTime: DateTime(2021, 02, 20),
             didAnswer: true),
         SurveyEntity(
             id: faker.guid.guid(),
             question: faker.lorem.sentence(),
-            date: DateTime(2021, 10, 03),
+            dateTime: DateTime(2021, 10, 03),
             didAnswer: false),
       ];
 

@@ -25,7 +25,7 @@ class GetxSurveysPresenter implements SurveysPresenter {
           .map((survey) => SurveyViewModel(
               id: survey.id,
               question: survey.question,
-              date: DateFormat('dd MMM yyyy').format(survey.date),
+              date: DateFormat('dd MMM yyyy').format(survey.dateTime),
               didAnswer: survey.didAnswer))
           .toList();
       _isLoading.value = false;
