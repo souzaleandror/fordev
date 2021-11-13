@@ -30,6 +30,7 @@ class LocalLoadSurveys implements LoadSurveys {
   Future<void> validate() async {
     try {
       final data = await cacheStorage.fetch('surveys');
+
       if (data?.isEmpty != false) {
         throw Exception();
       }
@@ -38,7 +39,8 @@ class LocalLoadSurveys implements LoadSurveys {
               (json) => LocalSurveyModel.fromJson(json).toEntity())
           .toList();
     } catch (error) {
-      throw DomainError.unexpected;
+      //throw DomainError.unexpected;
+      cacheStorage.delete('surveys');
     }
   }
 }

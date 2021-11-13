@@ -19,7 +19,7 @@
 1. Sistema limpa os dados do cache
 
 > ## Exxcecao - Dados invalidos do cache
-1. sistema limpa os dados do cache
+1. ✅ sistema limpa os dados do cache
 
 ---
 

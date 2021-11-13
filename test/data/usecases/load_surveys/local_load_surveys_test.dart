@@ -148,64 +148,18 @@ void main() {
 
       verify(cacheStorage.fetch('surveys')).called(1);
     });
-    test('Should return a list of surveys on success', () async {
-      final surveys = await sut.load();
-
-      expect(surveys, [
-        SurveyEntity(
-            id: data[0]['id'],
-            question: data[0]['question'],
-            date: DateTime.utc(2020, 07, 20),
-            didAnswer: false),
-        SurveyEntity(
-            id: data[1]['id'],
-            question: data[1]['question'],
-            date: DateTime.utc(2019, 02, 02),
-            didAnswer: true),
-      ]);
-    });
-    test('Should throw UnexpectedError if cache is empty', () async {
-      mockFetch([]);
-      final future = sut.load();
-
-      expect(future, throwsA(DomainError.unexpected));
-    });
-
-    test('Should throw UnexpectedError if cache is null', () async {
-      mockFetch(null);
-      final future = sut.load();
-
-      expect(future, throwsA(DomainError.unexpected));
-    });
-    test('Should throw UnexpectedError if cache is invalid', () async {
+    test('Shoudl delete cache if it is invalid', () async {
       mockFetch([
         {
           'id': faker.guid.guid(),
           'question': faker.randomGenerator.string(10),
-          'date': 'invalid data',
+          'date': 'invalid date',
           'didAnswer': 'false',
         }
       ]);
-      final future = sut.load();
+      await sut.validate();
 
-      expect(future, throwsA(DomainError.unexpected));
-    });
-    test('Should throw UnexpectedError if cache is incomplete', () async {
-      mockFetch([
-        {
-          'date': 'invalid data',
-          'didAnswer': 'false',
-        }
-      ]);
-      final future = sut.load();
-
-      expect(future, throwsA(DomainError.unexpected));
-    });
-    test('Should throw UnexpectedError if method fetch fail', () async {
-      mockFetchError();
-      final future = sut.load();
-
-      expect(future, throwsA(DomainError.unexpected));
+      verify(cacheStorage.delete('surveys')).called(1);
     });
   });
 }
