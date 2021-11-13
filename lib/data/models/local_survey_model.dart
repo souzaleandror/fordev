@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../http/http.dart';
 import '../../domain/entities/entities.dart';
 
 class LocalSurveyModel {

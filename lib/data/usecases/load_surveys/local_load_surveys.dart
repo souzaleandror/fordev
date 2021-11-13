@@ -6,15 +6,30 @@ import 'package:fordev/domain/helpers/helpers.dart';
 import 'package:fordev/domain/usecases/usecases.dart';
 
 class LocalLoadSurveys implements LoadSurveys {
-  CacheStorage fetchCacheStorage;
+  CacheStorage cacheStorage;
 
   LocalLoadSurveys({
-    @required this.fetchCacheStorage,
+    @required this.cacheStorage,
   });
 
   Future<List<SurveyEntity>> load() async {
     try {
-      final data = await fetchCacheStorage.fetch('surveys');
+      final data = await cacheStorage.fetch('surveys');
+      if (data?.isEmpty != false) {
+        throw Exception();
+      }
+      return data
+          .map<SurveyEntity>(
+              (json) => LocalSurveyModel.fromJson(json).toEntity())
+          .toList();
+    } catch (error) {
+      throw DomainError.unexpected;
+    }
+  }
+
+  Future<void> validate() async {
+    try {
+      final data = await cacheStorage.fetch('surveys');
       if (data?.isEmpty != false) {
         throw Exception();
       }
