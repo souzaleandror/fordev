@@ -3,8 +3,9 @@ import 'package:fordev/data/cache/cache.dart';
 import 'package:fordev/data/models/models.dart';
 import 'package:fordev/domain/entities/entities.dart';
 import 'package:fordev/domain/helpers/helpers.dart';
+import 'package:fordev/domain/usecases/usecases.dart';
 
-class LocalLoadSurveys {
+class LocalLoadSurveys implements LoadSurveys {
   FetchCacheStorage fetchCacheStorage;
 
   LocalLoadSurveys({
