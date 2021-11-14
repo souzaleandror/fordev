@@ -25,6 +25,8 @@ void main() {
 
   void mockDeleteItemError() =>
       when(localStorage.deleteItem(any)).thenThrow(Exception());
+  void mockSetItemError() =>
+      when(localStorage.setItem(any, any)).thenThrow(Exception());
 
   setUp(() {
     key = faker.randomGenerator.string(5);
@@ -40,6 +42,12 @@ void main() {
   });
   test('Should throw if deleteItem throws', () async {
     mockDeleteItemError();
+    final future = sut.save(key: key, value: value);
+
+    expect(future, throwsA(type.TypeMatcher<Exception>()));
+  });
+  test('Should throw if setItem throws', () async {
+    mockSetItemError();
     final future = sut.save(key: key, value: value);
 
     expect(future, throwsA(type.TypeMatcher<Exception>()));
