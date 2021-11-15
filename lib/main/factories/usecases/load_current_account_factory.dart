@@ -1,6 +1,6 @@
-import 'package:fordev/data/usecases/usecases.dart';
-import 'package:fordev/domain/usecases/usecases.dart';
-import 'package:fordev/main/factories/factories.dart';
+import '../../../data/usecases/usecases.dart';
+import '../../../domain/usecases/usecases.dart';
+import '../../../main/factories/factories.dart';
 
 LoadCurrentAccount makeLocalLoadCurrentAccount() {
   return LocalLoadCurrentAccount(

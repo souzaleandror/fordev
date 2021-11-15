@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fordev/data/cache/cache.dart';
-import 'package:fordev/data/http/http.dart';
+
+import '../../data/cache/cache.dart';
+import '../../data/http/http.dart';
 
 class AuthorizeHttpClientDecorator implements HttpClient {
   final FetchSecureCacheStorage fetchSecureCacheStorage;

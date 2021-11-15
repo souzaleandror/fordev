@@ -1,4 +1,4 @@
-import 'package:fordev/ui/helpers/i18n/strings/translations.dart';
+import '../../../../ui/helpers/i18n/strings/translations.dart';
 
 class EnUs implements Translations {
   String get addAccount => 'Add Account';

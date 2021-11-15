@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fordev/ui/helpers/i18n/i18n.dart';
+import '../../ui/helpers/i18n/i18n.dart';
 
 void showLoading(BuildContext context) => showDialog(
       context: context,

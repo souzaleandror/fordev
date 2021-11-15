@@ -1,8 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fordev/ui/components/components.dart';
-import 'package:fordev/ui/pages/surveys/surveys.dart';
+import '../../../ui/components/components.dart';
+import '../../../ui/pages/surveys/surveys.dart';
 
 import '../../../ui/helpers/i18n/i18n.dart';
 
