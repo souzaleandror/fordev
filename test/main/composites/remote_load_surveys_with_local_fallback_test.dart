@@ -23,7 +23,7 @@ class RemoteLoadSurveysWithLocalFallback implements LoadSurveys {
     } catch (error) {
       if (error == DomainError.accessDenied) rethrow;
       await local.validate();
-      await local.load();
+      return await local.load();
     }
   }
 }
@@ -37,6 +37,7 @@ void main() {
   LocalLoadSurveysSpy local;
   RemoteLoadSurveysWithLocalFallback sut;
   List<SurveyEntity> remoteSurveys;
+  List<SurveyEntity> localSurveys;
 
   List<SurveyEntity> mockSurveys() => [
         SurveyEntity(
@@ -54,8 +55,18 @@ void main() {
     mockRemoteLoadCall().thenAnswer((_) async => remoteSurveys);
   }
 
+  PostExpectation mockLocalLoadCall() => when(local.load());
+
+  void mockLocalLoad() {
+    localSurveys = mockSurveys();
+    mockLocalLoadCall().thenAnswer((_) async => localSurveys);
+  }
+
   void mockRemoteLoadError(DomainError error) =>
       mockRemoteLoadCall().thenThrow(error);
+
+  void mockLocalLoadError() =>
+      mockLocalLoadCall().thenThrow(DomainError.unexpected);
 
   setUp(() {
     remote = RemoteLoadSurveysSpy();
@@ -65,6 +76,7 @@ void main() {
       local: local,
     );
     mockRemoteLoad();
+    mockLocalLoad();
   });
   test('Should call remote load', () async {
     await sut.load();
@@ -76,7 +88,7 @@ void main() {
 
     verify(local.save(remoteSurveys)).called(1);
   });
-  test('Should return remote data', () async {
+  test('Should return remote surveys', () async {
     final surveys = await sut.load();
 
     expect(surveys, remoteSurveys);
@@ -93,5 +105,18 @@ void main() {
 
     verify(local.validate()).called(1);
     verify(local.load()).called(1);
+  });
+  test('Should return local surveys', () async {
+    mockRemoteLoadError(DomainError.unexpected);
+    final surveys = await sut.load();
+
+    expect(surveys, localSurveys);
+  });
+  test('Should throw UnexpectedError if remote and local throws', () async {
+    mockRemoteLoadError(DomainError.unexpected);
+    mockLocalLoadError();
+    final future = sut.load();
+
+    expect(future, throwsA(DomainError.unexpected));
   });
 }
