@@ -3,7 +3,7 @@
 > ## Caso de sucesso
 1. ✅ Sistema executa o load da implementacao remota
 2. ✅ Sistema substitui os dados do Cache com os dados obtidos
-3. Sistema retorna esses dados
+3. ✅ Sistema retorna esses dados
 
 > ## Excecao - Acesso negado
 1. Sistema repassa a excecao de acesso negado
