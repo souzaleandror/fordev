@@ -75,8 +75,6 @@ void main() {
       mockFetchCall().thenAnswer((_) async => result);
     }
 
-    ;
-
     void mockFetchError() => mockFetchCall().thenThrow(Exception());
 
     setUp(() {

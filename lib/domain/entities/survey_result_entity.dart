@@ -6,17 +6,15 @@ class SurveyResultEntity extends Equatable {
   final String surveyId;
   final String question;
   final DateTime dateTime;
-  final bool didAnswer;
   final List<SurveyAnswerEntity> answers;
 
   @override
-  List get props => [surveyId, question, dateTime, didAnswer, answers];
+  List get props => [surveyId, question, dateTime, answers];
 
   SurveyResultEntity({
     @required this.surveyId,
     @required this.question,
     this.dateTime,
-    @required this.didAnswer,
     @required this.answers,
   });
 }
