@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fordev/ui/components/components.dart';
 import 'package:fordev/ui/pages/survey_result/survey_result.dart';
 
 import '../../helpers/i18n/i18n.dart';
@@ -16,6 +17,14 @@ class SurveyResultPage extends StatelessWidget {
         title: Text(R.strings.surveys),
       ),
       body: Builder(builder: (context) {
+        presenter.isLoadingStream.listen((isLoading) {
+          if (isLoading == true) {
+            showLoading(context);
+          } else {
+            hideLoading(context);
+          }
+        });
+
         presenter.loadData();
         return ListView.builder(
           itemCount: 4,
