@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:fordev/ui/helpers/errors/ui_error.dart';
+import 'package:fordev/ui/helpers/helpers.dart';
 import 'package:fordev/ui/pages/pages.dart';
 import 'package:get/get.dart';
 import 'package:mockito/mockito.dart';

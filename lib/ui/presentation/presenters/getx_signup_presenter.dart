@@ -3,7 +3,7 @@ import 'package:meta/meta.dart';
 
 import '../../../domain/helpers/helpers.dart';
 import '../../../domain/usecases/usecases.dart';
-import '../../../ui/helpers/errors/ui_error.dart';
+import '../../../ui/helpers/helpers.dart';
 import '../../../ui/pages/pages.dart';
 import '../../../ui/presentation/protocols/protocols.dart';
 import '../../../domain/usecases/add_account.dart';
