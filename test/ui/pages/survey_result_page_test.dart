@@ -89,7 +89,7 @@ void main() {
       (WidgetTester tester) async {
     await loadPage(tester);
 
-    surveyResultController.addError(UIError.unexpected.description);
+  surveyResultController.addError(UIError.unexpected.description);
     await tester.pump();
     expect(find.text('Algo Errado Aconteceu. Tente Novamente em breve.'),
         findsOneWidget);
