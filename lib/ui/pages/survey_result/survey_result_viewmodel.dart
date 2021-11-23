@@ -1,7 +1,8 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:fordev/ui/pages/survey_result/survey_result.dart';
 
-class SurveyResultViewModel {
+class SurveyResultViewModel extends Equatable {
   final String surveyId;
   final String question;
   final DateTime dateTime;
@@ -13,4 +14,6 @@ class SurveyResultViewModel {
     this.dateTime,
     @required this.answers,
   });
+
+  List get props => ['surveyId', 'question', 'dateTime', 'answers'];
 }
