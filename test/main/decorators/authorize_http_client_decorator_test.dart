@@ -1,5 +1,5 @@
 import 'package:faker/faker.dart';
-import 'package:fordev/data/cache/fetch_secure_cache_storage.dart';
+import 'package:fordev/data/cache/cache.dart';
 import 'package:fordev/data/http/http.dart';
 import 'package:fordev/main/decorators/decorators.dart';
 import 'package:mockito/mockito.dart';
@@ -8,10 +8,14 @@ import 'package:test/test.dart';
 class FetchSecureCacheStorageSpy extends Mock
     implements FetchSecureCacheStorage {}
 
+class DeleteSecureCacheStorageSpy extends Mock
+    implements DeleteSecureCacheStorage {}
+
 class HttpClientSpy extends Mock implements HttpClient {}
 
 void main() {
   FetchSecureCacheStorageSpy fetchSecureCacheStorage;
+  DeleteSecureCacheStorageSpy deleteSecureCacheStorage;
   AuthorizeHttpClientDecorator sut;
   HttpClient httpClient;
   String url;
@@ -50,9 +54,11 @@ void main() {
 
   setUp(() {
     fetchSecureCacheStorage = FetchSecureCacheStorageSpy();
+    deleteSecureCacheStorage = DeleteSecureCacheStorageSpy();
     httpClient = HttpClientSpy();
     sut = AuthorizeHttpClientDecorator(
         fetchSecureCacheStorage: fetchSecureCacheStorage,
+        deleteSecureCacheStorage: deleteSecureCacheStorage,
         decoratee: httpClient);
     url = faker.internet.httpUrl();
     method = faker.randomGenerator.string(10);
@@ -101,12 +107,14 @@ void main() {
 
     expect(response, httpResponse);
   });
+  
   test('Should throw ForbiddenError if FetchSecureCacheStorage throws',
       () async {
     mockTokenError();
     final future = sut.request(url: url, method: method, body: body);
 
     expect(future, throwsA(HttpError.forbidden));
+    verify(deleteSecureCacheStorage.deleteSecure('token')).called(1);
   });
 
   test('Should rethrow if decoratee throws', () async {
