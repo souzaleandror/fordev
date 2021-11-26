@@ -15,7 +15,7 @@ void main() {
   String token;
 
   PostExpectation mockFetchSecureCall() =>
-      when(fetchSecureCacheStorage.fetchSecure(any));
+      when(fetchSecureCacheStorage.fetch(any));
 
   void mockFetchSecure() {
     mockFetchSecureCall().thenAnswer((_) async => token);
@@ -36,7 +36,7 @@ void main() {
     await sut.load();
 
     verify(
-      fetchSecureCacheStorage.fetchSecure('token'),
+      fetchSecureCacheStorage.fetch('token'),
     );
   });
 
