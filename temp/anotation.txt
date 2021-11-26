@@ -1,3 +1,5 @@
+flutter run lib/main/main.dart 
+
 ## Secao 1: Introducao
 
 terminal:
