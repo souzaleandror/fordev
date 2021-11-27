@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fordev/ui/components/components.dart';
 import 'package:fordev/ui/pages/survey_result/survey_result.dart';
+import 'package:get/get.dart';
 
 import '../../helpers/i18n/i18n.dart';
 import 'components/components.dart';
@@ -23,6 +24,12 @@ class SurveyResultPage extends StatelessWidget {
             showLoading(context);
           } else {
             hideLoading(context);
+          }
+        });
+
+        presenter.isSessionExpiredStream.listen((isExpired) {
+          if (isExpired == true) {
+            Get.offAllNamed('/login');
           }
         });
 

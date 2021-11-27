@@ -14,3 +14,4 @@
 11. ✅ Exibir o icone ativado se for a resposta do usuario
 12. ✅ Carregar a imagem com a partir da URL correta, caso a resposta tenha imagem
 13. ✅ Nao rendereizar imagem, caso a resposta nao tenha imagem
+14. ✅ Ir para tela de Login e limpar a navegacao ao receber evento de sessionExperied como true

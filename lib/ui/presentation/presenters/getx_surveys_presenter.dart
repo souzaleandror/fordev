@@ -11,12 +11,14 @@ class GetxSurveysPresenter implements SurveysPresenter {
   final LoadSurveys loadSurveys;
 
   final _isLoading = true.obs;
+  final _isSessionExpired = RxBool();
   final _surveys = Rx<List<SurveyViewModel>>();
   var _navigateTo = RxString();
 
   Stream<bool> get isLoadingStream => _isLoading.stream;
   Stream<List<SurveyViewModel>> get surveysStream => _surveys.stream;
   Stream<String> get navigateToStream => _navigateTo.stream;
+  Stream<bool> get isSessionExpiredStream => _isSessionExpired.stream;
 
   GetxSurveysPresenter({@required this.loadSurveys});
 
@@ -32,8 +34,12 @@ class GetxSurveysPresenter implements SurveysPresenter {
               didAnswer: survey.didAnswer))
           .toList();
       _isLoading.value = false;
-    } on DomainError {
-      _surveys.subject.addError(UIError.unexpected.description);
+    } on DomainError catch (error) {
+      if (error == DomainError.accessDenied) {
+        _isSessionExpired.value = true;
+      } else {
+        _surveys.subject.addError(UIError.unexpected.description);
+      }
     } finally {
       _isLoading.value = false;
     }

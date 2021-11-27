@@ -5,6 +5,7 @@ abstract class SurveysPresenter {
   Stream<List<SurveyViewModel>> get surveysStream;
   Stream<String> get navigateToStream;
   Future<void> loadData();
+  Stream<bool> get isSessionExpiredStream;
 
   void goToSurveyResult(String surveyId);
 }
