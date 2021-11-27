@@ -7,16 +7,14 @@ import '../../helpers/errors/errors.dart';
 import '../mixins/mixins.dart';
 
 class GetxSurveyResultPresenter
-    with LoadingManager
+    with LoadingManager, SessionManager
     implements SurveyResultPresenter {
   final LoadSurveyResult loadSurveyResult;
   final String surveyId;
 
-  final _isSessionExpired = RxBool();
   final _surveyResult = Rx<SurveyResultViewModel>();
 
   Stream<SurveyResultViewModel> get surveyResultStream => _surveyResult.stream;
-  Stream<bool> get isSessionExpiredStream => _isSessionExpired.stream;
 
   GetxSurveyResultPresenter({
     @required this.loadSurveyResult,
@@ -45,7 +43,7 @@ class GetxSurveyResultPresenter
       isLoading = false;
     } on DomainError catch (error) {
       if (error == DomainError.accessDenied) {
-        _isSessionExpired.value = true;
+        isSessionExpired = true;
       } else {
         _surveyResult.subject.addError(UIError.unexpected.description);
       }
