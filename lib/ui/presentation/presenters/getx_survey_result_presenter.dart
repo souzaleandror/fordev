@@ -6,7 +6,7 @@ import '../../../domain/usecases/usecases.dart';
 import '../../helpers/errors/errors.dart';
 import '../mixins/mixins.dart';
 
-class GetxSurveyResultPresenter
+class GetxSurveyResultPresenter extends GetxController
     with LoadingManager, SessionManager
     implements SurveyResultPresenter {
   final LoadSurveyResult loadSurveyResult;
