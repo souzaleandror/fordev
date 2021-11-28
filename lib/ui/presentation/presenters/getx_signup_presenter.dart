@@ -10,7 +10,7 @@ import '../../../domain/usecases/add_account.dart';
 import '../mixins/mixins.dart';
 
 class GetxSignUpPresenter extends GetxController
-    with LoadingManager
+    with LoadingManager, FormManager, UIErrorManager, NavigationManager
     implements SignUpPresenter {
   final Validation validation;
   final AddAccount addAccount;
@@ -24,20 +24,12 @@ class GetxSignUpPresenter extends GetxController
   var _nameError = Rx<UIError>();
   var _passwordError = Rx<UIError>();
   var _passwordConfirmationError = Rx<UIError>();
-  var _isFormValid = false.obs;
-  var _mainError = Rx<UIError>();
-
-  var _navigateTo = RxString();
 
   Stream<UIError> get emailErrorStream => _emailError.stream;
   Stream<UIError> get nameErrorStream => _nameError.stream;
   Stream<UIError> get passwordErrorStream => _passwordError.stream;
   Stream<UIError> get passwordConfirmationErrorStream =>
       _passwordConfirmationError.stream;
-  Stream<bool> get isFormValidStream => _isFormValid.stream;
-  Stream<UIError> get mainErrorStream => _mainError.stream;
-
-  Stream<String> get navigateToStream => _navigateTo.stream;
 
   GetxSignUpPresenter({
     @required this.validation,
@@ -88,7 +80,7 @@ class GetxSignUpPresenter extends GetxController
   }
 
   void _validateForm() {
-    _isFormValid.value = _emailError.value == null &&
+    isFormValid = _emailError.value == null &&
         _passwordError.value == null &&
         _nameError.value == null &&
         _passwordConfirmationError.value == null &&
@@ -103,7 +95,7 @@ class GetxSignUpPresenter extends GetxController
   @override
   Future<void> signUp() async {
     try {
-      _mainError.value = null;
+      mainError = null;
       isLoading = true;
       final account = await addAccount.add(AddAccountParams(
         name: _name,
@@ -112,18 +104,18 @@ class GetxSignUpPresenter extends GetxController
         passwordConfirmation: _passwordConfirmation,
       ));
       await saveCurrentAccount.save(account);
-      _navigateTo.value = '/surveys';
+      navigateTo = '/surveys';
     } on DomainError catch (error) {
       switch (error) {
         case DomainError.emailInUse:
-          _mainError.value = UIError.emailInUse;
+          mainError = UIError.emailInUse;
           break;
         default:
-          _mainError.value = UIError.unexpected;
+          mainError = UIError.unexpected;
       }
     }
     isLoading = false;
   }
 
-  void goToLogin() => _navigateTo.value = '/login';
+  void goToLogin() => navigateTo = '/login';
 }
