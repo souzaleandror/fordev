@@ -1,53 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:fordev/ui/mixins/mixins.dart';
 import 'package:provider/provider.dart';
 
 import '../../../ui/helpers/i18n/resources.dart';
 import './components/components.dart';
 import './login.dart';
 import '../../components/components.dart';
-import '../../helpers/errors/errors.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatelessWidget
+    with KeyboardManager, LoadingManager, UIErrorManager, NavigationManager {
   final LoginPresenter presenter;
 
   LoginPage(this.presenter);
 
   @override
   Widget build(BuildContext context) {
-    void _hideKeyboard() {
-      final currentFocus = FocusScope.of(context);
-      if (!currentFocus.hasPrimaryFocus) {
-        currentFocus.unfocus();
-      }
-    }
-
     return Scaffold(
       // Builder para voce poder exibir o loading em cima da tela do singleScrollView view
       body: Builder(
         builder: (context) {
-          presenter.isLoadingStream.listen((isLoading) {
-            if (isLoading == true) {
-              showLoading(context);
-            } else {
-              hideLoading(context);
-            }
-          });
+          handleLoading(context, presenter.isLoadingStream);
 
-          presenter.mainErrorStream.listen((error) {
-            if (error != null) {
-              showErrorMessage(context, error.description);
-            }
-          });
+          handleMainError(context, presenter.mainErrorStream);
 
-          presenter.navigateToStream.listen((page) {
-            if (page?.isNotEmpty == true) {
-              Get.offAllNamed(page);
-            }
-          });
+          handleNavigation(presenter.navigateToStream, clear: true);
 
           return GestureDetector(
-            onTap: _hideKeyboard,
+            onTap: () => hideKeyboard(context),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
