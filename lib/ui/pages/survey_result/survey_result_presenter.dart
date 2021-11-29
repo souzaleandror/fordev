@@ -1,4 +1,4 @@
-import 'package:fordev/ui/pages/survey_result/survey_result.dart';
+import '../../../ui/pages/survey_result/survey_result.dart';
 
 abstract class SurveyResultPresenter {
   Stream<bool> get isLoadingStream;

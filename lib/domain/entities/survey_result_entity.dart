@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:fordev/domain/entities/survey_answer_entity.dart';
+
+import '../../domain/entities/survey_answer_entity.dart';
 
 class SurveyResultEntity extends Equatable {
   final String surveyId;

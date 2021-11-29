@@ -1,4 +1,4 @@
-import 'package:fordev/ui/helpers/helpers.dart';
+import '../../../ui/helpers/helpers.dart';
 import 'package:get/get.dart';
 
 mixin UIErrorManager on GetxController {

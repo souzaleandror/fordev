@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:fordev/data/models/remote_survey_answer_model.dart';
 
+import './remote_survey_answer_model.dart';
 import '../../domain/entities/entities.dart';
 import '../http/http.dart';
 

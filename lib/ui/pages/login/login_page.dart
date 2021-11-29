@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fordev/ui/mixins/mixins.dart';
 import 'package:provider/provider.dart';
 
+import '../../../ui/mixins/mixins.dart';
 import '../../../ui/helpers/i18n/resources.dart';
 import './components/components.dart';
 import './login.dart';

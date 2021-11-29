@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fordev/ui/components/components.dart';
-import 'package:fordev/ui/helpers/helpers.dart';
+
+import '../../ui/components/components.dart';
+import '../../ui/helpers/helpers.dart';
 
 mixin UIErrorManager {
   void handleMainError(

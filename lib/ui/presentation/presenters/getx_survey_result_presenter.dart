@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fordev/ui/pages/survey_result/survey_result.dart';
 import 'package:get/get.dart';
+
+import '../../../ui/pages/survey_result/survey_result.dart';
 import '../../../domain/helpers/helpers.dart';
 import '../../../domain/usecases/usecases.dart';
 import '../../helpers/errors/errors.dart';

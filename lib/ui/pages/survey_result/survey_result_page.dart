@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fordev/ui/components/components.dart';
-import 'package:fordev/ui/pages/survey_result/survey_result.dart';
-import 'package:fordev/ui/mixins/mixins.dart';
+
+import '../../../ui/components/components.dart';
+import '../../../ui/pages/survey_result/survey_result.dart';
+import '../../../ui/mixins/mixins.dart';
 import '../../helpers/i18n/i18n.dart';
 import 'components/components.dart';
 

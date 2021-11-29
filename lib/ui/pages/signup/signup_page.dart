@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../ui/helpers/i18n/resources.dart';
 import 'components/components.dart';
 import 'signup.dart';
-import 'package:fordev/ui/mixins/mixins.dart';
+import '../../../ui/mixins/mixins.dart';
 import '../../components/components.dart';
 
 class SignUpPage extends StatelessWidget

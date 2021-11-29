@@ -1,7 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:fordev/ui/pages/surveys/components/components.dart';
-import 'package:fordev/ui/pages/surveys/surveys.dart';
+
+import '../../../../ui/pages/surveys/components/components.dart';
+import '../../../../ui/pages/surveys/surveys.dart';
 
 class SurveyItems extends StatelessWidget {
   const SurveyItems({

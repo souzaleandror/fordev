@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fordev/ui/presentation/mixins/mixins.dart';
 import 'package:get/get.dart';
+
+import '../../../ui/presentation/mixins/mixins.dart';
 import '../../../domain/usecases/usecases.dart';
 import '../../../ui/pages/pages.dart';
 

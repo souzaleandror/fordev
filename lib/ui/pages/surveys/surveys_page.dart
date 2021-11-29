@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../../../ui/components/components.dart';
 import '../../../ui/pages/surveys/surveys.dart';
-import 'package:fordev/ui/mixins/mixins.dart';
+import '../../../ui/mixins/mixins.dart';
 import '../../../ui/helpers/i18n/i18n.dart';
 
 import 'components/components.dart';

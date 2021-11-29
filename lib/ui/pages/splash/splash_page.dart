@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fordev/ui/mixins/mixins.dart';
 import 'splash_presenter.dart';
+
+import '../../../ui/mixins/mixins.dart';
 
 class SplashPage extends StatelessWidget with NavigationManager {
   const SplashPage({Key key, @required this.presenter}) : super(key: key);

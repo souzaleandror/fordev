@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:fordev/ui/components/components.dart';
+
+import '../../ui/components/components.dart';
 
 mixin LoadingManager {
   void handleLoading(
