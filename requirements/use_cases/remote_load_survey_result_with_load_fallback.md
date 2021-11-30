@@ -2,7 +2,7 @@
 
 > ## Caso de sucesso
 1. ✅ Sistema executa o loadBySurvey da implementacao remota
-2. Sistema Substitui os dados do Cache com os dados obtidos
+2. ✅ Sistema Substitui os dados do Cache com os dados obtidos
 3. Sistema retorna esses dados
 
 > ## Excecao - Acesso Negado
