@@ -15,10 +15,16 @@ class RemoteLoadSurveyResultSpy extends Mock implements RemoteLoadSurveyResult {
 }
 
 void main() {
+  String surveyId;
+  RemoteLoadSurveyResultSpy remote;
+  RemoteLoadSurveyResultWithLocalFllback sut;
+
+  setUp(() {
+    surveyId = faker.guid.guid();
+    remote = RemoteLoadSurveyResultSpy();
+    sut = RemoteLoadSurveyResultWithLocalFllback(remote: remote);
+  });
   test('Should call remote LoadBySurvey', () async {
-    final surveyId = faker.guid.guid();
-    final remote = RemoteLoadSurveyResultSpy();
-    final sut = RemoteLoadSurveyResultWithLocalFllback(remote: remote);
     await sut.loadBySurvey(surveyId: surveyId);
 
     verify(remote.loadBySurvey(surveyId: surveyId)).called(1);
