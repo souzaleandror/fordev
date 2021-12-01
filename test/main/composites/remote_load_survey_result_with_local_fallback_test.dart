@@ -3,27 +3,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:fordev/data/usecases/usecases.dart';
 import 'package:fordev/domain/entities/entities.dart';
 import 'package:fordev/domain/helpers/helpers.dart';
-import 'package:fordev/domain/usecases/usecases.dart';
+import 'package:fordev/main/composites/composites.dart';
 import 'package:mockito/mockito.dart';
-
-class RemoteLoadSurveyResultWithLocalFllback implements LoadSurveyResult {
-  final RemoteLoadSurveyResult remote;
-  final LocalLoadSurveyResult local;
-  RemoteLoadSurveyResultWithLocalFllback({this.remote, this.local});
-  Future<SurveyResultEntity> loadBySurvey({String surveyId}) async {
-    try {
-      final surveyResult = await remote.loadBySurvey(surveyId: surveyId);
-      await local.save(surveyId: surveyId, surveyResult: surveyResult);
-      return surveyResult;
-    } catch (error) {
-      if (error == DomainError.accessDenied) {
-        rethrow;
-      }
-      await local.validate(surveyId);
-      return await local.loadBySurvey(surveyId: surveyId);
-    }
-  }
-}
 
 class RemoteLoadSurveyResultSpy extends Mock implements RemoteLoadSurveyResult {
 }
@@ -34,7 +15,7 @@ void main() {
   String surveyId;
   RemoteLoadSurveyResultSpy remote;
   LocalLoadSurveyResultSpy local;
-  RemoteLoadSurveyResultWithLocalFllback sut;
+  RemoteLoadSurveyResultWithLocalFallback sut;
   SurveyResultEntity remoteResult;
   SurveyResultEntity localResult;
 
@@ -76,7 +57,7 @@ void main() {
     surveyId = faker.guid.guid();
     remote = RemoteLoadSurveyResultSpy();
     local = LocalLoadSurveyResultSpy();
-    sut = RemoteLoadSurveyResultWithLocalFllback(remote: remote, local: local);
+    sut = RemoteLoadSurveyResultWithLocalFallback(remote: remote, local: local);
     mockRemoteLoad();
     mockLocalLoad();
   });
