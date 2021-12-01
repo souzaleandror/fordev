@@ -9,8 +9,8 @@
 1. ✅ Sistema repassa a excecao de acesso negado
 
 > ## Excecao - Qualquer outro erro
-1. Sistema executa o metodo de validar dados do cache
-2. Sistema executa o metodo de carregar dados do cache
+1. ✅ Sistema executa o metodo de validar dados do cache
+2. ✅ Sistema executa o metodo de carregar dados do cache
 3. Sistema retorna esse dados
 
 > ## Excecao - Erro ao obter dados do Cache
