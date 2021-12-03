@@ -19,6 +19,7 @@ class RemoteLoadSurveyResult implements LoadSurveyResult {
     try {
       final json = await httpClient.request(url: url, method: 'get');
       return RemoteSurveyResultModel.fromJson(json).toEntity();
+      
     } on HttpError catch (error) {
       error == HttpError.forbidden
           ? throw DomainError.accessDenied
