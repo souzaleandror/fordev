@@ -13,7 +13,7 @@
 1. ✅ Sistema retorna uma mensagem de acesso negado
 
 > ## Exceccao - Resposta Invalida
-1. Sistema retorna uma mensagem de erro inesperado
+1. ✅ Sistema retorna uma mensagem de erro inesperado
 
 > ## Excecao - Falha no Servidor - 500
-1. Sistema retorna uma mensagem de erro inesperado
+1. ✅ Sistema retorna uma mensagem de erro inesperado
