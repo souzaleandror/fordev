@@ -34,7 +34,6 @@ class GetxSurveyResultPresenter extends GetxController
     showResultOnAction(() => saveSurveyResult.save(answer: answer));
   }
 
-  @override
   Future<void> showResultOnAction(Future<SurveyResultEntity> action()) async {
     try {
       isLoading = true;
