@@ -55,11 +55,11 @@ void main() {
     mockSaveSurveyResultCall().thenAnswer((_) async => saveResult);
   }
 
-  void mockLoadSurveyResultError() =>
-      mockLoadSurveyResultCall().thenThrow(DomainError.unexpected);
+  void mockLoadSurveyResultError(DomainError error) =>
+      mockLoadSurveyResultCall().thenThrow(error);
 
-  void mockAccessDeniedError() =>
-      mockLoadSurveyResultCall().thenThrow(DomainError.accessDenied);
+  void mockSaveSurveyResultError(DomainError error) =>
+      mockSaveSurveyResultCall().thenThrow(error);
 
   setUp(() {
     surveyId = faker.guid.guid();
@@ -112,7 +112,7 @@ void main() {
       await sut.loadData();
     });
     test('Should emit correct events on fails', () async {
-      mockLoadSurveyResultError();
+      mockLoadSurveyResultError(DomainError.unexpected);
       expectLater(sut.isLoadingStream, emitsInOrder([true, false]));
       sut.surveyResultStream.listen(null,
           onError: expectAsync1(
@@ -121,7 +121,7 @@ void main() {
     });
 
     test('Should emit correct events on access denied', () async {
-      mockAccessDeniedError();
+      mockLoadSurveyResultError(DomainError.accessDenied);
       expectLater(sut.isLoadingStream, emitsInOrder([true, false]));
       expectLater(sut.isSessionExpiredStream, emits(true));
 
@@ -162,6 +162,23 @@ void main() {
           ),
         ),
       );
+
+      await sut.save(answer: answer);
+    });
+
+    test('Should emit correct events on fails', () async {
+      mockSaveSurveyResultError(DomainError.unexpected);
+      expectLater(sut.isLoadingStream, emitsInOrder([true, false]));
+      sut.surveyResultStream.listen(null,
+          onError: expectAsync1(
+              (error) => expect(error, UIError.unexpected.description)));
+      await sut.save(answer: answer);
+    });
+
+    test('Should emit correct events on access denied', () async {
+      mockSaveSurveyResultError(DomainError.accessDenied);
+      expectLater(sut.isLoadingStream, emitsInOrder([true, false]));
+      expectLater(sut.isSessionExpiredStream, emits(true));
 
       await sut.save(answer: answer);
     });
