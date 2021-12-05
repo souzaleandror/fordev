@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 import '../../../ui/components/components.dart';
@@ -10,40 +11,59 @@ import '../../../ui/helpers/i18n/i18n.dart';
 import 'components/components.dart';
 import 'surveys_presenter.dart';
 
-class SurveysPage extends StatelessWidget
-    with LoadingManager, NavigationManager, SessionManager {
+class SurveysPage extends StatefulWidget {
   const SurveysPage({Key key, this.presenter}) : super(key: key);
 
   final SurveysPresenter presenter;
 
   @override
+  _SurveysPageState createState() => _SurveysPageState();
+}
+
+class _SurveysPageState extends State<SurveysPage>
+    with LoadingManager, NavigationManager, SessionManager, RouteAware {
+  @override
+  void didPopNext() {
+    widget.presenter.loadData();
+    super.didPopNext();
+  }
+
+  @override
+  void dispose() {
+    Get.find<RouteObserver>().unsubscribe(this);
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    Get.find<RouteObserver>().subscribe(this, ModalRoute.of(context));
+
     return Scaffold(
       appBar: AppBar(
         title: Text(R.strings.surveys),
       ),
       body: Builder(
         builder: (context) {
-          handleLoading(context, presenter.isLoadingStream);
+          handleLoading(context, widget.presenter.isLoadingStream);
 
-          handleNavigation(presenter.navigateToStream, clear: false);
+          handleNavigation(widget.presenter.navigateToStream, clear: false);
 
-          handleSessionExpired(presenter.isSessionExpiredStream);
+          handleSessionExpired(widget.presenter.isSessionExpiredStream);
 
-          presenter.loadData();
+          widget.presenter.loadData();
 
           return StreamBuilder<List<SurveyViewModel>>(
-            stream: presenter.surveysStream,
+            stream: widget.presenter.surveysStream,
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 return RealodScreen(
                   error: snapshot.error,
-                  reload: presenter.loadData,
+                  reload: widget.presenter.loadData,
                 );
               }
               if (snapshot.hasData) {
                 return Provider(
-                  create: (_) => presenter,
+                  create: (_) => widget.presenter,
                   child: SurveyItems(
                     viewModels: snapshot.data,
                   ),

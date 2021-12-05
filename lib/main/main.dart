@@ -16,11 +16,13 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     //Change color time and battery in top bar IOs
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
+    final routeObserver = Get.put<RouteObserver>(RouteObserver<PageRoute>());
 
     return GetMaterialApp(
       title: '4Dev',
       debugShowCheckedModeBanner: false,
       theme: makeAppTheme(),
+      navigatorObservers: [routeObserver],
       initialRoute: '/survey_result/3',
       getPages: [
         GetPage(

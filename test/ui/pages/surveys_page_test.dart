@@ -7,6 +7,7 @@ import 'package:fordev/ui/helpers/helpers.dart';
 import 'package:fordev/ui/pages/surveys/surveys.dart';
 import 'package:get/route_manager.dart';
 import 'package:mockito/mockito.dart';
+import 'package:get/get.dart';
 
 class SurveysPresenterSpy extends Mock implements SurveysPresenter {}
 
@@ -47,9 +48,11 @@ void main() {
 
     initStreams();
     mockStreams();
+    final routeObserver = Get.put<RouteObserver>(RouteObserver<PageRoute>());
 
     final surveysPage = GetMaterialApp(
       initialRoute: '/surveys',
+      navigatorObservers: [routeObserver],
       getPages: [
         GetPage(
           name: '/surveys',
@@ -60,6 +63,9 @@ void main() {
         GetPage(
           name: '/any_route',
           page: () => Scaffold(
+            appBar: AppBar(
+              title: Text('Any Title'),
+            ),
             body: Text('fake page'),
           ),
         ),
@@ -89,11 +95,21 @@ void main() {
     closeStreams();
   });
 
-  testWidgets(
-      'Should call LoadSurveys on reload button clickLoadSurveys on page load',
+  testWidgets('Should call LoadSurveys on page load',
       (WidgetTester tester) async {
     await loadPage(tester);
     verify(presenter.loadData()).called(1);
+  });
+
+  testWidgets('Should call LoadSurveys on reload', (WidgetTester tester) async {
+    await loadPage(tester);
+
+    navigateToController.add('/any_route');
+
+    await tester.pumpAndSettle();
+    await tester.pageBack();
+
+    verify(presenter.loadData()).called(2);
   });
 
   testWidgets('Should handle loading correctly', (WidgetTester tester) async {
