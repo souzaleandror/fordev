@@ -6,6 +6,8 @@ import 'package:fordev/domain/usecases/usecases.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
+import '../../../mocks/mocks.dart';
+
 class HttpClientSpy extends Mock implements HttpClient {}
 
 void main() {
@@ -13,9 +15,7 @@ void main() {
   HttpClientSpy httpClient;
   String url;
   AuthenticationParams params;
-
-  Map mockValidData() =>
-      {'accessToken': faker.guid.guid(), 'name': faker.person.name()};
+  Map apiResult;
 
   PostExpectation mockRequest() => when(httpClient.request(
       url: anyNamed('url'),
@@ -23,6 +23,7 @@ void main() {
       body: anyNamed('body')));
 
   void mockHttpData(Map data) {
+    apiResult = data;
     mockRequest().thenAnswer((_) async => data);
   }
 
@@ -36,9 +37,8 @@ void main() {
     url = faker.internet.httpUrl();
     sut = RemoteAuthentication(
         httpClient: httpClient, url: url); //classe de teste chama sempre sut
-    params = AuthenticationParams(
-        email: faker.internet.email(), secret: faker.internet.password());
-    mockHttpData(mockValidData());
+    params = FakerParamsFactory.makeAuthentication();
+    mockHttpData(FakerAccountFactory.makeApiJson());
   });
 
   test('Should call HttpClient with correct values', () async {
@@ -127,13 +127,9 @@ void main() {
     //         method: anyNamed('method'),
     //         body: anyNamed('body')))
     //     .thenAnswer((_) async => {'accessToken': accessToken, 'name': faker.person.name()});
-
-    final validData = mockValidData();
-    mockHttpData(validData);
-
     final account = await sut?.auth(params); //action
 
-    expect(account?.token, validData['accessToken']);
+    expect(account?.token, apiResult['accessToken']);
   });
 
   test(

@@ -6,6 +6,8 @@ import 'package:fordev/domain/helpers/helpers.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
+import '../../../mocks/mocks.dart';
+
 class CacheStorageSpy extends Mock implements CacheStorage {}
 
 void main() {
@@ -14,24 +16,6 @@ void main() {
     LocalLoadSurveyResult sut;
     Map data;
     String surveyId;
-
-    Map mockValidData() => {
-          'surveyId': faker.guid.guid(),
-          'question': faker.lorem.sentence(),
-          'answers': [
-            {
-              'image': faker.internet.httpsUrl(),
-              'answer': faker.lorem.sentence(),
-              'isCurrentAnswer': 'true',
-              'percent': '40',
-            },
-            {
-              'answer': faker.lorem.sentence(),
-              'isCurrentAnswer': 'false',
-              'percent': '60',
-            },
-          ],
-        };
 
     PostExpectation mockFetchCall() => when(cacheStorage.fetch(any));
 
@@ -46,7 +30,7 @@ void main() {
       surveyId = faker.guid.guid();
       cacheStorage = CacheStorageSpy();
       sut = LocalLoadSurveyResult(cacheStorage: cacheStorage);
-      mockFetch(mockValidData());
+      mockFetch(FakeSurveyResultFactory.makeCacheJson());
     });
     test('Should call CacheStorage with correct key', () async {
       await sut.loadBySurvey(surveyId: surveyId);
@@ -92,28 +76,13 @@ void main() {
       expect(future, throwsA(DomainError.unexpected));
     });
     test('Should throw UnexpectedError if cache is invalid', () async {
-      mockFetch(
-        {
-          'surveyId': faker.guid.guid(),
-          'question': faker.lorem.sentence(),
-          'answers': [
-            {
-              'image': faker.internet.httpsUrl(),
-              'answer': faker.lorem.sentence(),
-              'isCurrentAnswer': 'invalid bool',
-              'percent': 'invalid int',
-            }
-          ]
-        },
-      );
+      mockFetch(FakeSurveyResultFactory.makeInvalidCacheJson());
       final future = sut.loadBySurvey(surveyId: surveyId);
 
       expect(future, throwsA(DomainError.unexpected));
     });
     test('Should throw UnexpectedError if cache is incomplete', () async {
-      mockFetch({
-        'surveyId': faker.guid.guid(),
-      });
+      mockFetch(FakeSurveyResultFactory.makeIncompleteCacheJson());
       final future = sut.loadBySurvey(surveyId: surveyId);
 
       expect(future, throwsA(DomainError.unexpected));
@@ -132,24 +101,6 @@ void main() {
     Map data;
     String surveyId;
 
-    Map mockValidData() => {
-          'surveyId': faker.guid.guid(),
-          'question': faker.lorem.sentence(),
-          'answers': [
-            {
-              'image': faker.internet.httpsUrl(),
-              'answer': faker.lorem.sentence(),
-              'isCurrentAnswer': 'true',
-              'percent': '40',
-            },
-            {
-              'answer': faker.lorem.sentence(),
-              'isCurrentAnswer': 'false',
-              'percent': '60',
-            },
-          ],
-        };
-
     PostExpectation mockFetchCall() => when(cacheStorage.fetch(any));
 
     void mockFetch(Map json) {
@@ -163,7 +114,7 @@ void main() {
       surveyId = faker.guid.guid();
       cacheStorage = CacheStorageSpy();
       sut = LocalLoadSurveyResult(cacheStorage: cacheStorage);
-      mockFetch(mockValidData());
+      mockFetch(FakeSurveyResultFactory.makeCacheJson());
     });
     test('Should call CacheStorage with correct key', () async {
       await sut.validate(surveyId);
@@ -171,28 +122,13 @@ void main() {
       verify(cacheStorage.fetch('survey_result/$surveyId')).called(1);
     });
     test('Should delete cache if it is invalid', () async {
-      mockFetch(
-        {
-          'surveyId': faker.guid.guid(),
-          'question': faker.lorem.sentence(),
-          'answers': [
-            {
-              'image': faker.internet.httpsUrl(),
-              'answer': faker.lorem.sentence(),
-              'isCurrentAnswer': 'invalid bool',
-              'percent': 'invalid int',
-            }
-          ]
-        },
-      );
+      mockFetch(FakeSurveyResultFactory.makeInvalidCacheJson());
       await sut.validate(surveyId);
 
       verify(cacheStorage.delete('survey_result/$surveyId')).called(1);
     });
     test('Should delete cache if it is incomplete', () async {
-      mockFetch({
-        'surveyId': faker.guid.guid(),
-      });
+      mockFetch(FakeSurveyResultFactory.makeIncompleteCacheJson());
       await sut.validate(surveyId);
 
       verify(cacheStorage.delete('survey_result/$surveyId')).called(1);
@@ -216,28 +152,10 @@ void main() {
 
     void mockSaveError() => mockSaveCall().thenThrow(Exception());
 
-    SurveyResultEntity mockSurveyResult() => SurveyResultEntity(
-          surveyId: faker.guid.guid(),
-          question: faker.lorem.sentence(),
-          answers: [
-            SurveyAnswerEntity(
-              image: faker.internet.httpUrl(),
-              answer: faker.lorem.sentence(),
-              percent: 40,
-              isCurrentAnswer: true,
-            ),
-            SurveyAnswerEntity(
-              answer: faker.lorem.sentence(),
-              percent: 60,
-              isCurrentAnswer: false,
-            ),
-          ],
-        );
-
     setUp(() {
       cacheStorage = CacheStorageSpy();
       sut = LocalLoadSurveyResult(cacheStorage: cacheStorage);
-      surveyResult = mockSurveyResult();
+      surveyResult = FakeSurveyResultFactory.makeEntity();
     });
     test('Should call CacheStorage with correct values', () async {
       final json = {

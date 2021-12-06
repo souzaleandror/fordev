@@ -1,10 +1,10 @@
-import 'package:faker/faker.dart';
 import 'package:fordev/data/usecases/load_surveys/load_surveys.dart';
 import 'package:fordev/domain/entities/survey_entity.dart';
 import 'package:fordev/domain/helpers/helpers.dart';
 import 'package:fordev/main/composites/composites.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
+import './../../mocks/mocks.dart';
 
 class RemoteLoadSurveysSpy extends Mock implements RemoteLoadSurveys {}
 
@@ -17,26 +17,17 @@ void main() {
   List<SurveyEntity> remoteSurveys;
   List<SurveyEntity> localSurveys;
 
-  List<SurveyEntity> mockSurveys() => [
-        SurveyEntity(
-          id: faker.guid.guid(),
-          question: faker.randomGenerator.string(10),
-          dateTime: faker.date.dateTime(),
-          didAnswer: faker.randomGenerator.boolean(),
-        ),
-      ];
-
   PostExpectation mockRemoteLoadCall() => when(remote.load());
 
   void mockRemoteLoad() {
-    remoteSurveys = mockSurveys();
+    remoteSurveys = FakeSurveysFactory.makeEntities();
     mockRemoteLoadCall().thenAnswer((_) async => remoteSurveys);
   }
 
   PostExpectation mockLocalLoadCall() => when(local.load());
 
   void mockLocalLoad() {
-    localSurveys = mockSurveys();
+    localSurveys = FakeSurveysFactory.makeEntities();
     mockLocalLoadCall().thenAnswer((_) async => localSurveys);
   }
 

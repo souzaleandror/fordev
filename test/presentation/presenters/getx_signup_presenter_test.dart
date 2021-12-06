@@ -9,6 +9,7 @@ import 'package:test/test.dart';
 
 import 'package:fordev/ui/presentation/protocols/validation.dart';
 import 'package:fordev/ui/presentation/presenters/presenters.dart';
+import './../../mocks/mocks.dart';
 
 class ValidationSpy extends Mock implements Validation {}
 
@@ -25,7 +26,7 @@ void main() {
   String name;
   String password;
   String passwordConfirmation;
-  String token;
+  AccountEntity account;
 
   PostExpectation mockValidationCall(String field) => when(validation.validate(
       field: field == null ? anyNamed('field') : field,
@@ -37,8 +38,9 @@ void main() {
 
   PostExpectation mockAddAccountCall() => when(addAccount.add(any));
 
-  void mockAddAccount() {
-    mockAddAccountCall().thenAnswer((_) async => AccountEntity(token));
+  void mockAddAccount(AccountEntity data) {
+    account = data;
+    mockAddAccountCall().thenAnswer((_) async => data);
   }
 
   void mockAddAccountError(DomainError error) {
@@ -61,9 +63,9 @@ void main() {
     name = faker.person.name();
     password = faker.internet.password();
     passwordConfirmation = faker.internet.password();
-    token = faker.guid.guid();
+
     mockValidation();
-    mockAddAccount();
+    mockAddAccount(FakerAccountFactory.makeEntity());
   });
 
   test('Should call Validation with correct email', () {
@@ -297,7 +299,7 @@ void main() {
 
     await sut.signUp();
 
-    verify(saveCurrentAccount.save(AccountEntity(token))).called(1);
+    verify(saveCurrentAccount.save(account)).called(1);
   });
 
   test('Should emit UnexpectedError if SaveCurrentAccount fails', () async {

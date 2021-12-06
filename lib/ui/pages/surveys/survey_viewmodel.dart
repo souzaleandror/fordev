@@ -14,5 +14,5 @@ class SurveyViewModel extends Equatable {
     @required this.didAnswer,
   });
 
-  List get props => ['id', 'question', 'didAnswer', 'date'];
+  List get props => [id, question, didAnswer, date];
 }

@@ -7,6 +7,7 @@ import 'package:fordev/ui/helpers/helpers.dart';
 import 'package:fordev/ui/pages/surveys/surveys.dart';
 import 'package:mockito/mockito.dart';
 import '../helpers/heleprs.dart';
+import '../../mocks/mocks.dart';
 
 class SurveysPresenterSpy extends Mock implements SurveysPresenter {}
 
@@ -51,17 +52,6 @@ void main() {
     await tester.pumpWidget(makePage(
         path: '/surveys', page: () => SurveysPage(presenter: presenter)));
   }
-
-  List<SurveyViewModel> makeSurveys() => [
-        SurveyViewModel(
-            id: '1', question: 'Question 1', date: 'Date 1', didAnswer: false),
-        SurveyViewModel(
-          id: '2',
-          question: 'Question 2',
-          date: 'Date 2',
-          didAnswer: true,
-        ),
-      ];
 
   tearDown(() {
     closeStreams();
@@ -120,7 +110,7 @@ void main() {
       (WidgetTester tester) async {
     await loadPage(tester);
 
-    loadSurveysController.add(makeSurveys());
+    loadSurveysController.add(FakeSurveysFactory.makeViewModel());
     await tester.pump();
     expect(find.text('Algo Errado Aconteceu. Tente Novamente em breve.'),
         findsNothing);
@@ -146,7 +136,7 @@ void main() {
       (WidgetTester tester) async {
     await loadPage(tester);
 
-    loadSurveysController.add(makeSurveys());
+    loadSurveysController.add(FakeSurveysFactory.makeViewModel());
     await tester.pump();
 
     await tester.tap(find.text('Question 1'));
