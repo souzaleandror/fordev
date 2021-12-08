@@ -106,7 +106,5 @@ class StreamLoginPresenter implements LoginPresenter {
   }
 
   @override
-  void goToSignUp() {
-    _state.navigateTo = '/signup';
-  }
+  void goToSignUp() => _state.navigateTo = '/signup';
 }

@@ -11,21 +11,19 @@ class SurveyResult extends StatelessWidget {
   final void Function({@required String answer}) onSave;
 
   @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: viewModel.answers.length + 1,
-      itemBuilder: (context, index) {
-        if (index == 0) {
-          return SurveyHeader(
-            question: viewModel.question,
-          );
-        }
-        final answer = viewModel.answers[index - 1];
-        return GestureDetector(
-            onTap: () =>
-                answer.isCurrentAnswer ? null : onSave(answer: answer.answer),
-            child: SurveyAnswer(viewModel: answer));
-      },
-    );
-  }
+  Widget build(BuildContext context) => ListView.builder(
+        itemCount: viewModel.answers.length + 1,
+        itemBuilder: (context, index) {
+          if (index == 0) {
+            return SurveyHeader(
+              question: viewModel.question,
+            );
+          }
+          final answer = viewModel.answers[index - 1];
+          return GestureDetector(
+              onTap: () =>
+                  answer.isCurrentAnswer ? null : onSave(answer: answer.answer),
+              child: SurveyAnswer(viewModel: answer));
+        },
+      );
 }

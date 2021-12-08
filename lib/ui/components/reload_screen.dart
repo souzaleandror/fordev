@@ -13,28 +13,26 @@ class RealodScreen extends StatelessWidget {
   final Future<void> Function() reload;
 
   @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(40),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            this.error,
-            style: TextStyle(fontSize: 16),
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          RaisedButton(
-            onPressed: reload,
-            child: Text(
-              R.strings.realoading,
+  Widget build(BuildContext context) => Padding(
+        padding: EdgeInsets.all(40),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              this.error,
+              style: TextStyle(fontSize: 16),
+              textAlign: TextAlign.center,
             ),
-          ),
-        ],
-      ),
-    );
-  }
+            SizedBox(
+              height: 10,
+            ),
+            RaisedButton(
+              onPressed: reload,
+              child: Text(
+                R.strings.realoading,
+              ),
+            ),
+          ],
+        ),
+      );
 }
