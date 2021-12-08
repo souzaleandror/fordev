@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:fordev/domain/entities/entities.dart';
+
+import '../../domain/entities/entities.dart';
 
 class LocalSurveyAnswerModel {
   final String image;

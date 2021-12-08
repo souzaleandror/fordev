@@ -1,0 +1,196 @@
+Seção 1: Introdução
+1. Pra quem é esse curso?
+2. Configurando o Git
+3. Ajuste da aula anterior         
+4. Dica para o treinamento
+
+Seção 2: Authentication - Domain e Data Layers
+5. BDD, UseCase e Diagrama de Dependências       
+6. Criando o Authentication UseCase
+7. Criando o RemoteAuthentication e integrando com o HttpClient
+8. Testando o body do request
+9. Testando casos de exceção do HttpClient
+10. Testando caso de sucesso
+
+Seção 3: Infra Layer - Post
+11. Criando o HttpAdapter e testando o post
+12. Testando casos de sucesso
+13. Testando casos de erro
+
+Seção 4: Login - UI Layer
+14. Criando os Widgets da tela de Login
+15. Criando estilo para os Widgets
+16. Criando ícone para o aplicativo
+17. MVC vs MVVM vs MVP vs BLOC
+18. Testando estado inicial do LoginPage
+19. Testando estados do formulário no LoginPage
+20. Testando estados da ação de fazer login
+21. Reutilizando o presenter nos Widgets com Provider
+
+Seção 5: Login - Presentation Layer
+22. Criando o LoginPresenter com StreamController
+23. Integrando o StreamLoginPresenter com o Validation
+24. Integrando o StreamLoginPresenter com o Authentication
+
+Seção 6: Validation Layer
+25. Criando o RequiredFieldValidation
+26. Criando o EmailValidation       
+27. Criando o ValidationComposite
+
+Seção 7: Login - Main Layer
+28. Fazendo a composição da tela de Login
+29. Aplicando o Design Pattern Builder       
+30. Tornando o construtor do ValidationBuilder privado
+
+Seção 8: Usando o GetX como gerenciador de estado
+31. Refatorando para usar o GetX como gerenciador de estado
+
+Seção 9: Gravando o token no Cache de forma segura
+32. Criando caso de uso para gravar o token de acesso no cache
+33. Criando o LocalSaveCurrentAccount
+34. Criando o LocalStorageAdapter e integrando
+35. Integrando o LoginPresenter ao SaveCurrentAccount
+
+Seção 10: Splash Screen
+36. Criando o caso de uso para carregar os dados da conta 
+37. Criando o LocalLoadCurrentAccount
+38. Integrando o FetchSecureCacheStorage ao LocalStorageAdapter
+39. Criando a tela de Splash         
+40. Criando o Presenter para o Splash Page com GetX
+41. Fazendo a composição do Splash Page       
+
+Seção 11: i18n
+42. Aplicando i18n
+43. Refatorando o projeto para centralizar as traduções na UI Layer
+
+Seção 12: SignUp - Domain e Data Layers
+44. Criando o UseCase do AddAccount
+45. Testando a implementação do AddAccount UseCase voltado para API
+
+Seção 13: SignUp - UI Layer
+46. Testando o estado inicial do SignUp Page
+47. Testando a validação do formulário do SignUp Page
+48. Finalizando os testes do SignUp Page
+
+Seção 14: SignUp - Presentation Layer
+49. Testando o Validation no SignUpPresenter
+50. Testando o AddAccount no SignUpPresenter
+51. Testando navegação entre as telas de Login e SignUp
+
+Seção 15: SignUp - Validation Layer
+52. Criando o MinLengthValidation
+53. Criando o CompareFieldsValidation
+54. Refatorando o projeto por conta de uma modelagem
+
+Seção 16: SignUp - Main Layer
+55. Fazendo a composição do SignUp
+56. Correção de bug encontrado
+
+Seção 17: Surveys - Domain e Data Layers
+57. Criando o LoadSurveys UseCase        
+58. Testando a integração do RemoteLoadSurveys com o HttpClient
+59. Testando casos de sucesso da API      
+60. Testando casos de exceção da API  
+
+Seção 18: Surveys - Infra Layer
+61. Implementando o Get no HttpAdapter
+
+Seção 19: Surveys - UI Layer
+62. Criando a interface da tela de Surveys       
+63. Testando o estado inicial e a stream de loading
+64. Testando a stream de dados da enquete
+65. Testando dados corretos das enquetes
+
+Seção 20: Surveys - Presentation Layer
+66. Criando o GetxSurveysPresenter e testando 
+67. Movendo o GetxSurveysPresenter para
+
+Seção 21: Surveys - Main Layer
+68. Fazendo a composição do Surveys Page       
+69. Adicionando headers no HttpClient
+70. Aplicando o Design Pattern Decorator
+71. Alterando a composição para usar o Decorator
+72. Correção de bug encontrado<
+
+Seção 22: Surveys Offline - Data Layer
+73. Criando os requerimentos para listar enquet
+74. Testando o caso de sucesso do LocalLoadSurveys
+75. Testando casos de erro do LoadLocalSurveys
+76. Fazendo o LocalLoadSurveys implementar 
+77. Fazendo o LocalLoadSurveys implementar
+
+Seção 23: Surveys Offline - Infra Layer
+78. Separando a implementação do cache e do cache
+79. Testando o Save do LocalStorageAdapter
+80. Testando o Delete do LocalStorageAdapter
+81. Testando o Fetch do LocalStorageAdapter
+
+Seção 24: Surveys Offline - Main Layer
+82. Movendo o ValidationComposite para o Main
+83. Testando caso de sucesso do Composite
+84. Testando casos de exceção do Composite
+85. Fazendo a composição com o novo Composite
+
+Seção 25: SurveyResult - Domain e Data Layers
+86. Criando o caso de uso do LoadSurveyResult
+87. Criando a implementação do LoadSurveyResul
+
+Seção 26: SurveyResult - UI Layer
+88. Criando a estrutura de arquivos         
+89. Criando o layout da tela de resultado da enquete
+90. Testando o estado inicial e a stream de loading
+91. Testando casos de erro
+92. Testando caso de sucesso       
+93. Refatorando o código        
+
+Seção 27: SurveyResult - Presentation e Main Layers
+94. Criando o GetxSurveyResultPresenter e testando
+95. Adicionando link entre Survey e SurveyResult
+96. Criando a composição da tela de resultado da enquete
+97. Limpando o token de acesso do Cache no erro 403
+98. Deslogando o usuário em caso de acesso negado
+99. Aplicando o DRY com o uso de Mixins nos Presenters
+100. Aplicando o DRY com o uso de Mixins nos Widgets
+101. Evitando Memory Leaks
+
+Seção 28: SurveyResult Offline - Data Layer
+102. Implementando o método de Load       
+103. Implementando o método de Validate
+104. Implementando o método de Save       
+
+Seção 29: SurveyResult Offline - Main Layer
+105. Aplicando o Design Pattern Composite 1/2
+106. Aplicando o Design Pattern Composite 2/2
+107. Alterando a composição do SurveyResult para 
+108. Ajuste no save do LocalLoadSurveyResult
+
+Seção 30: SaveSurveyResult
+109. Domain Layer
+110. Data Layer
+111. Infra Layer
+112. UI Layer
+113. Presentation Layer
+114. Main Layer
+115. Correção de bugs encontrados
+116. Fazendo reload de uma tela após o evento de back do navigation
+
+Seção 31: Refactoring
+117. Simplificando os testes de UI com helpers
+118. Refatorando os Mocks 1/3
+119. Refatorando os Mocks 2/3
+120. Refatorando os Mocks 3/3
+
+Seção 32: Migrando Para Null Safety
+121. Migrando para a versão nova do Flutter com FVM
+122. Migrando mockito para mocktail         
+123. Removendo meta.dart
+124. Corrigindo erros da pasta lib
+125. Corrigindo erros da pasta test
+126. Refatorando os mocks
+127. Corrigindo bug do mocktail que retorna null pra to
+128. Extraindo mocks do Data Layer
+129. Extraindo mocks do Infra Layer
+130. Extraindo mocks do Main Layer
+131. Extraindo mocks do Presentation Layer>
+132. Extraindo mocks do UI Layer
+133. Ajustes finais

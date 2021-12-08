@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fordev/domain/entities/entities.dart';
 import 'package:get/get.dart';
 
+import '../../../domain/entities/entities.dart';
 import '../../../ui/pages/survey_result/survey_result.dart';
 import '../../../domain/helpers/helpers.dart';
 import '../../../domain/usecases/usecases.dart';

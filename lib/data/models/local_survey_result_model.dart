@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fordev/data/models/models.dart';
-import 'package:fordev/domain/entities/entities.dart';
+
+import '../../data/models/models.dart';
+import '../../domain/entities/entities.dart';
 
 class LocalSurveyResultModel {
   final String surveyId;

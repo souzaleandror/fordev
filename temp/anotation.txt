@@ -1,5 +1,12 @@
 flutter run lib/main/main.dart 
 
+Antes do null safety ate aula 120
+Version flutter 1.22.5
+Dart 2.10.4
+
+Depois:
+Version flutter 2.5.1
+
 ## Secao 1: Introducao
 
 terminal:

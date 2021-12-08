@@ -1,5 +1,5 @@
-import 'package:fordev/domain/entities/entities.dart';
-import 'package:fordev/ui/pages/survey_result/survey_result.dart';
+import '../../../domain/entities/entities.dart';
+import '../../../ui/pages/survey_result/survey_result.dart';
 
 extension SurveyAnswerEntityExntesion on SurveyAnswerEntity {
   SurveyAnswerViewModel toViewModel() => SurveyAnswerViewModel(

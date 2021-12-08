@@ -1,0 +1,32 @@
+Seção 1: Introdução
+Seção 2: Authentication - Domain e Data Layers
+Seção 3: Infra Layer - Post
+Seção 4: Login - UI Layer
+Seção 5: Login - Presentation Layer
+Seção 6: Validation Layer
+Seção 7: Login - Main Layer
+Seção 8: Usando o GetX como gerenciador de estado
+Seção 9: Gravando o token no Cache de forma segura
+Seção 10: Splash Screen
+Seção 11: i18n
+Seção 12: SignUp - Domain e Data Layers
+Seção 13: SignUp - UI Layer
+Seção 14: SignUp - Presentation Layer
+Seção 15: SignUp - Validation Layer
+Seção 16: SignUp - Main Layer
+Seção 17: Surveys - Domain e Data Layers
+Seção 18: Surveys - Infra Layer
+Seção 19: Surveys - UI Layer
+Seção 20: Surveys - Presentation Layer
+Seção 21: Surveys - Main Layer
+Seção 22: Surveys Offline - Data Layer
+Seção 23: Surveys Offline - Infra Layer
+Seção 24: Surveys Offline - Main Layer
+Seção 25: SurveyResult - Domain e Data Layers
+Seção 26: SurveyResult - UI Layer
+Seção 27: SurveyResult - Presentation e Main Layers
+Seção 28: SurveyResult Offline - Data Layer
+Seção 29: SurveyResult Offline - Main Layer
+Seção 30: SaveSurveyResult
+Seção 31: Refactoring
+Seção 32: Migrando Para Null Safety

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../entities/entities.dart';
 
 abstract class SaveSurveyResult {
