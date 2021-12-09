@@ -1,6 +1,12 @@
 # This is a generated file; do not edit or check into version control.
-flutter_secure_storage=/Users/leandrorodrigues/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_secure_storage-3.3.5/
-path_provider=/Users/leandrorodrigues/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-1.6.28/
-path_provider_linux=/Users/leandrorodrigues/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_linux-0.0.1+2/
-path_provider_macos=/Users/leandrorodrigues/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_macos-0.0.4+8/
-path_provider_windows=/Users/leandrorodrigues/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_windows-0.0.4+3/
+flutter_secure_storage=/Users/leandrorodrigues/.pub-cache/hosted/pub.dartlang.org/flutter_secure_storage-5.0.2/
+flutter_secure_storage_linux=/Users/leandrorodrigues/.pub-cache/hosted/pub.dartlang.org/flutter_secure_storage_linux-1.1.0/
+flutter_secure_storage_macos=/Users/leandrorodrigues/.pub-cache/hosted/pub.dartlang.org/flutter_secure_storage_macos-1.1.0/
+flutter_secure_storage_web=/Users/leandrorodrigues/.pub-cache/hosted/pub.dartlang.org/flutter_secure_storage_web-1.0.2/
+flutter_secure_storage_windows=/Users/leandrorodrigues/.pub-cache/hosted/pub.dartlang.org/flutter_secure_storage_windows-1.1.2/
+path_provider=/Users/leandrorodrigues/.pub-cache/hosted/pub.dartlang.org/path_provider-2.0.8/
+path_provider_android=/Users/leandrorodrigues/.pub-cache/hosted/pub.dartlang.org/path_provider_android-2.0.9/
+path_provider_ios=/Users/leandrorodrigues/.pub-cache/hosted/pub.dartlang.org/path_provider_ios-2.0.7/
+path_provider_linux=/Users/leandrorodrigues/.pub-cache/hosted/pub.dartlang.org/path_provider_linux-2.1.2/
+path_provider_macos=/Users/leandrorodrigues/.pub-cache/hosted/pub.dartlang.org/path_provider_macos-2.0.4/
+path_provider_windows=/Users/leandrorodrigues/.pub-cache/hosted/pub.dartlang.org/path_provider_windows-2.0.4/
