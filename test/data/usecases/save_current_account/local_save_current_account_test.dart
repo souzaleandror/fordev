@@ -3,7 +3,7 @@ import 'package:fordev/data/cache/cache.dart';
 import 'package:fordev/data/usecases/save_current_account/save_current_account.dart';
 
 import 'package:fordev/domain/helpers/helpers.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
 import 'package:fordev/domain/entities/account_entity.dart';
@@ -12,9 +12,9 @@ class SaveSecureCacheStorageSpy extends Mock implements SaveSecureCacheStorage {
 }
 
 void main() {
-  LocalSaveCurrentAccount sut;
-  SaveSecureCacheStorage saveSecureCacheStorage;
-  AccountEntity account;
+  late LocalSaveCurrentAccount sut;
+  late SaveSecureCacheStorage saveSecureCacheStorage;
+  late AccountEntity account;
 
   setUp(() {
     saveSecureCacheStorage = SaveSecureCacheStorageSpy();
@@ -24,15 +24,15 @@ void main() {
   });
 
   void mockError() {
-    when(saveSecureCacheStorage.saveSecure(
-            key: anyNamed('key'), value: anyNamed('value')))
-        .thenThrow(Exception());
+    when(() => saveSecureCacheStorage.saveSecure(
+        key: any(named: 'key'),
+        value: any(named: 'value'))).thenThrow(Exception());
   }
 
   test('Should call SaveSecureCacheStorage with correct values', () async {
     await sut.save(account);
 
-    verify(
+    verify(() =>
         saveSecureCacheStorage.saveSecure(key: 'token', value: account.token));
   });
 

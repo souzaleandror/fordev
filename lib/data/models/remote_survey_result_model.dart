@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 import './remote_survey_answer_model.dart';
 import '../../domain/entities/entities.dart';
 import '../http/http.dart';
@@ -10,9 +8,9 @@ class RemoteSurveyResultModel {
   final List<RemoteSurveyAnswerModel> answers;
 
   RemoteSurveyResultModel({
-    @required this.surveyId,
-    @required this.question,
-    @required this.answers,
+    required this.surveyId,
+    required this.question,
+    required this.answers,
   });
 
   factory RemoteSurveyResultModel.fromJson(Map json) {

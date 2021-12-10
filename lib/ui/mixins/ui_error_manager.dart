@@ -9,9 +9,7 @@ mixin UIErrorManager {
     Stream<UIError> stream,
   ) {
     stream.listen((error) {
-      if (error != null) {
-        showErrorMessage(context, error.description);
-      }
+      showErrorMessage(context, error.description);
     });
   }
 }

@@ -1,8 +1,7 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 
 class SurveyAnswerEntity extends Equatable {
-  final String image;
+  final String? image;
   final String answer;
   final bool isCurrentAnswer;
   final int percent;
@@ -12,8 +11,8 @@ class SurveyAnswerEntity extends Equatable {
 
   SurveyAnswerEntity({
     this.image,
-    @required this.answer,
-    @required this.isCurrentAnswer,
-    @required this.percent,
+    required this.answer,
+    required this.isCurrentAnswer,
+    required this.percent,
   });
 }

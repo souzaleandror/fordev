@@ -1,12 +1,11 @@
-import 'package:flutter/material.dart';
 import 'package:localstorage/localstorage.dart';
 
 import '../../data/cache/cache.dart';
 
 class LocalStorageAdapter implements CacheStorage {
   LocalStorage localStorage;
-  LocalStorageAdapter({this.localStorage});
-  Future<void> save({@required String key, @required dynamic value}) async {
+  LocalStorageAdapter({required this.localStorage});
+  Future<void> save({required String key, required dynamic value}) async {
     await localStorage.ready;
     await localStorage.deleteItem(key);
     await localStorage.setItem(key, value);

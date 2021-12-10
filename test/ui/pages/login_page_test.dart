@@ -5,19 +5,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fordev/ui/helpers/helpers.dart';
 import 'package:fordev/ui/pages/pages.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import '../helpers/heleprs.dart';
 
 class LoginPresenterSpy extends Mock implements LoginPresenter {}
 
 void main() {
-  LoginPresenter presenter;
-  StreamController<UIError> emailErrorController;
-  StreamController<UIError> passwordErrorController;
-  StreamController<String> navigateToController;
-  StreamController<bool> isFormValidController;
-  StreamController<bool> isLoadingController;
-  StreamController<UIError> mainErrorController;
+  late LoginPresenter presenter;
+  late StreamController<UIError> emailErrorController;
+  late StreamController<UIError> passwordErrorController;
+  late StreamController<String> navigateToController;
+  late StreamController<bool> isFormValidController;
+  late StreamController<bool> isLoadingController;
+  late StreamController<UIError> mainErrorController;
 
   void initStreams() {
     emailErrorController = StreamController<UIError>();
@@ -29,17 +29,17 @@ void main() {
   }
 
   void mockStreams() {
-    when(presenter.emailErrorStream)
+    when(() => presenter.emailErrorStream)
         .thenAnswer((_) => emailErrorController.stream);
-    when(presenter.passwordErrorStream)
+    when(() => presenter.passwordErrorStream)
         .thenAnswer((_) => passwordErrorController.stream);
-    when(presenter.navigateToStream)
+    when(() => presenter.navigateToStream)
         .thenAnswer((_) => navigateToController.stream);
-    when(presenter.isFormValidStream)
+    when(() => presenter.isFormValidStream)
         .thenAnswer((_) => isFormValidController.stream);
-    when(presenter.isLoadingStream)
+    when(() => presenter.isLoadingStream)
         .thenAnswer((_) => isLoadingController.stream);
-    when(presenter.mainErrorStream)
+    when(() => presenter.mainErrorStream)
         .thenAnswer((_) => mainErrorController.stream);
   }
 
@@ -88,7 +88,7 @@ void main() {
 
     // Aqui temos que retornar um widget, porque vamos comparar uma funcao e por isso temos que usar o tester.widget
     // E retornamos um widget e assim podemos usar a propriedade onPressed do button
-    final button = tester.widget<RaisedButton>(find.byType(RaisedButton));
+    final button = tester.widget<ElevatedButton>(find.byType(ElevatedButton));
     expect(button.onPressed, null);
     expect(find.byType(CircularProgressIndicator), findsNothing);
   });
@@ -100,12 +100,12 @@ void main() {
     final email = faker.internet.email();
     await tester.enterText(find.bySemanticsLabel('Email'), email);
 
-    verify(presenter.validateEmail(email));
+    verify(() => presenter.validateEmail(email));
 
     final senha = faker.internet.password();
     await tester.enterText(find.bySemanticsLabel('Senha'), senha);
 
-    verify(presenter.validatePassword(senha));
+    verify(() => presenter.validatePassword(senha));
   });
 
   testWidgets('Should present error if email is invalid',
@@ -213,7 +213,7 @@ void main() {
     // forca uma rederizacao da tela e atualiza todos os componentes da tela com o estado novo
     await tester.pump();
 
-    final button = tester.widget<RaisedButton>(find.byType(RaisedButton));
+    final button = tester.widget<ElevatedButton>(find.byType(ElevatedButton));
     expect(button.onPressed, isNotNull);
   });
 
@@ -225,21 +225,21 @@ void main() {
     // forca uma rederizacao da tela e atualiza todos os componentes da tela com o estado novo
     await tester.pump();
 
-    final button = tester.widget<RaisedButton>(find.byType(RaisedButton));
+    final button = tester.widget<ElevatedButton>(find.byType(ElevatedButton));
     expect(button.onPressed, null);
   });
 
   testWidgets('Should call authentication on form submit',
       (WidgetTester tester) async {
     await loadPage(tester);
-    final button = find.byType(RaisedButton);
+    final button = find.byType(ElevatedButton);
     isFormValidController.add(true);
     await tester.pump();
     await tester.ensureVisible(button);
     await tester.tap(button);
     await tester.pump();
 
-    verify(presenter.auth()).called(1);
+    verify(() => presenter.auth()).called(1);
   });
 
   // teste foi substituido por esse => Should handle loading correctly
@@ -336,14 +336,14 @@ void main() {
     await tester.tap(button);
     await tester.pump();
 
-    verify(presenter.goToSignUp()).called(1);
+    verify(() => presenter.goToSignUp()).called(1);
   });
 
   // testWidgets('Should close streams on dispose', (WidgetTester tester) async {
   //   await loadPage(tester);
 
   //   addTearDown(() {
-  //     verify(presenter.dispose()).called(1);
+  //     verify(() => presenter.dispose()).called(1);
   //   });
   // });
 }

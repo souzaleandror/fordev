@@ -7,7 +7,7 @@ class PasswordValidation extends Equatable implements FieldValidation {
   final String field;
   PasswordValidation(this.field);
 
-  ValidationError validate(Map input) {
+  ValidationError? validate(Map input) {
     final regex = RegExp(
         r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$");
     final isValid =

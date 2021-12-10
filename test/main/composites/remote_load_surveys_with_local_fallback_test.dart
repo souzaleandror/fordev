@@ -2,7 +2,7 @@ import 'package:fordev/data/usecases/load_surveys/load_surveys.dart';
 import 'package:fordev/domain/entities/survey_entity.dart';
 import 'package:fordev/domain/helpers/helpers.dart';
 import 'package:fordev/main/composites/composites.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 import './../../mocks/mocks.dart';
 
@@ -11,20 +11,20 @@ class RemoteLoadSurveysSpy extends Mock implements RemoteLoadSurveys {}
 class LocalLoadSurveysSpy extends Mock implements LocalLoadSurveys {}
 
 void main() {
-  RemoteLoadSurveysSpy remote;
-  LocalLoadSurveysSpy local;
-  RemoteLoadSurveysWithLocalFallback sut;
-  List<SurveyEntity> remoteSurveys;
-  List<SurveyEntity> localSurveys;
+  late RemoteLoadSurveysSpy remote;
+  late LocalLoadSurveysSpy local;
+  late RemoteLoadSurveysWithLocalFallback sut;
+  late List<SurveyEntity> remoteSurveys;
+  late List<SurveyEntity> localSurveys;
 
-  PostExpectation mockRemoteLoadCall() => when(remote.load());
+  When mockRemoteLoadCall() => when(() => remote.load());
 
   void mockRemoteLoad() {
     remoteSurveys = FakeSurveysFactory.makeEntities();
     mockRemoteLoadCall().thenAnswer((_) async => remoteSurveys);
   }
 
-  PostExpectation mockLocalLoadCall() => when(local.load());
+  When mockLocalLoadCall() => when(() => local.load());
 
   void mockLocalLoad() {
     localSurveys = FakeSurveysFactory.makeEntities();
@@ -50,12 +50,12 @@ void main() {
   test('Should call remote load', () async {
     await sut.load();
 
-    verify(remote.load()).called(1);
+    verify(() => remote.load()).called(1);
   });
   test('Should call local save with remote data', () async {
     await sut.load();
 
-    verify(local.save(remoteSurveys)).called(1);
+    verify(() => local.save(remoteSurveys)).called(1);
   });
   test('Should return remote surveys', () async {
     final surveys = await sut.load();
@@ -72,8 +72,8 @@ void main() {
     mockRemoteLoadError(DomainError.unexpected);
     await sut.load();
 
-    verify(local.validate()).called(1);
-    verify(local.load()).called(1);
+    verify(() => local.validate()).called(1);
+    verify(() => local.load()).called(1);
   });
   test('Should return local surveys', () async {
     mockRemoteLoadError(DomainError.unexpected);

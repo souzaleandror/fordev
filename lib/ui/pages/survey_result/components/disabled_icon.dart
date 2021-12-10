@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class DisabledIcon extends StatelessWidget {
   const DisabledIcon({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

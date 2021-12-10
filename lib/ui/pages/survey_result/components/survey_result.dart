@@ -4,11 +4,11 @@ import '../../../../ui/pages/survey_result/components/components.dart';
 import '../../../../ui/pages/survey_result/survey_result.dart';
 
 class SurveyResult extends StatelessWidget {
-  const SurveyResult({Key key, @required this.viewModel, @required this.onSave})
+  const SurveyResult({Key? key, required this.viewModel, required this.onSave})
       : super(key: key);
 
   final SurveyResultViewModel viewModel;
-  final void Function({@required String answer}) onSave;
+  final void Function({required String answer}) onSave;
 
   @override
   Widget build(BuildContext context) => ListView.builder(

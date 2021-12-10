@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../../data/cache/cache.dart';
@@ -10,11 +9,11 @@ class SecureStorageAdapter
         DeleteSecureCacheStorage {
   final FlutterSecureStorage secureStorage;
 
-  SecureStorageAdapter({@required this.secureStorage});
+  SecureStorageAdapter({required this.secureStorage});
 
   Future<void> saveSecure({
-    @required String key,
-    @required String value,
+    required String key,
+    required String value,
   }) async =>
       await secureStorage.write(key: key, value: value);
 

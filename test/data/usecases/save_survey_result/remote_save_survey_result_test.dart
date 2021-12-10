@@ -3,7 +3,7 @@ import 'package:fordev/data/http/http.dart';
 import 'package:fordev/data/usecases/usecases.dart';
 import 'package:fordev/domain/entities/entities.dart';
 import 'package:fordev/domain/helpers/helpers.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
 import '../../../mocks/fake_survey_result_factory.dart';
@@ -11,16 +11,16 @@ import '../../../mocks/fake_survey_result_factory.dart';
 class HttpClientSpy extends Mock implements HttpClient {}
 
 void main() {
-  String url;
-  HttpClientSpy httpClient;
-  RemoteSaveSurveyResult sut;
-  String answer;
-  Map surveyResult;
+  late String url;
+  late HttpClientSpy httpClient;
+  late RemoteSaveSurveyResult sut;
+  late String answer;
+  late Map surveyResult;
 
-  PostExpectation mockRequest() => when(httpClient.request(
-      url: anyNamed('url'),
-      method: anyNamed('method'),
-      body: anyNamed('body')));
+  When mockRequest() => when(() => httpClient.request(
+      url: any(named: 'url'),
+      method: any(named: 'method'),
+      body: any(named: 'body')));
 
   void mockHttpData(Map data) {
     surveyResult = data;
@@ -41,7 +41,7 @@ void main() {
   test('Should call HttpClient with correct values', () async {
     await sut.save(answer: answer);
 
-    verify(
+    verify(() =>
         httpClient.request(url: url, method: 'put', body: {'answer': answer}));
   });
 

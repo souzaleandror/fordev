@@ -4,7 +4,7 @@ import 'package:fordev/domain/helpers/helpers.dart';
 import 'package:fordev/domain/usecases/usecases.dart';
 
 import 'package:fordev/ui/helpers/errors/errors.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
 import 'package:fordev/ui/presentation/protocols/validation.dart';
@@ -18,25 +18,25 @@ class AddAccountSpy extends Mock implements AddAccount {}
 class SaveCurrentAccountSpy extends Mock implements SaveCurrentAccount {}
 
 void main() {
-  GetxSignUpPresenter sut;
-  ValidationSpy validation;
-  AddAccountSpy addAccount;
-  SaveCurrentAccount saveCurrentAccount;
-  String email;
-  String name;
-  String password;
-  String passwordConfirmation;
-  AccountEntity account;
+  late GetxSignUpPresenter sut;
+  late ValidationSpy validation;
+  late AddAccountSpy addAccount;
+  late SaveCurrentAccount saveCurrentAccount;
+  late String email;
+  late String name;
+  late String password;
+  late String passwordConfirmation;
+  late AccountEntity account;
 
-  PostExpectation mockValidationCall(String field) => when(validation.validate(
-      field: field == null ? anyNamed('field') : field,
-      input: anyNamed('input')));
+  When mockValidationCall(String field) => when(() => validation.validate(
+      field: field == null ? any(named: 'field') : field,
+      input: any(named: 'input')));
 
   void mockValidation({String field, ValidationError value}) {
     mockValidationCall(field).thenReturn(value);
   }
 
-  PostExpectation mockAddAccountCall() => when(addAccount.add(any));
+  When mockAddAccountCall() => when(() => addAccount.add(any()));
 
   void mockAddAccount(AccountEntity data) {
     account = data;
@@ -77,7 +77,8 @@ void main() {
       'passwordConfirmation': null
     };
 
-    verify(validation.validate(field: 'email', input: formData)).called(1);
+    verify(() => validation.validate(field: 'email', input: formData))
+        .called(1);
   });
 
   test('Should emit invalid field email error if email is invalid', () {
@@ -124,7 +125,7 @@ void main() {
       'passwordConfirmation': null
     };
 
-    verify(validation.validate(field: 'name', input: formData)).called(1);
+    verify(() => validation.validate(field: 'name', input: formData)).called(1);
   });
 
   test('Should emit invalid field name error if name is invalid', () {
@@ -171,7 +172,8 @@ void main() {
       'passwordConfirmation': null
     };
 
-    verify(validation.validate(field: 'password', input: formData)).called(1);
+    verify(() => validation.validate(field: 'password', input: formData))
+        .called(1);
   });
 
   test('Should emit invalid field password error if password is invalid', () {
@@ -219,7 +221,8 @@ void main() {
       'passwordConfirmation': passwordConfirmation
     };
 
-    verify(validation.validate(field: 'passwordConfirmation', input: formData))
+    verify(() =>
+            validation.validate(field: 'passwordConfirmation', input: formData))
         .called(1);
   });
 
@@ -283,12 +286,12 @@ void main() {
 
     await sut.signUp();
 
-    verify(addAccount.add(AddAccountParams(
-      name: name,
-      email: email,
-      password: password,
-      passwordConfirmation: passwordConfirmation,
-    ))).called(1);
+    verify(() => addAccount.add(AddAccountParams(
+          name: name,
+          email: email,
+          password: password,
+          passwordConfirmation: passwordConfirmation,
+        ))).called(1);
   });
 
   test('Should call SaveCurrentAccount with correct value', () async {
@@ -299,7 +302,7 @@ void main() {
 
     await sut.signUp();
 
-    verify(saveCurrentAccount.save(account)).called(1);
+    verify(() => saveCurrentAccount.save(account)).called(1);
   });
 
   test('Should emit UnexpectedError if SaveCurrentAccount fails', () async {

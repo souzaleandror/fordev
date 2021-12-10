@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 import '../../data/cache/cache.dart';
 import '../../data/http/http.dart';
 
@@ -8,16 +6,16 @@ class AuthorizeHttpClientDecorator implements HttpClient {
   final DeleteSecureCacheStorage deleteSecureCacheStorage;
   final HttpClient decoratee;
   AuthorizeHttpClientDecorator({
-    @required this.fetchSecureCacheStorage,
-    @required this.deleteSecureCacheStorage,
-    @required this.decoratee,
+    required this.fetchSecureCacheStorage,
+    required this.deleteSecureCacheStorage,
+    required this.decoratee,
   });
 
   Future<dynamic> request({
-    @required String url,
-    @required method,
-    Map body,
-    Map headers,
+    required String url,
+    required method,
+    Map? body,
+    Map? headers,
   }) async {
     try {
       final token = await fetchSecureCacheStorage.fetch('token');

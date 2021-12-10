@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
-
 import '../entities/entities.dart';
 
 abstract class SaveSurveyResult {
-  Future<SurveyResultEntity> save({@required String answer});
+  Future<SurveyResultEntity> save({required String answer});
 }

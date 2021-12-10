@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 import '../../domain/entities/entities.dart';
 import '../http/http.dart';
 
@@ -11,9 +9,9 @@ class RemoteSurveyAnswerModel {
 
   RemoteSurveyAnswerModel({
     this.image,
-    @required this.answer,
-    @required this.isCurrentAccountAnswer,
-    @required this.percent,
+    required this.answer,
+    required this.isCurrentAccountAnswer,
+    required this.percent,
   });
 
   factory RemoteSurveyAnswerModel.fromJson(Map json) {

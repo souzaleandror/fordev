@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 import '../../../data/models/models.dart';
 import '../../cache/cache.dart';
 import '../../../domain/entities/entities.dart';
@@ -10,13 +8,13 @@ class LocalLoadSurveyResult implements LoadSurveyResult {
   CacheStorage cacheStorage;
 
   LocalLoadSurveyResult({
-    @required this.cacheStorage,
+    required this.cacheStorage,
   });
 
   Future<SurveyResultEntity> loadBySurvey({String surveyId}) async {
     try {
       final data = await cacheStorage.fetch('survey_result/$surveyId');
-      if (data?.isEmpty != false) {
+      if (data.isEmpty != false) {
         throw Exception();
       }
       return LocalSurveyResultModel.fromJson(data).toEntity();

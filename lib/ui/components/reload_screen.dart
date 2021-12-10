@@ -4,9 +4,9 @@ import '../../ui/helpers/i18n/i18n.dart';
 
 class RealodScreen extends StatelessWidget {
   const RealodScreen({
-    Key key,
-    @required this.error,
-    @required this.reload,
+    Key? key,
+    required this.error,
+    required this.reload,
   }) : super(key: key);
 
   final String error;
@@ -26,7 +26,7 @@ class RealodScreen extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            RaisedButton(
+            ElevatedButton(
               onPressed: reload,
               child: Text(
                 R.strings.realoading,

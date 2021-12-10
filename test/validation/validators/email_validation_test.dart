@@ -3,7 +3,7 @@ import 'package:fordev/validation/validators/validators.dart';
 import 'package:test/test.dart';
 
 void main() {
-  EmailValidation sut;
+  late EmailValidation sut;
 
   setUp(() {
     sut = EmailValidation('any_field');

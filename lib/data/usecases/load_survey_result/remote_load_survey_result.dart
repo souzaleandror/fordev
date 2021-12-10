@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 import '../../http/http.dart';
 import '../../models/models.dart';
 import '../../../domain/entities/entities.dart';
@@ -11,8 +9,8 @@ class RemoteLoadSurveyResult implements LoadSurveyResult {
   final HttpClient httpClient;
 
   RemoteLoadSurveyResult({
-    @required this.url,
-    @required this.httpClient,
+    required this.url,
+    required this.httpClient,
   });
 
   Future<SurveyResultEntity> loadBySurvey({String surveyId}) async {

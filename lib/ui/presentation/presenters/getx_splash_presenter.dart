@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../ui/presentation/mixins/mixins.dart';
@@ -10,13 +9,13 @@ class GetxSplashPresenter extends GetxController
     implements SplashPresenter {
   final LoadCurrentAccount loadCurrentAccount;
 
-  GetxSplashPresenter({@required this.loadCurrentAccount});
+  GetxSplashPresenter({required this.loadCurrentAccount});
 
   Future<void> checkAccount({int durationInSeconds = 2}) async {
     await Future.delayed(Duration(seconds: durationInSeconds));
     try {
       final account = await loadCurrentAccount.load();
-      navigateTo = account?.token == null ? '/login' : '/surveys';
+      navigateTo = account.token == '' ? '/login' : '/surveys';
     } catch (error) {
       navigateTo = '/login';
     }

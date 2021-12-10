@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -13,11 +12,11 @@ class GetxSurveysPresenter extends GetxController
     implements SurveysPresenter {
   final LoadSurveys loadSurveys;
 
-  final _surveys = Rx<List<SurveyViewModel>>();
+  final _surveys = Rx<List<SurveyViewModel>?>(null);
 
-  Stream<List<SurveyViewModel>> get surveysStream => _surveys.stream;
+  Stream<List<SurveyViewModel>?> get surveysStream => _surveys.stream;
 
-  GetxSurveysPresenter({@required this.loadSurveys});
+  GetxSurveysPresenter({required this.loadSurveys});
 
   Future<void> loadData() async {
     try {

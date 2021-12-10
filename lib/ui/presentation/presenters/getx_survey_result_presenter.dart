@@ -16,14 +16,14 @@ class GetxSurveyResultPresenter extends GetxController
   final SaveSurveyResult saveSurveyResult;
   final String surveyId;
 
-  final _surveyResult = Rx<SurveyResultViewModel>();
+  final _surveyResult = Rx<SurveyResultViewModel?>(null);
 
-  Stream<SurveyResultViewModel> get surveyResultStream => _surveyResult.stream;
+  Stream<SurveyResultViewModel?> get surveyResultStream => _surveyResult.stream;
 
   GetxSurveyResultPresenter({
-    @required this.loadSurveyResult,
-    @required this.saveSurveyResult,
-    @required this.surveyId,
+    required this.loadSurveyResult,
+    required this.saveSurveyResult,
+    required this.surveyId,
   });
 
   Future<void> loadData() async {
@@ -31,7 +31,7 @@ class GetxSurveyResultPresenter extends GetxController
   }
 
   @override
-  Future<void> save({@required String answer}) async {
+  Future<void> save({required String answer}) async {
     showResultOnAction(() => saveSurveyResult.save(answer: answer));
   }
 

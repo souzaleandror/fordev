@@ -4,7 +4,7 @@ import 'splash_presenter.dart';
 import '../../../ui/mixins/mixins.dart';
 
 class SplashPage extends StatelessWidget with NavigationManager {
-  const SplashPage({Key key, @required this.presenter}) : super(key: key);
+  const SplashPage({Key? key, required this.presenter}) : super(key: key);
 
   final SplashPresenter presenter;
 

@@ -7,21 +7,21 @@ import 'package:faker/faker.dart';
 import 'package:fordev/ui/helpers/errors/errors.dart';
 import 'package:fordev/ui/pages/pages.dart';
 import 'package:fordev/ui/pages/signup/signup_page.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import '../helpers/heleprs.dart';
 
 class SignUpPresenterSpy extends Mock implements SignUpPresenter {}
 
 void main() {
-  SignUpPresenter presenter;
-  StreamController<UIError> nameErrorController;
-  StreamController<UIError> emailErrorController;
-  StreamController<UIError> passwordErrorController;
-  StreamController<UIError> passwordConfirmationErrorController;
-  StreamController<bool> isFormValidController;
-  StreamController<bool> isLoadingController;
-  StreamController<UIError> mainErrorController;
-  StreamController<String> navigateToController;
+  late SignUpPresenter presenter;
+  late StreamController<UIError> nameErrorController;
+  late StreamController<UIError> emailErrorController;
+  late StreamController<UIError> passwordErrorController;
+  late StreamController<UIError> passwordConfirmationErrorController;
+  late StreamController<bool> isFormValidController;
+  late StreamController<bool> isLoadingController;
+  late StreamController<UIError> mainErrorController;
+  late StreamController<String> navigateToController;
 
   void initStreams() {
     nameErrorController = StreamController<UIError>();
@@ -35,21 +35,21 @@ void main() {
   }
 
   void mockStreams() {
-    when(presenter.nameErrorStream)
+    when(() => presenter.nameErrorStream)
         .thenAnswer((_) => nameErrorController.stream);
-    when(presenter.emailErrorStream)
+    when(() => presenter.emailErrorStream)
         .thenAnswer((_) => emailErrorController.stream);
-    when(presenter.passwordErrorStream)
+    when(() => presenter.passwordErrorStream)
         .thenAnswer((_) => passwordErrorController.stream);
-    when(presenter.passwordConfirmationErrorStream)
+    when(() => presenter.passwordConfirmationErrorStream)
         .thenAnswer((_) => passwordConfirmationErrorController.stream);
-    when(presenter.isFormValidStream)
+    when(() => presenter.isFormValidStream)
         .thenAnswer((_) => isFormValidController.stream);
-    when(presenter.isLoadingStream)
+    when(() => presenter.isLoadingStream)
         .thenAnswer((_) => isLoadingController.stream);
-    when(presenter.mainErrorStream)
+    when(() => presenter.mainErrorStream)
         .thenAnswer((_) => mainErrorController.stream);
-    when(presenter.navigateToStream)
+    when(() => presenter.navigateToStream)
         .thenAnswer((_) => navigateToController.stream);
   }
 
@@ -110,7 +110,7 @@ void main() {
         reason:
             'When a TextFormField has only one text child, means it has no errors, since one of the childs is always the label text');
 
-    final button = tester.widget<RaisedButton>(find.byType(RaisedButton));
+    final button = tester.widget<ElevatedButton>(find.byType(ElevatedButton));
     expect(button.onPressed, null);
     expect(find.byType(CircularProgressIndicator), findsNothing);
   });
@@ -121,19 +121,19 @@ void main() {
 
     final name = faker.person.name();
     await tester.enterText(find.bySemanticsLabel('Nome'), name);
-    verify(presenter.validateName(name));
+    verify(() => presenter.validateName(name));
 
     final email = faker.internet.email();
     await tester.enterText(find.bySemanticsLabel('Email'), email);
 
-    verify(presenter.validateEmail(email));
+    verify(() => presenter.validateEmail(email));
 
     final password = faker.internet.password();
     await tester.enterText(find.bySemanticsLabel('Senha'), password);
-    verify(presenter.validatePassword(password));
+    verify(() => presenter.validatePassword(password));
 
     await tester.enterText(find.bySemanticsLabel('Confirmar Senha'), password);
-    verify(presenter.validatePasswordConfirmation(password));
+    verify(() => presenter.validatePasswordConfirmation(password));
   });
 
   testWidgets('Should present error if email is invalid',
@@ -229,7 +229,7 @@ void main() {
     // forca uma rederizacao da tela e atualiza todos os componentes da tela com o estado novo
     await tester.pump();
 
-    final button = tester.widget<RaisedButton>(find.byType(RaisedButton));
+    final button = tester.widget<ElevatedButton>(find.byType(ElevatedButton));
     expect(button.onPressed, isNotNull);
   });
 
@@ -241,20 +241,20 @@ void main() {
     // forca uma rederizacao da tela e atualiza todos os componentes da tela com o estado novo
     await tester.pump();
 
-    final button = tester.widget<RaisedButton>(find.byType(RaisedButton));
+    final button = tester.widget<ElevatedButton>(find.byType(ElevatedButton));
     expect(button.onPressed, null);
   });
 
   testWidgets('Should call signUp on form submit', (WidgetTester tester) async {
     await loadPage(tester);
-    final button = find.byType(RaisedButton);
+    final button = find.byType(ElevatedButton);
     isFormValidController.add(true);
     await tester.pump();
     await tester.ensureVisible(button);
     await tester.tap(button);
     await tester.pump();
 
-    verify(presenter.signUp()).called(1);
+    verify(() => presenter.signUp()).called(1);
   });
 // teste foi substituido por esse => Should handle loading correctly
   testWidgets('Should present loading', (WidgetTester tester) async {
@@ -350,6 +350,6 @@ void main() {
     await tester.tap(button);
     await tester.pump();
 
-    verify(presenter.goToLogin()).called(1);
+    verify(() => presenter.goToLogin()).called(1);
   });
 }

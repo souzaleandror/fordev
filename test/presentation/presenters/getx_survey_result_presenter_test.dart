@@ -5,7 +5,7 @@ import 'package:fordev/domain/usecases/usecases.dart';
 import 'package:fordev/ui/helpers/errors/errors.dart';
 import 'package:fordev/ui/pages/survey_result/survey_result.dart';
 import 'package:fordev/ui/presentation/presenters/presenters.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 import './../../mocks/mocks.dart';
 
@@ -14,24 +14,24 @@ class LoadSurveyResultSpy extends Mock implements LoadSurveyResult {}
 class SaveSurveyResultSpy extends Mock implements SaveSurveyResult {}
 
 void main() {
-  LoadSurveyResultSpy loadSurveyResult;
-  SaveSurveyResultSpy saveSurveyResult;
-  GetxSurveyResultPresenter sut;
-  SurveyResultEntity loadResult;
-  SurveyResultEntity saveResult;
-  String surveyId;
-  String answer;
+  late LoadSurveyResultSpy loadSurveyResult;
+  late SaveSurveyResultSpy saveSurveyResult;
+  late GetxSurveyResultPresenter sut;
+  late SurveyResultEntity loadResult;
+  late SurveyResultEntity saveResult;
+  late String surveyId;
+  late String answer;
 
-  PostExpectation mockLoadSurveyResultCall() =>
-      when(loadSurveyResult.loadBySurvey(surveyId: anyNamed('surveyId')));
+  When mockLoadSurveyResultCall() => when(
+      () => loadSurveyResult.loadBySurvey(surveyId: any(named: 'surveyId')));
 
   void mockLoadSurveyResult(SurveyResultEntity data) {
     loadResult = data;
     mockLoadSurveyResultCall().thenAnswer((_) async => loadResult);
   }
 
-  PostExpectation mockSaveSurveyResultCall() =>
-      when(saveSurveyResult.save(answer: anyNamed('answer')));
+  When mockSaveSurveyResultCall() =>
+      when(() => saveSurveyResult.save(answer: any(named: 'answer')));
 
   void mockSaveSurveyResult(SurveyResultEntity data) {
     saveResult = data;
@@ -81,7 +81,7 @@ void main() {
     test('Should call LoadSurveyResult on loadData', () async {
       await sut.loadData();
 
-      verify(loadSurveyResult.loadBySurvey(surveyId: surveyId)).called(1);
+      verify(() => loadSurveyResult.loadBySurvey(surveyId: surveyId)).called(1);
     });
 
     test('Should emit correct events on success', () async {
@@ -119,7 +119,7 @@ void main() {
     test('Should call SaveSurveyResult on save', () async {
       await sut.save(answer: answer);
 
-      verify(saveSurveyResult.save(answer: answer)).called(1);
+      verify(() => saveSurveyResult.save(answer: answer)).called(1);
     });
 
     test('Should emit correct events on success', () async {

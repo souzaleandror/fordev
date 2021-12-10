@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:meta/meta.dart';
 
 import '../../../domain/helpers/domain_error.dart';
 import '../../../domain/usecases/usecases.dart';
@@ -15,22 +14,22 @@ class GetxLoginPresenter extends GetxController
   final Authentication authentication;
   final SaveCurrentAccount saveCurrentAccount;
 
-  String _email;
-  String _password;
+  String? _email;
+  String? _password;
 
-  var _emailError = Rx<UIError>();
-  var _passwordError = Rx<UIError>();
+  var _emailError = Rx<UIError?>(null);
+  var _passwordError = Rx<UIError?>(null);
 
-  Stream<UIError> get emailErrorStream => _emailError.stream;
-  Stream<UIError> get passwordErrorStream => _passwordError.stream;
+  Stream<UIError?> get emailErrorStream => _emailError.stream;
+  Stream<UIError?> get passwordErrorStream => _passwordError.stream;
 
   GetxLoginPresenter({
-    @required this.validation,
-    @required this.authentication,
-    @required this.saveCurrentAccount,
+    required this.validation,
+    required this.authentication,
+    required this.saveCurrentAccount,
   });
 
-  UIError _validateField(String field) {
+  UIError? _validateField(String field) {
     final formData = {'email': _email, 'password': _password};
     var error = validation.validate(field: field, input: formData);
     switch (error) {
@@ -60,7 +59,7 @@ class GetxLoginPresenter extends GetxController
       mainError = null;
       isLoading = true;
       final account = await authentication
-          .auth(AuthenticationParams(email: _email, secret: _password));
+          .auth(AuthenticationParams(email: _email!, secret: _password!));
       await saveCurrentAccount.save(account);
       navigateTo = '/surveys';
     } on DomainError catch (error) {
@@ -82,8 +81,6 @@ class GetxLoginPresenter extends GetxController
         _email != null &&
         _password != null;
   }
-
-  void dispose() {}
 
   void goToSignUp() => navigateTo = '/signup';
 }

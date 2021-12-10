@@ -2,7 +2,7 @@ import 'package:fordev/validation/validators/validators.dart';
 import 'package:test/test.dart';
 
 void main() {
-  PasswordValidation sut;
+  late PasswordValidation sut;
 
   setUp(() {
     sut = PasswordValidation('any_field');

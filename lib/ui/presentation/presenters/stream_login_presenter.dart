@@ -8,12 +8,12 @@ import '../../../ui/pages/pages.dart';
 import '../../../ui/presentation/protocols/protocols.dart';
 
 class LoginState {
-  String email;
-  String password;
-  UIError emailError;
-  UIError passwordError;
-  UIError mainError;
-  String navigateTo;
+  String? email;
+  String? password;
+  UIError? emailError;
+  UIError? passwordError;
+  UIError? mainError;
+  String? navigateTo;
   bool isLoading = false;
 
   bool get isFormValid =>
@@ -31,29 +31,29 @@ class StreamLoginPresenter implements LoginPresenter {
   var _controller = StreamController<LoginState>.broadcast();
   var _state = LoginState();
 
-  Stream<UIError> get emailErrorStream =>
-      _controller?.stream?.map((state) => state.emailError)?.distinct();
-  Stream<UIError> get passwordErrorStream =>
-      _controller?.stream?.map((state) => state.passwordError)?.distinct();
-  Stream<UIError> get mainErrorStream =>
-      _controller?.stream?.map((state) => state.mainError)?.distinct();
-  Stream<String> get navigateToStream =>
-      _controller?.stream?.map((state) => state.navigateTo)?.distinct();
+  Stream<UIError?> get emailErrorStream =>
+      _controller.stream.map((state) => state.emailError).distinct();
+  Stream<UIError?> get passwordErrorStream =>
+      _controller.stream.map((state) => state.passwordError).distinct();
+  Stream<UIError?> get mainErrorStream =>
+      _controller.stream.map((state) => state.mainError).distinct();
+  Stream<String?> get navigateToStream =>
+      _controller.stream.map((state) => state.navigateTo).distinct();
   Stream<bool> get isFormValidStream =>
-      _controller?.stream?.map((state) => state.isFormValid)?.distinct();
+      _controller.stream.map((state) => state.isFormValid).distinct();
 
   Stream<bool> get isLoadingStream =>
-      _controller?.stream?.map((state) => state.isLoading)?.distinct();
+      _controller.stream.map((state) => state.isLoading).distinct();
 
   StreamLoginPresenter({
-    @required this.validation,
-    @required this.authentication,
-    @required this.saveCurrentAccount,
+    required this.validation,
+    required this.authentication,
+    required this.saveCurrentAccount,
   });
 
-  void _update() => _controller?.add(_state);
+  void _update() => _controller.add(_state);
 
-  UIError _validateField(String field) {
+  UIError? _validateField(String field) {
     final formData = {'email': _state.email, 'password': _state.password};
     var error = validation.validate(field: field, input: formData);
     switch (error) {
@@ -83,7 +83,7 @@ class StreamLoginPresenter implements LoginPresenter {
     _update();
     try {
       final account = await authentication.auth(
-          AuthenticationParams(email: _state.email, secret: _state.password));
+          AuthenticationParams(email: _state.email!, secret: _state.password!));
       await saveCurrentAccount.save(account);
       _state.navigateTo = '/surveys';
     } on DomainError catch (error) {

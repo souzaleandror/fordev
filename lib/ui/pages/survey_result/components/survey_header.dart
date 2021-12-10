@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class SurveyHeader extends StatelessWidget {
   const SurveyHeader({
-    Key key,
-    @required this.question,
+    Key? key,
+    required this.question,
   }) : super(key: key);
 
   final String question;

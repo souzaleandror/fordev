@@ -10,7 +10,7 @@ class NameInput extends StatelessWidget {
   Widget build(BuildContext context) {
     final presenter = Provider.of<SignUpPresenter>(context);
 
-    return StreamBuilder<UIError>(
+    return StreamBuilder<UIError?>(
       stream: presenter.nameErrorStream,
       builder: (context, snapshot) {
         return TextFormField(
@@ -20,7 +20,7 @@ class NameInput extends StatelessWidget {
               Icons.email,
               color: Theme.of(context).primaryColorLight,
             ),
-            errorText: snapshot.hasData ? snapshot.data.description : null,
+            errorText: snapshot.hasData ? snapshot.data?.description : null,
           ),
           keyboardType: TextInputType.name,
           onChanged: presenter.validateName,

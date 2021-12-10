@@ -1,18 +1,17 @@
 import 'package:fordev/domain/entities/account_entity.dart';
 import 'package:fordev/domain/usecases/load_current_account.dart';
 import 'package:fordev/ui/presentation/presenters/presenters.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 import './../../mocks/mocks.dart';
 
 class LoadCurrentAccountSpy extends Mock implements LoadCurrentAccount {}
 
 void main() {
-  LoadCurrentAccountSpy loadCurrentAccount;
-  GetxSplashPresenter sut;
+  late LoadCurrentAccountSpy loadCurrentAccount;
+  late GetxSplashPresenter sut;
 
-  PostExpectation mockLoadCurrentAccountCall() =>
-      when(loadCurrentAccount.load());
+  When mockLoadCurrentAccountCall() => when(() => loadCurrentAccount.load());
 
   void mockLoadCurrentAccount({AccountEntity account}) {
     mockLoadCurrentAccountCall().thenAnswer((_) async => account);
@@ -30,7 +29,7 @@ void main() {
   test('should call LoadCurrentAccount', () async {
     await sut.checkAccount(durationInSeconds: 0);
 
-    verify(loadCurrentAccount.load()).called(1);
+    verify(() => loadCurrentAccount.load()).called(1);
   });
 
   test('should go to surveys page on success', () async {

@@ -5,8 +5,8 @@ import '../../../../ui/pages/survey_result/survey_result.dart';
 
 class SurveyAnswer extends StatelessWidget {
   const SurveyAnswer({
-    Key key,
-    @required this.viewModel,
+    Key? key,
+    required this.viewModel,
   }) : super(key: key);
 
   final SurveyAnswerViewModel viewModel;

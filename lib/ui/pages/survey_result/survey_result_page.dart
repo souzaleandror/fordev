@@ -9,7 +9,7 @@ import 'components/components.dart';
 
 class SurveyResultPage extends StatelessWidget
     with LoadingManager, SessionManager {
-  const SurveyResultPage({Key key, @required this.presenter}) : super(key: key);
+  const SurveyResultPage({Key? key, required this.presenter}) : super(key: key);
 
   final SurveyResultPresenter presenter;
 
@@ -26,7 +26,7 @@ class SurveyResultPage extends StatelessWidget
 
         presenter.loadData();
 
-        return StreamBuilder<SurveyResultViewModel>(
+        return StreamBuilder<SurveyResultViewModel?>(
             stream: presenter.surveyResultStream,
             builder: (context, snapshot) {
               if (snapshot.hasError) {

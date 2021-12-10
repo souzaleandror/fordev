@@ -4,18 +4,18 @@ import 'package:fordev/domain/usecases/usecases.dart';
 import 'package:fordev/ui/helpers/errors/errors.dart';
 import 'package:fordev/ui/pages/pages.dart';
 import 'package:fordev/ui/presentation/presenters/presenters.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 import './../../mocks/mocks.dart';
 
 class LoadSurveysSpy extends Mock implements LoadSurveys {}
 
 void main() {
-  LoadSurveysSpy loadSurveys;
-  GetxSurveysPresenter sut;
-  List<SurveyEntity> surveys;
+  late LoadSurveysSpy loadSurveys;
+  late GetxSurveysPresenter sut;
+  late List<SurveyEntity> surveys;
 
-  PostExpectation mockLoadSurveysCall() => when(loadSurveys.load());
+  When mockLoadSurveysCall() => when(() => loadSurveys.load());
 
   void mockLoadSurveys(List<SurveyEntity> data) {
     surveys = data;
@@ -37,7 +37,7 @@ void main() {
   test('Should call LoadSurveys on loadData', () async {
     await sut.loadData();
 
-    verify(loadSurveys.load()).called(1);
+    verify(() => loadSurveys.load()).called(1);
   });
 
   test('Should emit correct events on success', () async {

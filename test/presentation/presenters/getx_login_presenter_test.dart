@@ -2,7 +2,7 @@ import 'package:faker/faker.dart';
 import 'package:fordev/domain/entities/account_entity.dart';
 import 'package:fordev/domain/helpers/domain_error.dart';
 import 'package:fordev/ui/helpers/errors/errors.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
 import 'package:fordev/domain/usecases/usecases.dart';
@@ -18,23 +18,23 @@ class AuthenticationSpy extends Mock implements Authentication {}
 class SaveCurrentAccountSpy extends Mock implements SaveCurrentAccount {}
 
 void main() {
-  GetxLoginPresenter sut;
-  ValidationSpy validation;
-  AuthenticationSpy authentication;
-  SaveCurrentAccount saveCurrentAccount;
-  String email;
-  String password;
-  AccountEntity account;
+  late GetxLoginPresenter sut;
+  late ValidationSpy validation;
+  late AuthenticationSpy authentication;
+  late SaveCurrentAccount saveCurrentAccount;
+  late String email;
+  late String password;
+  late AccountEntity account;
 
-  PostExpectation mockValidationCall(String field) => when(validation.validate(
-      field: field == null ? anyNamed('field') : field,
-      input: anyNamed('input')));
+  When mockValidationCall(String field) => when(() => validation.validate(
+      field: field == null ? any(named: 'field') : field,
+      input: any(named: 'input')));
 
   void mockValidation({String field, ValidationError value}) {
     mockValidationCall(field).thenReturn(value);
   }
 
-  PostExpectation mockAuthenticationCall() => when(authentication.auth(any));
+  When mockAuthenticationCall() => when(() => authentication.auth(any()));
 
   void mockAuthentication(AccountEntity data) {
     account = data;
@@ -68,7 +68,8 @@ void main() {
     sut.validateEmail(email);
     final formData = {'email': email, 'password': null};
 
-    verify(validation.validate(field: 'email', input: formData)).called(1);
+    verify(() => validation.validate(field: 'email', input: formData))
+        .called(1);
   });
 
   test('Should emit invalid field email error if email is invalid', () {
@@ -116,7 +117,8 @@ void main() {
     sut.validatePassword(password);
     final formData = {'email': null, 'password': password};
 
-    verify(validation.validate(field: 'password', input: formData)).called(1);
+    verify(() => validation.validate(field: 'password', input: formData))
+        .called(1);
   });
 
   test('Should emit required field password error if password is empty', () {
@@ -173,9 +175,8 @@ void main() {
 
     await sut.auth();
 
-    verify(authentication
-            .auth(AuthenticationParams(email: email, secret: password)))
-        .called(1);
+    verify(() => authentication
+        .auth(AuthenticationParams(email: email, secret: password))).called(1);
   });
 
   test('Should call SaveCurrentAccount with correct value', () async {
@@ -184,7 +185,7 @@ void main() {
 
     await sut.auth();
 
-    verify(saveCurrentAccount.save(account)).called(1);
+    verify(() => saveCurrentAccount.save(account)).called(1);
   });
 
   test('Should emit correct events on Authentication success', () async {

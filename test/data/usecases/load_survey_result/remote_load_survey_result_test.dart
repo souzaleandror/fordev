@@ -3,7 +3,7 @@ import 'package:fordev/data/http/http.dart';
 import 'package:fordev/data/usecases/usecases.dart';
 import 'package:fordev/domain/entities/entities.dart';
 import 'package:fordev/domain/helpers/helpers.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
 import '../../../mocks/mocks.dart';
@@ -11,13 +11,13 @@ import '../../../mocks/mocks.dart';
 class HttpClientSpy extends Mock implements HttpClient {}
 
 void main() {
-  String url;
-  HttpClientSpy httpClient;
-  RemoteLoadSurveyResult sut;
-  Map surveyResult;
+  late String url;
+  late HttpClientSpy httpClient;
+  late RemoteLoadSurveyResult sut;
+  late Map surveyResult;
 
-  PostExpectation mockRequest() => when(
-      httpClient.request(url: anyNamed('url'), method: anyNamed('method')));
+  When mockRequest() => when(() =>
+      httpClient.request(url: any(named: 'url'), method: any(named: 'method')));
 
   void mockHttpData(Map data) {
     surveyResult = data;
@@ -37,7 +37,7 @@ void main() {
   test('Should call HttpClient with correct values', () async {
     await sut.loadBySurvey();
 
-    verify(httpClient.request(url: url, method: 'get'));
+    verify(() => httpClient.request(url: url, method: 'get'));
   });
   test('Should return surveyResult on 200', () async {
     final result = await sut.loadBySurvey();

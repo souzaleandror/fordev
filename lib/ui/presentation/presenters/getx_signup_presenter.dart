@@ -1,5 +1,4 @@
 import 'package:get/state_manager.dart';
-import 'package:meta/meta.dart';
 
 import '../../../domain/helpers/helpers.dart';
 import '../../../domain/usecases/usecases.dart';
@@ -15,29 +14,29 @@ class GetxSignUpPresenter extends GetxController
   final Validation validation;
   final AddAccount addAccount;
   final SaveCurrentAccount saveCurrentAccount;
-  String _email;
-  String _name;
-  String _password;
-  String _passwordConfirmation;
+  String? _email;
+  String? _name;
+  String? _password;
+  String? _passwordConfirmation;
 
-  var _emailError = Rx<UIError>();
-  var _nameError = Rx<UIError>();
-  var _passwordError = Rx<UIError>();
-  var _passwordConfirmationError = Rx<UIError>();
+  var _emailError = Rx<UIError?>(null);
+  var _nameError = Rx<UIError?>(null);
+  var _passwordError = Rx<UIError?>(null);
+  var _passwordConfirmationError = Rx<UIError?>(null);
 
-  Stream<UIError> get emailErrorStream => _emailError.stream;
-  Stream<UIError> get nameErrorStream => _nameError.stream;
-  Stream<UIError> get passwordErrorStream => _passwordError.stream;
-  Stream<UIError> get passwordConfirmationErrorStream =>
+  Stream<UIError?> get emailErrorStream => _emailError.stream;
+  Stream<UIError?> get nameErrorStream => _nameError.stream;
+  Stream<UIError?> get passwordErrorStream => _passwordError.stream;
+  Stream<UIError?> get passwordConfirmationErrorStream =>
       _passwordConfirmationError.stream;
 
   GetxSignUpPresenter({
-    @required this.validation,
-    @required this.addAccount,
-    @required this.saveCurrentAccount,
+    required this.validation,
+    required this.addAccount,
+    required this.saveCurrentAccount,
   });
 
-  UIError _validateField(String field) {
+  UIError? _validateField(String field) {
     final formData = {
       'name': _name,
       'email': _email,
@@ -98,10 +97,10 @@ class GetxSignUpPresenter extends GetxController
       mainError = null;
       isLoading = true;
       final account = await addAccount.add(AddAccountParams(
-        name: _name,
-        email: _email,
-        password: _password,
-        passwordConfirmation: _passwordConfirmation,
+        name: _name!,
+        email: _email!,
+        password: _password!,
+        passwordConfirmation: _passwordConfirmation!,
       ));
       await saveCurrentAccount.save(account);
       navigateTo = '/surveys';

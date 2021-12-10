@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:fordev/ui/pages/survey_result/components/components.dart';
 import 'package:fordev/ui/pages/survey_result/survey_result.dart';
 import 'package:image_test_utils/image_test_utils.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:fordev/ui/helpers/helpers.dart';
 import '../../mocks/mocks.dart';
 import '../helpers/heleprs.dart';
@@ -13,10 +13,10 @@ import '../helpers/heleprs.dart';
 class SurveyResultPresenterSpy extends Mock implements SurveyResultPresenter {}
 
 void main() {
-  SurveyResultPresenterSpy presenter;
-  StreamController<bool> isLoadingController;
-  StreamController<SurveyResultViewModel> surveyResultController;
-  StreamController<bool> isSessionExpiredController;
+  late SurveyResultPresenterSpy presenter;
+  late StreamController<bool> isLoadingController;
+  late StreamController<SurveyResultViewModel> surveyResultController;
+  late StreamController<bool> isSessionExpiredController;
 
   void initStreams() {
     isLoadingController = StreamController<bool>();
@@ -25,11 +25,11 @@ void main() {
   }
 
   void mockStreams() {
-    when(presenter.isLoadingStream)
+    when(() => presenter.isLoadingStream)
         .thenAnswer((_) => isLoadingController.stream);
-    when(presenter.surveyResultStream)
+    when(() => presenter.surveyResultStream)
         .thenAnswer((_) => surveyResultController.stream);
-    when(presenter.isSessionExpiredStream)
+    when(() => presenter.isSessionExpiredStream)
         .thenAnswer((_) => isSessionExpiredController.stream);
   }
 
@@ -59,7 +59,7 @@ void main() {
       'Should call LoadSurveys on reload button clickLoadSurveys on page load',
       (WidgetTester tester) async {
     await loadPage(tester);
-    verify(presenter.loadData()).called(1);
+    verify(() => presenter.loadData()).called(1);
   });
 
   testWidgets('Should handle loading correctly', (WidgetTester tester) async {
@@ -102,7 +102,7 @@ void main() {
     await tester.pump();
     await tester.tap(find.text('Recarregar'));
 
-    verify(presenter.loadData()).called(2);
+    verify(() => presenter.loadData()).called(2);
   });
 
   testWidgets('Should present valid data if surveysStream succeeds',
@@ -163,7 +163,7 @@ void main() {
 
     await tester.tap(find.text('Answer 1'));
 
-    verify(presenter.save(answer: 'Answer 1')).called(1);
+    verify(() => presenter.save(answer: 'Answer 1')).called(1);
   });
   testWidgets('Should not call save on current answer click',
       (WidgetTester tester) async {

@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 import '../../../data/models/models.dart';
 import '../../../domain/entities/entities.dart';
 import '../../../domain/helpers/helpers.dart';
@@ -11,8 +9,8 @@ class RemoteSaveSurveyResult implements SaveSurveyResult {
   final HttpClient httpClient;
 
   RemoteSaveSurveyResult({
-    @required this.url,
-    @required this.httpClient,
+    required this.url,
+    required this.httpClient,
   });
 
   Future<SurveyResultEntity> save({String answer}) async {

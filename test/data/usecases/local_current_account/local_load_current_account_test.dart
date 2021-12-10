@@ -3,19 +3,19 @@ import 'package:fordev/data/cache/cache.dart';
 import 'package:fordev/data/usecases/load_current_account/load_current_account.dart';
 import 'package:fordev/domain/entities/entities.dart';
 import 'package:fordev/domain/helpers/helpers.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
 class FetchSecureCacheStorageSpy extends Mock
     implements FetchSecureCacheStorage {}
 
 void main() {
-  LocalLoadCurrentAccount sut;
-  FetchSecureCacheStorageSpy fetchSecureCacheStorage;
-  String token;
+  late LocalLoadCurrentAccount sut;
+  late FetchSecureCacheStorageSpy fetchSecureCacheStorage;
+  late String token;
 
-  PostExpectation mockFetchSecureCall() =>
-      when(fetchSecureCacheStorage.fetch(any));
+  When mockFetchSecureCall() =>
+      when(() => fetchSecureCacheStorage.fetch(any()));
 
   void mockFetchSecure() {
     mockFetchSecureCall().thenAnswer((_) async => token);
@@ -36,7 +36,7 @@ void main() {
     await sut.load();
 
     verify(
-      fetchSecureCacheStorage.fetch('token'),
+      () => fetchSecureCacheStorage.fetch('token'),
     );
   });
 

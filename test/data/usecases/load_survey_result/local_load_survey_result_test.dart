@@ -3,7 +3,7 @@ import 'package:fordev/data/cache/cache.dart';
 import 'package:fordev/data/usecases/usecases.dart';
 import 'package:fordev/domain/entities/entities.dart';
 import 'package:fordev/domain/helpers/helpers.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
 import '../../../mocks/mocks.dart';
@@ -12,12 +12,12 @@ class CacheStorageSpy extends Mock implements CacheStorage {}
 
 void main() {
   group('loadBySurvey', () {
-    CacheStorageSpy cacheStorage;
-    LocalLoadSurveyResult sut;
-    Map data;
-    String surveyId;
+    late CacheStorageSpy cacheStorage;
+    late LocalLoadSurveyResult sut;
+    late Map data;
+    late String surveyId;
 
-    PostExpectation mockFetchCall() => when(cacheStorage.fetch(any));
+    When mockFetchCall() => when(() => cacheStorage.fetch(any()));
 
     void mockFetch(Map json) {
       data = json;
@@ -35,7 +35,7 @@ void main() {
     test('Should call CacheStorage with correct key', () async {
       await sut.loadBySurvey(surveyId: surveyId);
 
-      verify(cacheStorage.fetch('survey_result/$surveyId')).called(1);
+      verify(() => cacheStorage.fetch('survey_result/$surveyId')).called(1);
     });
     test('Should return a surveyResult on success', () async {
       final surveyResult = await sut.loadBySurvey(surveyId: surveyId);
@@ -96,12 +96,12 @@ void main() {
   });
 
   group('Validate', () {
-    CacheStorageSpy cacheStorage;
-    LocalLoadSurveyResult sut;
-    Map data;
-    String surveyId;
+    late CacheStorageSpy cacheStorage;
+    late LocalLoadSurveyResult sut;
+    late Map data;
+    late String surveyId;
 
-    PostExpectation mockFetchCall() => when(cacheStorage.fetch(any));
+    When mockFetchCall() => when(() => cacheStorage.fetch(any()));
 
     void mockFetch(Map json) {
       data = json;
@@ -119,36 +119,36 @@ void main() {
     test('Should call CacheStorage with correct key', () async {
       await sut.validate(surveyId);
 
-      verify(cacheStorage.fetch('survey_result/$surveyId')).called(1);
+      verify(() => cacheStorage.fetch('survey_result/$surveyId')).called(1);
     });
     test('Should delete cache if it is invalid', () async {
       mockFetch(FakeSurveyResultFactory.makeInvalidCacheJson());
       await sut.validate(surveyId);
 
-      verify(cacheStorage.delete('survey_result/$surveyId')).called(1);
+      verify(() => cacheStorage.delete('survey_result/$surveyId')).called(1);
     });
     test('Should delete cache if it is incomplete', () async {
       mockFetch(FakeSurveyResultFactory.makeIncompleteCacheJson());
       await sut.validate(surveyId);
 
-      verify(cacheStorage.delete('survey_result/$surveyId')).called(1);
+      verify(() => cacheStorage.delete('survey_result/$surveyId')).called(1);
     });
 
     test('Should delete cache if fetch fails', () async {
       mockFetchError();
       await sut.validate(surveyId);
 
-      verify(cacheStorage.delete('survey_result/$surveyId')).called(1);
+      verify(() => cacheStorage.delete('survey_result/$surveyId')).called(1);
     });
   });
 
   group('Save', () {
-    CacheStorageSpy cacheStorage;
-    LocalLoadSurveyResult sut;
-    SurveyResultEntity surveyResult;
+    late CacheStorageSpy cacheStorage;
+    late LocalLoadSurveyResult sut;
+    late SurveyResultEntity surveyResult;
 
-    PostExpectation mockSaveCall() => when(
-        cacheStorage.save(key: anyNamed('key'), value: anyNamed(('value'))));
+    When mockSaveCall() => when(() => cacheStorage.save(
+        key: any(named: 'key'), value: any(named: ('value'))));
 
     void mockSaveError() => mockSaveCall().thenThrow(Exception());
 
@@ -179,9 +179,9 @@ void main() {
 
       await sut.save(surveyResult);
 
-      verify(cacheStorage.save(
-              key: 'survey_result/${surveyResult.surveyId}', value: json))
-          .called(1);
+      verify(() => cacheStorage.save(
+          key: 'survey_result/${surveyResult.surveyId}',
+          value: json)).called(1);
     });
     test('Should throw UnexpectedError if save throws', () async {
       mockSaveError();

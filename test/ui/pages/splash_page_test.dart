@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fordev/ui/pages/pages.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart' as test;
 import 'package:flutter/material.dart';
 import '../helpers/heleprs.dart';
@@ -10,13 +10,13 @@ import '../helpers/heleprs.dart';
 class SplashPresenterSpy extends Mock implements SplashPresenter {}
 
 void main() {
-  SplashPresenterSpy presenter;
-  StreamController<String> navigateToController;
+  late SplashPresenterSpy presenter;
+  late StreamController<String> navigateToController;
 
   Future<void> loadPage(WidgetTester tester) async {
     presenter = SplashPresenterSpy();
     navigateToController = StreamController<String>();
-    when(presenter.navigateToStream)
+    when(() => presenter.navigateToStream)
         .thenAnswer((_) => navigateToController.stream);
     await tester.pumpWidget(
         makePage(path: '/', page: () => SplashPage(presenter: presenter)));
@@ -36,7 +36,7 @@ void main() {
       (WidgetTester tester) async {
     await loadPage(tester);
 
-    verify(presenter.checkAccount()).called(1);
+    verify(() => presenter.checkAccount()).called(1);
   });
 
   testWidgets('Should load page', (WidgetTester tester) async {
