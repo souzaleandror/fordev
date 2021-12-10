@@ -6,7 +6,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:faker/faker.dart';
 import 'package:fordev/ui/helpers/errors/errors.dart';
 import 'package:fordev/ui/pages/pages.dart';
-import 'package:fordev/ui/pages/signup/signup_page.dart';
 import 'package:mocktail/mocktail.dart';
 import '../helpers/heleprs.dart';
 
@@ -14,24 +13,24 @@ class SignUpPresenterSpy extends Mock implements SignUpPresenter {}
 
 void main() {
   late SignUpPresenter presenter;
-  late StreamController<UIError> nameErrorController;
-  late StreamController<UIError> emailErrorController;
-  late StreamController<UIError> passwordErrorController;
-  late StreamController<UIError> passwordConfirmationErrorController;
+  late StreamController<UIError?> nameErrorController;
+  late StreamController<UIError?> emailErrorController;
+  late StreamController<UIError?> passwordErrorController;
+  late StreamController<UIError?> passwordConfirmationErrorController;
   late StreamController<bool> isFormValidController;
   late StreamController<bool> isLoadingController;
-  late StreamController<UIError> mainErrorController;
-  late StreamController<String> navigateToController;
+  late StreamController<UIError?> mainErrorController;
+  late StreamController<String?> navigateToController;
 
   void initStreams() {
-    nameErrorController = StreamController<UIError>();
-    emailErrorController = StreamController<UIError>();
-    passwordErrorController = StreamController<UIError>();
-    passwordConfirmationErrorController = StreamController<UIError>();
+    nameErrorController = StreamController<UIError?>();
+    emailErrorController = StreamController<UIError?>();
+    passwordErrorController = StreamController<UIError?>();
+    passwordConfirmationErrorController = StreamController<UIError?>();
     isFormValidController = StreamController<bool>();
     isLoadingController = StreamController<bool>();
-    mainErrorController = StreamController<UIError>();
-    navigateToController = StreamController<String>();
+    mainErrorController = StreamController<UIError?>();
+    navigateToController = StreamController<String?>();
   }
 
   void mockStreams() {
@@ -291,10 +290,6 @@ void main() {
     isLoadingController.add(true);
     await tester.pump();
     expect(find.byType(CircularProgressIndicator), findsOneWidget);
-
-    isLoadingController.add(null);
-    await tester.pump();
-    expect(find.byType(CircularProgressIndicator), findsNothing);
   });
 
   testWidgets('Should present error message if signUp fails',

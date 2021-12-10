@@ -12,9 +12,9 @@ class GetxSurveysPresenter extends GetxController
     implements SurveysPresenter {
   final LoadSurveys loadSurveys;
 
-  final _surveys = Rx<List<SurveyViewModel>?>(null);
+  final _surveys = Rx<List<SurveyViewModel>>([]);
 
-  Stream<List<SurveyViewModel>?> get surveysStream => _surveys.stream;
+  Stream<List<SurveyViewModel>> get surveysStream => _surveys.stream;
 
   GetxSurveysPresenter({required this.loadSurveys});
 

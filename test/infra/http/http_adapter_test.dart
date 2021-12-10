@@ -182,7 +182,7 @@ void main() {
     test('Should call get with correct values', () async {
       await sut.request(url: url, method: 'get');
 
-      verify(() => client.get(url, headers: {
+      verify(() => client.get(Uri.parse(url), headers: {
             'content-type': 'application/json',
             'accept': 'application/json'
           }));
@@ -190,7 +190,7 @@ void main() {
       await sut.request(
           url: url, method: 'get', headers: {'any_header': 'any_value'});
 
-      verify(() => client.get(url, headers: {
+      verify(() => client.get(Uri.parse(url), headers: {
             'content-type': 'application/json',
             'accept': 'application/json',
             'any_header': 'any_value'
@@ -304,7 +304,7 @@ void main() {
       await sut
           .request(url: url, method: 'put', body: {'any_key': 'any_value'});
 
-      verify(() => client.put(url,
+      verify(() => client.put(Uri.parse(url),
           headers: {
             'content-type': 'application/json',
             'accept': 'application/json'
@@ -317,7 +317,7 @@ void main() {
           body: {'any_key': 'any_value'},
           headers: {'any_header': 'any_value'});
 
-      verify(() => client.put(url,
+      verify(() => client.put(Uri.parse(url),
           headers: {
             'content-type': 'application/json',
             'accept': 'application/json',

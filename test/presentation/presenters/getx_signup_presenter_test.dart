@@ -28,11 +28,11 @@ void main() {
   late String passwordConfirmation;
   late AccountEntity account;
 
-  When mockValidationCall(String field) => when(() => validation.validate(
+  When mockValidationCall(String? field) => when(() => validation.validate(
       field: field == null ? any(named: 'field') : field,
       input: any(named: 'input')));
 
-  void mockValidation({String field, ValidationError value}) {
+  void mockValidation({String? field, ValidationError? value}) {
     mockValidationCall(field).thenReturn(value);
   }
 

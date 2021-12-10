@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../ui/helpers/i18n/resources.dart';
-import 'components/components.dart';
 import 'signup.dart';
 import '../../../ui/mixins/mixins.dart';
 import '../../components/components.dart';

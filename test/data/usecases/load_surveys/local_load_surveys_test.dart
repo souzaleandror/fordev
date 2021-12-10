@@ -56,13 +56,6 @@ void main() {
 
       expect(future, throwsA(DomainError.unexpected));
     });
-
-    test('Should throw UnexpectedError if cache is null', () async {
-      mockFetch(null);
-      final future = sut.load();
-
-      expect(future, throwsA(DomainError.unexpected));
-    });
     test('Should throw UnexpectedError if cache is invalid', () async {
       mockFetch(FakeSurveysFactory.makeInvalidCacheJson());
       final future = sut.load();

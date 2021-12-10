@@ -15,7 +15,7 @@ void main() {
   late SurveysPresenterSpy presenter;
   late StreamController<bool> isLoadingController;
   late StreamController<List<SurveyViewModel>> loadSurveysController;
-  late StreamController<String> navigateToController;
+  late StreamController<String?> navigateToController;
   late StreamController<bool> isSessionExpiredController;
 
   void initStreams() {
@@ -88,10 +88,6 @@ void main() {
     isLoadingController.add(true);
     await tester.pump();
     expect(find.byType(CircularProgressIndicator), findsOneWidget);
-
-    isLoadingController.add(null);
-    await tester.pump();
-    expect(find.byType(CircularProgressIndicator), findsNothing);
   });
 
   testWidgets('Should presenter error if loadSurveysStream fails',
@@ -180,10 +176,6 @@ void main() {
     await loadPage(tester);
 
     isSessionExpiredController.add(false);
-    await tester.pump();
-    expect(currentRoute, '/surveys');
-
-    isSessionExpiredController.add(null);
     await tester.pump();
     expect(currentRoute, '/surveys');
   });

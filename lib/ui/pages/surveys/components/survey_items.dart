@@ -6,7 +6,7 @@ import '../../../../ui/pages/surveys/surveys.dart';
 
 class SurveyItems extends StatelessWidget {
   const SurveyItems({
-    Key key,
+    Key? key,
     required this.viewModels,
   }) : super(key: key);
 
@@ -24,9 +24,7 @@ class SurveyItems extends StatelessWidget {
           aspectRatio: 1,
           //enableInfiniteScroll: false,
         ),
-        items: viewModels
-            .map((viewModel) => SurveyItem(viewModel: viewModel))
-            .toList(),
+        items: viewModels.map((viewModel) => SurveyItem(viewModel)).toList(),
       ),
     );
   }

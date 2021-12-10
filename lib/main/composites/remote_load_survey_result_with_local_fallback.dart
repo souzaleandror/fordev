@@ -6,8 +6,9 @@ import '../../domain/usecases/usecases.dart';
 class RemoteLoadSurveyResultWithLocalFallback implements LoadSurveyResult {
   final RemoteLoadSurveyResult remote;
   final LocalLoadSurveyResult local;
-  RemoteLoadSurveyResultWithLocalFallback({this.remote, this.local});
-  Future<SurveyResultEntity> loadBySurvey({String surveyId}) async {
+  RemoteLoadSurveyResultWithLocalFallback(
+      {required this.remote, required this.local});
+  Future<SurveyResultEntity> loadBySurvey({required String surveyId}) async {
     try {
       final surveyResult = await remote.loadBySurvey(surveyId: surveyId);
       await local.save(surveyResult);

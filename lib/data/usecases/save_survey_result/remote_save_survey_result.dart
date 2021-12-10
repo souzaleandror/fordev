@@ -13,7 +13,7 @@ class RemoteSaveSurveyResult implements SaveSurveyResult {
     required this.httpClient,
   });
 
-  Future<SurveyResultEntity> save({String answer}) async {
+  Future<SurveyResultEntity> save({String? answer}) async {
     try {
       final json = await httpClient
           .request(url: url, method: 'put', body: {'answer': answer});

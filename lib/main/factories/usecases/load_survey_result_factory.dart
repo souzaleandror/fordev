@@ -1,18 +1,17 @@
 import '../../../main/composites/composites.dart';
 import '../../../data/usecases/usecases.dart';
-import '../../../domain/usecases/usecases.dart';
-import '../http/http.dart';
 import '../factories.dart';
 
-LoadSurveyResult makeRemoteLoadSurveyResult(String surveyId) =>
+RemoteLoadSurveyResult makeRemoteLoadSurveyResult(String surveyId) =>
     RemoteLoadSurveyResult(
         httpClient: makeAuthorizeHttpClientDecorator(),
         url: makeApiUrl('surveys/$surveyId/results'));
 
-LoadSurveyResult makeLocalLoadSurveyResult(String surveyId) =>
+LocalLoadSurveyResult makeLocalLoadSurveyResult(String surveyId) =>
     LocalLoadSurveyResult(cacheStorage: makeLocalStorageAdapter());
 
-LoadSurveyResult makeRemoteLoadSurveyResultWithLocalFallback(String surveyId) =>
-    RemoteLoadSurveyResultWithLocalFallback(
-        remote: makeRemoteLoadSurveyResult(surveyId),
-        local: makeLocalLoadSurveyResult(surveyId));
+RemoteLoadSurveyResultWithLocalFallback
+    makeRemoteLoadSurveyResultWithLocalFallback(String surveyId) =>
+        RemoteLoadSurveyResultWithLocalFallback(
+            remote: makeRemoteLoadSurveyResult(surveyId),
+            local: makeLocalLoadSurveyResult(surveyId));

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../ui/components/components.dart';
@@ -31,13 +30,13 @@ class SurveyResultPage extends StatelessWidget
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 return RealodScreen(
-                  error: snapshot.error,
+                  error: '${snapshot.error}',
                   reload: presenter.loadData,
                 );
               }
               if (snapshot.hasData) {
                 return SurveyResult(
-                  viewModel: snapshot.data,
+                  viewModel: snapshot.data!,
                   onSave: presenter.save,
                 );
               }

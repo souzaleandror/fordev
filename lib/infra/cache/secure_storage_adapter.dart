@@ -17,7 +17,7 @@ class SecureStorageAdapter
   }) async =>
       await secureStorage.write(key: key, value: value);
 
-  Future<String> fetch(
+  Future<String?> fetch(
     String key,
   ) async =>
       await secureStorage.read(key: key);

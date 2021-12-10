@@ -41,14 +41,10 @@ class SurveyAnswer extends StatelessWidget {
       if (viewModel.image != null) {
         children.insert(
           0,
-          viewModel.image != null
-              ? Image.network(
-                  viewModel.image,
-                  width: 40,
-                )
-              : SizedBox(
-                  height: 0,
-                ),
+          Image.network(
+            viewModel.image!,
+            width: 40,
+          ),
         );
       }
       return children;

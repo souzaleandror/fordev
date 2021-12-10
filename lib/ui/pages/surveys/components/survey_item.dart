@@ -1,11 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../ui/pages/pages.dart';
 
 class SurveyItem extends StatelessWidget {
-  const SurveyItem({Key key, this.viewModel}) : super(key: key);
+  const SurveyItem(
+    this.viewModel, {
+    Key? key,
+  }) : super(key: key);
 
   final SurveyViewModel viewModel;
 

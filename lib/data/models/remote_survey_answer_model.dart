@@ -2,7 +2,7 @@ import '../../domain/entities/entities.dart';
 import '../http/http.dart';
 
 class RemoteSurveyAnswerModel {
-  final String image;
+  final String? image;
   final String answer;
   final bool isCurrentAccountAnswer;
   final int percent;

@@ -7,5 +7,5 @@ class FakerAccountFactory {
         'name': faker.person.name(),
       };
 
-  static AccountEntity makeEntity() => AccountEntity(faker.guid.guid());
+  static AccountEntity makeEntity() => AccountEntity(token: faker.guid.guid());
 }

@@ -13,7 +13,7 @@ void main() {
 
   When mockLoadCurrentAccountCall() => when(() => loadCurrentAccount.load());
 
-  void mockLoadCurrentAccount({AccountEntity account}) {
+  void mockLoadCurrentAccount({required AccountEntity account}) {
     mockLoadCurrentAccountCall().thenAnswer((_) async => account);
   }
 
@@ -35,18 +35,6 @@ void main() {
   test('should go to surveys page on success', () async {
     sut.navigateToStream
         .listen(expectAsync1((page) => expect(page, '/surveys')));
-    await sut.checkAccount(durationInSeconds: 0);
-  });
-
-  test('should go to login page on null result', () async {
-    mockLoadCurrentAccount(account: null);
-    sut.navigateToStream.listen(expectAsync1((page) => expect(page, '/login')));
-    await sut.checkAccount(durationInSeconds: 0);
-  });
-
-  test('should go to login page on null token', () async {
-    mockLoadCurrentAccount(account: AccountEntity(null));
-    sut.navigateToStream.listen(expectAsync1((page) => expect(page, '/login')));
     await sut.checkAccount(durationInSeconds: 0);
   });
 

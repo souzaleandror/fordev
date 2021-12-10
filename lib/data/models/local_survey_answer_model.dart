@@ -43,7 +43,7 @@ class LocalSurveyAnswerModel {
       );
 
   Map<String, String> toJson() => {
-        'image': image,
+        'image': image!,
         'answer': answer,
         'percent': percent.toString(),
         'isCurrentAnswer': isCurrentAnswer.toString(),

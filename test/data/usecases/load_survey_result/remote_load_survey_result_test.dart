@@ -15,6 +15,7 @@ void main() {
   late HttpClientSpy httpClient;
   late RemoteLoadSurveyResult sut;
   late Map surveyResult;
+  late String surveyId;
 
   When mockRequest() => when(() =>
       httpClient.request(url: any(named: 'url'), method: any(named: 'method')));
@@ -29,18 +30,19 @@ void main() {
   }
 
   setUp(() {
+    surveyId = faker.guid.guid();
     url = faker.internet.httpUrl();
     httpClient = HttpClientSpy();
     sut = RemoteLoadSurveyResult(url: url, httpClient: httpClient);
     mockHttpData(FakeSurveyResultFactory.makeApiJson());
   });
   test('Should call HttpClient with correct values', () async {
-    await sut.loadBySurvey();
+    await sut.loadBySurvey(surveyId: surveyId);
 
     verify(() => httpClient.request(url: url, method: 'get'));
   });
   test('Should return surveyResult on 200', () async {
-    final result = await sut.loadBySurvey();
+    final result = await sut.loadBySurvey(surveyId: surveyId);
 
     expect(
       result,
@@ -71,7 +73,7 @@ void main() {
       () async {
     mockHttpData(FakeSurveyResultFactory.makeInvalidApiJson());
 
-    final future = sut.loadBySurvey();
+    final future = sut.loadBySurvey(surveyId: surveyId);
 
     expect(future, throwsA(DomainError.unexpected));
   });
@@ -80,7 +82,7 @@ void main() {
       () async {
     mockHttpError(HttpError.notFound);
 
-    final future = sut.loadBySurvey(); //action
+    final future = sut.loadBySurvey(surveyId: surveyId); //action
 
     expect(future, throwsA(DomainError.unexpected));
   });
@@ -89,7 +91,7 @@ void main() {
       () async {
     mockHttpError(HttpError.serverError);
 
-    final future = sut.loadBySurvey(); //action
+    final future = sut.loadBySurvey(surveyId: surveyId); //action
 
     expect(future, throwsA(DomainError.unexpected));
   });
@@ -97,7 +99,7 @@ void main() {
   test('Should throw AccessDeniedError if HttpClient returns 403 ', () async {
     mockHttpError(HttpError.forbidden);
 
-    final future = sut.loadBySurvey(); //action
+    final future = sut.loadBySurvey(surveyId: surveyId); //action
 
     expect(future, throwsA(DomainError.accessDenied));
   });

@@ -66,7 +66,7 @@ void main() {
   });
 
   group('fetch', () {
-    String result;
+    late String result;
 
     When mockFetchCall() => when(() => localStorage.getItem(any()));
 

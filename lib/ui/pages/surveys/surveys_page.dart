@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -9,10 +8,9 @@ import '../../../ui/mixins/mixins.dart';
 import '../../../ui/helpers/i18n/i18n.dart';
 
 import 'components/components.dart';
-import 'surveys_presenter.dart';
 
 class SurveysPage extends StatefulWidget {
-  const SurveysPage({Key key, this.presenter}) : super(key: key);
+  const SurveysPage({Key? key, required this.presenter}) : super(key: key);
 
   final SurveysPresenter presenter;
 
@@ -36,7 +34,8 @@ class _SurveysPageState extends State<SurveysPage>
 
   @override
   Widget build(BuildContext context) {
-    Get.find<RouteObserver>().subscribe(this, ModalRoute.of(context));
+    Get.find<RouteObserver>()
+        .subscribe(this, ModalRoute.of(context) as PageRoute);
 
     return Scaffold(
       appBar: AppBar(
@@ -57,7 +56,7 @@ class _SurveysPageState extends State<SurveysPage>
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 return RealodScreen(
-                  error: snapshot.error,
+                  error: '${snapshot.error}',
                   reload: widget.presenter.loadData,
                 );
               }
@@ -65,7 +64,7 @@ class _SurveysPageState extends State<SurveysPage>
                 return Provider(
                   create: (_) => widget.presenter,
                   child: SurveyItems(
-                    viewModels: snapshot.data,
+                    viewModels: snapshot.data!,
                   ),
                 );
               }

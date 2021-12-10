@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:meta/meta.dart';
 
 import '../../../domain/helpers/domain_error.dart';
 import '../../../domain/usecases/usecases.dart';
@@ -102,7 +101,6 @@ class StreamLoginPresenter implements LoginPresenter {
   @override
   void dispose() {
     _controller.close();
-    _controller = null;
   }
 
   @override

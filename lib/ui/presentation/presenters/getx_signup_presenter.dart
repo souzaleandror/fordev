@@ -5,7 +5,6 @@ import '../../../domain/usecases/usecases.dart';
 import '../../../ui/helpers/helpers.dart';
 import '../../../ui/pages/pages.dart';
 import '../../../ui/presentation/protocols/protocols.dart';
-import '../../../domain/usecases/add_account.dart';
 import '../mixins/mixins.dart';
 
 class GetxSignUpPresenter extends GetxController
@@ -88,8 +87,6 @@ class GetxSignUpPresenter extends GetxController
         _name != null &&
         _passwordConfirmation != null;
   }
-
-  void dispose() {}
 
   @override
   Future<void> signUp() async {

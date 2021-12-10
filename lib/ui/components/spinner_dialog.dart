@@ -5,7 +5,7 @@ import '../../ui/helpers/i18n/i18n.dart';
 void showLoading(BuildContext context) => showDialog(
       context: context,
       barrierDismissible: false,
-      child: SimpleDialog(
+      builder: (BuildContext context) => SimpleDialog(
         children: [
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -25,7 +25,5 @@ void showLoading(BuildContext context) => showDialog(
     );
 
 void hideLoading(BuildContext context) {
-  if (Navigator.canPop(context)) {
-    Navigator.of(context).pop();
-  }
+  if (Navigator.canPop(context)) Navigator.of(context).pop();
 }

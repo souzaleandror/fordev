@@ -25,18 +25,19 @@ void main() {
   late String password;
   late String token;
 
-  When mockValidationCall(String field) => when(() => validation.validate(
+  When mockValidationCall(String? field) => when(() => validation.validate(
       field: field == null ? any(named: 'field') : field,
       input: any(named: 'input')));
 
-  void mockValidation({String field, ValidationError value}) {
+  void mockValidation({String? field, ValidationError? value}) {
     mockValidationCall(field).thenReturn(value);
   }
 
   When mockAuthenticationCall() => when(() => authentication.auth(any()));
 
   void mockAuthentication() {
-    mockAuthenticationCall().thenAnswer((_) async => AccountEntity(token));
+    mockAuthenticationCall()
+        .thenAnswer((_) async => AccountEntity(token: token));
   }
 
   void mockAuthenticationError(DomainError error) {

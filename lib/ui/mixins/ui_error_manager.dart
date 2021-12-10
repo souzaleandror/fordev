@@ -6,10 +6,10 @@ import '../../ui/helpers/helpers.dart';
 mixin UIErrorManager {
   void handleMainError(
     BuildContext context,
-    Stream<UIError> stream,
+    Stream<UIError?> stream,
   ) {
     stream.listen((error) {
-      showErrorMessage(context, error.description);
+      showErrorMessage(context, error!.description);
     });
   }
 }

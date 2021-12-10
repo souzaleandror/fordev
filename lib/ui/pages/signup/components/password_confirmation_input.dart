@@ -20,7 +20,7 @@ class PasswordConfirmationInput extends StatelessWidget {
               Icons.email,
               color: Theme.of(context).primaryColorLight,
             ),
-            errorText: snapshot.hasData ? snapshot.data?.description : null,
+            errorText: snapshot.data?.description,
           ),
           obscureText: true,
           onChanged: presenter.validatePasswordConfirmation,
