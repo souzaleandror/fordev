@@ -5,7 +5,7 @@ import 'package:fordev/domain/entities/entities.dart';
 import 'package:fordev/domain/helpers/helpers.dart';
 import 'package:fordev/main/composites/composites.dart';
 import 'package:mocktail/mocktail.dart';
-import './../../mocks/mocks.dart';
+import '../../domain/mocks/mocks.dart';
 
 class RemoteLoadSurveyResultSpy extends Mock implements RemoteLoadSurveyResult {
 }
@@ -24,7 +24,7 @@ void main() {
       when(() => remote.loadBySurvey(surveyId: any(named: 'surveyId')));
 
   void mockRemoteLoad() {
-    remoteResult = FakeSurveyResultFactory.makeEntity();
+    remoteResult = EntityFactory.makeSurveyResult();
     mockRemoteLoadCall().thenAnswer((_) async => remoteResult);
   }
 
@@ -35,7 +35,7 @@ void main() {
       when(() => local.loadBySurvey(surveyId: any(named: 'surveyId')));
 
   void mockLocalLoad() {
-    localResult = FakeSurveyResultFactory.makeEntity();
+    localResult = EntityFactory.makeSurveyResult();
     mockLocalLoadCall().thenAnswer((_) async => localResult);
   }
 

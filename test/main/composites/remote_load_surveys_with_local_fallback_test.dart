@@ -4,7 +4,7 @@ import 'package:fordev/domain/helpers/helpers.dart';
 import 'package:fordev/main/composites/composites.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
-import './../../mocks/mocks.dart';
+import '../../domain/mocks/mocks.dart';
 
 class RemoteLoadSurveysSpy extends Mock implements RemoteLoadSurveys {}
 
@@ -20,14 +20,14 @@ void main() {
   When mockRemoteLoadCall() => when(() => remote.load());
 
   void mockRemoteLoad() {
-    remoteSurveys = FakeSurveysFactory.makeEntities();
+    remoteSurveys = EntityFactory.makeSurveyList();
     mockRemoteLoadCall().thenAnswer((_) async => remoteSurveys);
   }
 
   When mockLocalLoadCall() => when(() => local.load());
 
   void mockLocalLoad() {
-    localSurveys = FakeSurveysFactory.makeEntities();
+    localSurveys = EntityFactory.makeSurveyList();
     mockLocalLoadCall().thenAnswer((_) async => localSurveys);
   }
 

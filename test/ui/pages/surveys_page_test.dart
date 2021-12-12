@@ -7,7 +7,7 @@ import 'package:fordev/ui/helpers/helpers.dart';
 import 'package:fordev/ui/pages/surveys/surveys.dart';
 import 'package:mocktail/mocktail.dart';
 import '../helpers/heleprs.dart';
-import '../../mocks/mocks.dart';
+import '../mocks/mocks.dart';
 
 class SurveysPresenterSpy extends Mock implements SurveysPresenter {}
 
@@ -106,7 +106,7 @@ void main() {
       (WidgetTester tester) async {
     await loadPage(tester);
 
-    loadSurveysController.add(FakeSurveysFactory.makeViewModel());
+    loadSurveysController.add(ViewModelFactory.makeSurveyResultList());
     await tester.pump();
     expect(find.text('Algo Errado Aconteceu. Tente Novamente em breve.'),
         findsNothing);
@@ -132,7 +132,7 @@ void main() {
       (WidgetTester tester) async {
     await loadPage(tester);
 
-    loadSurveysController.add(FakeSurveysFactory.makeViewModel());
+    loadSurveysController.add(ViewModelFactory.makeSurveyResultList());
     await tester.pump();
 
     await tester.tap(find.text('Question 1'));

@@ -7,8 +7,8 @@ import 'package:fordev/ui/pages/survey_result/survey_result.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:fordev/ui/helpers/helpers.dart';
 import 'package:network_image_mock/network_image_mock.dart';
-import '../../mocks/mocks.dart';
 import '../helpers/heleprs.dart';
+import '../mocks/mocks.dart';
 
 class SurveyResultPresenterSpy extends Mock implements SurveyResultPresenter {}
 
@@ -105,7 +105,7 @@ void main() {
       (WidgetTester tester) async {
     await loadPage(tester);
 
-    surveyResultController.add(FakeSurveyResultFactory.makeViewModel());
+    surveyResultController.add(ViewModelFactory.makeSurveyResultResult());
 
     await mockNetworkImagesFor(() async {
       await tester.pump();
@@ -147,7 +147,7 @@ void main() {
       (WidgetTester tester) async {
     await loadPage(tester);
 
-    surveyResultController.add(FakeSurveyResultFactory.makeViewModel());
+    surveyResultController.add(ViewModelFactory.makeSurveyResultResult());
 
     await mockNetworkImagesFor(() async {
       await tester.pump();
@@ -161,7 +161,7 @@ void main() {
       (WidgetTester tester) async {
     await loadPage(tester);
 
-    surveyResultController.add(FakeSurveyResultFactory.makeViewModel());
+    surveyResultController.add(ViewModelFactory.makeSurveyResultResult());
 
     await mockNetworkImagesFor(() async {
       await tester.pump();

@@ -9,7 +9,7 @@ import 'package:fordev/domain/usecases/usecases.dart';
 
 import 'package:fordev/ui/presentation/protocols/validation.dart';
 import 'package:fordev/ui/presentation/presenters/presenters.dart';
-import './../../mocks/mocks.dart';
+import '../../domain/mocks/mocks.dart';
 
 class ValidationSpy extends Mock implements Validation {}
 
@@ -61,7 +61,7 @@ void main() {
         authentication: authentication,
         saveCurrentAccount: saveCurrentAccount);
     mockValidation();
-    mockAuthentication(FakerAccountFactory.makeEntity());
+    mockAuthentication(EntityFactory.makeAccount());
   });
 
   test('Should call Validation with correct email', () {

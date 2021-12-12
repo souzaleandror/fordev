@@ -6,9 +6,9 @@ import 'package:fordev/domain/usecases/usecases.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
-import '../../../mocks/mocks.dart';
-
-class HttpClientSpy extends Mock implements HttpClient {}
+import '../../../domain/mocks/mocks.dart';
+import '../../../infra/mocks/mocks.dart';
+import '../mocks/mocks.dart';
 
 void main() {
   late RemoteAuthentication sut;
@@ -17,28 +17,15 @@ void main() {
   late AuthenticationParams params;
   late Map apiResult;
 
-  When mockRequest() => when(() => httpClient.request(
-      url: any(named: 'url'),
-      method: any(named: 'method'),
-      body: any(named: 'body')));
-
-  void mockHttpData(Map data) {
-    apiResult = data;
-    mockRequest().thenAnswer((_) async => data);
-  }
-
-  void mockHttpError(HttpError error) {
-    mockRequest().thenThrow(error);
-  }
-
   //Passar para todos os testes
   setUp(() {
-    httpClient = HttpClientSpy();
     url = faker.internet.httpUrl();
+    apiResult = ApiFactory.makeAccountJson();
+    params = ParamsFactory.makeAuthentication();
+    httpClient = HttpClientSpy();
+    httpClient.mockRequest(apiResult);
     sut = RemoteAuthentication(
         httpClient: httpClient, url: url); //classe de teste chama sempre sut
-    params = FakerParamsFactory.makeAuthentication();
-    mockHttpData(FakerAccountFactory.makeApiJson());
   });
 
   test('Should call HttpClient with correct values', () async {
@@ -67,7 +54,7 @@ void main() {
     //         body: any(named: 'body')))
     //     .thenThrow(HttpError.badRequest);
 
-    mockHttpError(HttpError.badRequest);
+    httpClient.mockRequestError(HttpError.badRequest);
 
     final future = sut.auth(params); //action
 
@@ -82,7 +69,7 @@ void main() {
     //         body: any(named: 'body')))
     //     .thenThrow(HttpError.notFound);
 
-    mockHttpError(HttpError.notFound);
+    httpClient.mockRequestError(HttpError.notFound);
 
     final future = sut.auth(params); //action
 
@@ -97,7 +84,7 @@ void main() {
     //         body: any(named: 'body')))
     //     .thenThrow(HttpError.serverError);
 
-    mockHttpError(HttpError.serverError);
+    httpClient.mockRequestError(HttpError.serverError);
 
     final future = sut.auth(params); //action
 
@@ -113,7 +100,7 @@ void main() {
     //         body: any(named: 'body')))
     //     .thenThrow(HttpError.unauthorized);
 
-    mockHttpError(HttpError.unauthorized);
+    httpClient.mockRequestError(HttpError.unauthorized);
 
     final future = sut.auth(params); //action
 
@@ -141,7 +128,7 @@ void main() {
     //         body: any(named: 'body')))
     //     .thenAnswer((_) async => {'invalid_key': 'invalid_value'});
 
-    mockHttpData({'invalid_key': 'invalid_value'});
+    httpClient.mockRequest({'invalid_key': 'invalid_value'});
 
     final future = sut.auth(params); //action
 

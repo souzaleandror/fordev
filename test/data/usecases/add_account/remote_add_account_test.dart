@@ -6,9 +6,9 @@ import 'package:fordev/data/http/http.dart';
 import 'package:fordev/data/usecases/usecases.dart';
 import 'package:fordev/domain/helpers/helpers.dart';
 import 'package:fordev/domain/usecases/usecases.dart';
-import '../../../mocks/mocks.dart';
-
-class HttpClientSpy extends Mock implements HttpClient {}
+import '../../../domain/mocks/mocks.dart';
+import '../../../infra/mocks/mocks.dart';
+import '../mocks/mocks.dart';
 
 void main() {
   late RemoteAddAccount sut;
@@ -17,28 +17,15 @@ void main() {
   late AddAccountParams params;
   late Map apiResult;
 
-  When mockRequest() => when(() => httpClient.request(
-      url: any(named: 'url'),
-      method: any(named: 'method'),
-      body: any(named: 'body')));
-
-  void mockHttpData(Map data) {
-    apiResult = data;
-    mockRequest().thenAnswer((_) async => data);
-  }
-
-  void mockHttpError(HttpError error) {
-    mockRequest().thenThrow(error);
-  }
-
   //Passar para todos os testes
   setUp(() {
-    httpClient = HttpClientSpy();
     url = faker.internet.httpUrl();
+    params = ParamsFactory.makeAddAccount();
+    apiResult = ApiFactory.makeAccountJson();
+    httpClient = HttpClientSpy();
+    httpClient.mockRequest(apiResult);
     sut = RemoteAddAccount(
         httpClient: httpClient, url: url); //classe de teste chama sempre sut
-    params = FakerParamsFactory.makeAddAccount();
-    mockHttpData(FakerAccountFactory.makeApiJson());
   });
 
   test('Should call HttpClient with correct values', () async {
@@ -54,7 +41,7 @@ void main() {
 
   test('Should throw UnexpectedError if HttpClient returns 400 => BadRequest',
       () async {
-    mockHttpError(HttpError.badRequest);
+    httpClient.mockRequestError(HttpError.badRequest);
 
     final future = sut.add(params); //action
 
@@ -63,7 +50,7 @@ void main() {
 
   test('Should throw UnexpectedError if HttpClient returns 404 => NotFound',
       () async {
-    mockHttpError(HttpError.notFound);
+    httpClient.mockRequestError(HttpError.notFound);
 
     final future = sut.add(params); //action
 
@@ -72,7 +59,7 @@ void main() {
 
   test('Should throw UnexpectedError if HttpClient returns 500 => NotFound',
       () async {
-    mockHttpError(HttpError.serverError);
+    httpClient.mockRequestError(HttpError.serverError);
 
     final future = sut.add(params); //action
 
@@ -81,7 +68,7 @@ void main() {
 
   test('Should throw emailInUse if HttpClient returns 403 => email in use',
       () async {
-    mockHttpError(HttpError.forbidden);
+    httpClient.mockRequestError(HttpError.forbidden);
 
     final future = sut.add(params); //action
 
@@ -97,7 +84,7 @@ void main() {
   test(
       'Should throw UnexpectedError if HttpClient returns 200 with invalid data ',
       () async {
-    mockHttpData({'invalid_key': 'invalid_value'});
+    httpClient.mockRequest({'invalid_key': 'invalid_value'});
 
     final future = sut.add(params); //action
 
