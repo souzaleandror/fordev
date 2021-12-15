@@ -1,37 +1,23 @@
 import 'package:fordev/domain/entities/survey_entity.dart';
 import 'package:fordev/domain/helpers/helpers.dart';
-import 'package:fordev/domain/usecases/usecases.dart';
 import 'package:fordev/ui/helpers/errors/errors.dart';
 import 'package:fordev/ui/pages/pages.dart';
 import 'package:fordev/ui/presentation/presenters/presenters.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
+import '../../data/usecases/mocks/mocks.dart';
 import '../../domain/mocks/mocks.dart';
-
-class LoadSurveysSpy extends Mock implements LoadSurveys {}
 
 void main() {
   late LoadSurveysSpy loadSurveys;
   late GetxSurveysPresenter sut;
   late List<SurveyEntity> surveys;
 
-  When mockLoadSurveysCall() => when(() => loadSurveys.load());
-
-  void mockLoadSurveys(List<SurveyEntity> data) {
-    surveys = data;
-    mockLoadSurveysCall().thenAnswer((_) async => surveys);
-  }
-
-  void mockLoadSurveysError() =>
-      mockLoadSurveysCall().thenThrow(DomainError.unexpected);
-
-  void mockAccessDeniedError() =>
-      mockLoadSurveysCall().thenThrow(DomainError.accessDenied);
-
   setUp(() {
+    surveys = EntityFactory.makeSurveyList();
     loadSurveys = LoadSurveysSpy();
+    loadSurveys.mockLoad(surveys);
     sut = GetxSurveysPresenter(loadSurveys: loadSurveys);
-    mockLoadSurveys(EntityFactory.makeSurveyList());
   });
 
   test('Should call LoadSurveys on loadData', () async {
@@ -66,7 +52,7 @@ void main() {
     await sut.loadData();
   });
   test('Should emit correct events on fails', () async {
-    mockLoadSurveysError();
+    loadSurveys.mockLoadError(DomainError.unexpected);
     expectLater(sut.isLoadingStream, emitsInOrder([true, false]));
     sut.surveysStream.listen(
       null,
@@ -80,7 +66,7 @@ void main() {
     await sut.loadData();
   });
   test('Should emit correct events on access denied', () async {
-    mockAccessDeniedError();
+    loadSurveys.mockLoadError(DomainError.accessDenied);
     expectLater(sut.isLoadingStream, emitsInOrder([true, false]));
     expectLater(sut.isSessionExpiredStream, emits(true));
 

@@ -5,3 +5,6 @@ export 'local_load_survey_result_spy.dart';
 export 'remote_load_survey_result_spy.dart';
 export 'local_load_surveys_spy.dart';
 export 'remote_load_surveys_spy.dart';
+export 'load_surveys_spy.dart';
+export 'load_survey_result_spy.dart';
+export 'save_result_result_spy.dart';
