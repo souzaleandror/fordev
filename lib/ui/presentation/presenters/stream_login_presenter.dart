@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 
 import '../../../domain/helpers/domain_error.dart';
 import '../../../domain/usecases/usecases.dart';
@@ -105,4 +106,10 @@ class StreamLoginPresenter implements LoginPresenter {
 
   @override
   void goToSignUp() => _state.navigateTo = '/signup';
+
+  @override
+  void addListener(VoidCallback listener) {}
+
+  @override
+  void removeListener(VoidCallback listener) {}
 }
