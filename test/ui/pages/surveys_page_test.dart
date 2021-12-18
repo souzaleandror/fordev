@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -9,52 +7,18 @@ import 'package:mocktail/mocktail.dart';
 import '../helpers/heleprs.dart';
 import '../mocks/mocks.dart';
 
-class SurveysPresenterSpy extends Mock implements SurveysPresenter {}
-
 void main() {
   late SurveysPresenterSpy presenter;
-  late StreamController<bool> isLoadingController;
-  late StreamController<List<SurveyViewModel>> loadSurveysController;
-  late StreamController<String?> navigateToController;
-  late StreamController<bool> isSessionExpiredController;
-
-  void initStreams() {
-    isLoadingController = StreamController<bool>();
-    loadSurveysController = StreamController<List<SurveyViewModel>>();
-    navigateToController = StreamController<String>();
-    isSessionExpiredController = StreamController<bool>();
-  }
-
-  void mockStreams() {
-    when(() => presenter.isLoadingStream)
-        .thenAnswer((_) => isLoadingController.stream);
-    when(() => presenter.surveysStream)
-        .thenAnswer((_) => loadSurveysController.stream);
-    when(() => presenter.navigateToStream)
-        .thenAnswer((_) => navigateToController.stream);
-    when(() => presenter.isSessionExpiredStream)
-        .thenAnswer((_) => isSessionExpiredController.stream);
-  }
-
-  void closeStreams() {
-    isLoadingController.close();
-    loadSurveysController.close();
-    navigateToController.close();
-    isSessionExpiredController.close();
-  }
 
   Future<void> loadPage(WidgetTester tester) async {
     presenter = SurveysPresenterSpy();
-
-    initStreams();
-    mockStreams();
 
     await tester.pumpWidget(makePage(
         path: '/surveys', page: () => SurveysPage(presenter: presenter)));
   }
 
   tearDown(() {
-    closeStreams();
+    presenter.dispose();
   });
 
   testWidgets('Should call LoadSurveys on page load',
@@ -66,7 +30,7 @@ void main() {
   testWidgets('Should call LoadSurveys on reload', (WidgetTester tester) async {
     await loadPage(tester);
 
-    navigateToController.add('/any_route');
+    presenter.emitNavigateTo('/any_route');
 
     await tester.pumpAndSettle();
     await tester.pageBack();
@@ -77,15 +41,15 @@ void main() {
   testWidgets('Should handle loading correctly', (WidgetTester tester) async {
     await loadPage(tester);
 
-    isLoadingController.add(true);
+    presenter.emitLoading(show: true);
     await tester.pump();
     expect(find.byType(CircularProgressIndicator), findsOneWidget);
 
-    isLoadingController.add(false);
+    presenter.emitLoading(show: false);
     await tester.pump();
     expect(find.byType(CircularProgressIndicator), findsNothing);
 
-    isLoadingController.add(true);
+    presenter.emitLoading(show: true);
     await tester.pump();
     expect(find.byType(CircularProgressIndicator), findsOneWidget);
   });
@@ -94,7 +58,7 @@ void main() {
       (WidgetTester tester) async {
     await loadPage(tester);
 
-    loadSurveysController.addError(UIError.unexpected.description);
+    presenter.emitSurveysError(UIError.unexpected.description);
     await tester.pump();
     expect(find.text('Algo Errado Aconteceu. Tente Novamente em breve.'),
         findsOneWidget);
@@ -106,7 +70,7 @@ void main() {
       (WidgetTester tester) async {
     await loadPage(tester);
 
-    loadSurveysController.add(ViewModelFactory.makeSurveyResultList());
+    presenter.emitSurveys(ViewModelFactory.makeSurveyResultList());
     await tester.pump();
     expect(find.text('Algo Errado Aconteceu. Tente Novamente em breve.'),
         findsNothing);
@@ -121,7 +85,7 @@ void main() {
       (WidgetTester tester) async {
     await loadPage(tester);
 
-    loadSurveysController.addError(UIError.unexpected.description);
+    presenter.emitSurveysError(UIError.unexpected.description);
     await tester.pump();
     await tester.tap(find.text('Recarregar'));
 
@@ -132,7 +96,7 @@ void main() {
       (WidgetTester tester) async {
     await loadPage(tester);
 
-    loadSurveysController.add(ViewModelFactory.makeSurveyResultList());
+    presenter.emitSurveys(ViewModelFactory.makeSurveyResultList());
     await tester.pump();
 
     await tester.tap(find.text('Question 1'));
@@ -144,7 +108,7 @@ void main() {
   testWidgets('Should logout', (WidgetTester tester) async {
     await loadPage(tester);
 
-    navigateToController.add('/any_route');
+    presenter.emitNavigateTo('/any_route');
     await tester.pumpAndSettle();
 
     expect(currentRoute, '/any_route');
@@ -154,18 +118,14 @@ void main() {
   testWidgets('Should not logout', (WidgetTester tester) async {
     await loadPage(tester);
 
-    navigateToController.add('');
-    await tester.pump();
-    expect(currentRoute, '/surveys');
-
-    navigateToController.add(null);
+    presenter.emitNavigateTo('');
     await tester.pump();
     expect(currentRoute, '/surveys');
   });
   testWidgets('Should change page', (WidgetTester tester) async {
     await loadPage(tester);
 
-    isSessionExpiredController.add(true);
+    presenter.emitSessionExpiredValid();
     await tester.pumpAndSettle();
 
     expect(currentRoute, '/login');
@@ -175,7 +135,7 @@ void main() {
   testWidgets('Should not change page', (WidgetTester tester) async {
     await loadPage(tester);
 
-    isSessionExpiredController.add(false);
+    presenter.emitSessionExpiredError();
     await tester.pump();
     expect(currentRoute, '/surveys');
   });
